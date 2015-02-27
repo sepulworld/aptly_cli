@@ -1,5 +1,8 @@
 require "aptly_cli/version"
+require "httparty"
 
 module AptlyCli
-  # Your code goes here...
+  Dir[File.dirname(__FILE__) + '/*.rb'].each do |file|
+    require file
+  end
 end
