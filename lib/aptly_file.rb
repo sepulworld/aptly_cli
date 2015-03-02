@@ -1,7 +1,9 @@
 require "aptly_cli/version"
+require "aptly_cli"
 
-module AptlyCli 
+module AptlyCli
   class AptlyFile
-    zane = "test"
+    include HTTParty
+
   end
 end
