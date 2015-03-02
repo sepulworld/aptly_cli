@@ -6,7 +6,7 @@ class TestAptlyCli < Minitest::Unit::TestCase
   attr_reader :test_aptly_load
 
   def setup
-    @test_aptly_load = ::AptlyLoad.new
+    @test_aptly_load = AptlyCli::AptlyLoad.new
   end
 
   def test_that_it_has_a_version_number
