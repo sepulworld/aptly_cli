@@ -18,14 +18,14 @@ class TestAptlyCli < Minitest::Unit::TestCase
   end
   
   def test_that_config_loads_from_yaml
-    assert_equal ({:server => "127.0.0.1", :port => 8082}), @test_aptly_load.configure_with('test/fixtures/aptly-cli.yaml')
+    assert_equal ({:server => "127.0.0.1", :port => 8084}), @test_aptly_load.configure_with('test/fixtures/aptly-cli.yaml')
   end
 
   def test_that_config_loads_defaults_if_bad_yaml
-    assert_equal ({:server => "127.0.0.1", :port => 8081}), @test_aptly_load.configure_with('test/fixtures/aptly-cli_invalid.yaml')
+    assert_equal ({:server => "127.0.0.1", :port => 8082}), @test_aptly_load.configure_with('test/fixtures/aptly-cli_invalid.yaml')
   end
   
   def test_that_config_loads_defaults_if_no_yaml
-    assert_equal ({:server => "127.0.0.1", :port => 8081}), @test_aptly_load.configure_with('test/fixtures/aptly-cli_no_yaml.yaml')
+    assert_equal ({:server => "127.0.0.1", :port => 8082}), @test_aptly_load.configure_with('test/fixtures/aptly-cli_no_yaml.yaml')
   end
 end
