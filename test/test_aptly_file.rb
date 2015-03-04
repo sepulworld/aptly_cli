@@ -10,7 +10,7 @@ describe AptlyCli::AptlyFile do
   end
 
   it "must include httparty methods" do
-    AptlyCli::AptlyFile.must_include HTTParty
+    AptlyCli::AptlyFile.must_include HTTMultiParty
   end
 
   it "must have a default server API URL endpoint defined" do
@@ -32,8 +32,16 @@ describe "API files" do
     VCR.eject_cassette
   end
 
-  it "records the fixture" do
+  it "records the fixture for files GET" do
     AptlyCli::AptlyFile.get('/api/files')
   end
 
+  it "records the fixture for directory of debs GET" do
+    AptlyCli::AptlyFile.get('/api/files/redis')
+  end
+  
+  it "records the fixture for directory of debs POST" do
+    AptlyCli::AptlyFile.post('/api/files/test', :query => { :deb => 'test_1.0_amd64', :file => File.new('test/fixtures/test_1.0_amd64.deb')} )
+  end
+  
 end
