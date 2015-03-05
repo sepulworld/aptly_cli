@@ -40,6 +40,10 @@ describe "API files" do
     AptlyCli::AptlyFile.get('/api/files/redis')
   end
   
+  it "records the fixture for directory of debs that doesn't exist" do
+    AptlyCli::AptlyFile.get('/api/files/nothinghere')
+  end
+  
   it "records the fixture for directory of debs POST" do
     AptlyCli::AptlyFile.post('/api/files/test', :query => { :deb => 'test_1.0_amd64', :file => File.new('test/fixtures/test_1.0_amd64.deb')} )
   end
