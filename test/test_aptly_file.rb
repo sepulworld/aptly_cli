@@ -48,4 +48,8 @@ describe "API files" do
     AptlyCli::AptlyFile.post('/api/files/test', :query => { :deb => 'test_1.0_amd64', :file => File.new('test/fixtures/test_1.0_amd64.deb')} )
   end
   
+  it "records the fixture for deleting an uploaded deb" do
+    AptlyCli::AptlyFile.delete('/api/files/redis/redis-server_2.8.3_i386-cc1.deb')
+  end
+
 end
