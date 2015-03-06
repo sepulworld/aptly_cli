@@ -1,0 +1,72 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'commander/import'
+
+program :version, '0.0.1'
+program :description, 'Aptly repository API client'
+
+command :repo do |c|
+  c.syntax = 'aptly-cli repo [options]'
+  c.summary = ''
+  c.description = ''
+  c.example 'description', 'command example'
+  c.option '--some-switch', 'Some switch that does something'
+  c.action do |args, options|
+    # Do something or c.when_called Aptly-cli::Commands::Repo
+  end
+end
+
+command :snapshot do |c|
+  c.syntax = 'aptly-cli snapshot [options]'
+  c.summary = ''
+  c.description = ''
+  c.example 'description', 'command example'
+  c.option '--some-switch', 'Some switch that does something'
+  c.action do |args, options|
+    # Do something or c.when_called Aptly-cli::Commands::Snapshot
+  end
+end
+
+command :publish do |c|
+  c.syntax = 'aptly-cli publish [options]'
+  c.summary = ''
+  c.description = ''
+  c.example 'description', 'command example'
+  c.option '--some-switch', 'Some switch that does something'
+  c.action do |args, options|
+    # Do something or c.when_called Aptly-cli::Commands::Publish
+  end
+end
+
+command :package do |c|
+  c.syntax = 'aptly-cli package [options]'
+  c.summary = ''
+  c.description = ''
+  c.example 'description', 'command example'
+  c.option '--some-switch', 'Some switch that does something'
+  c.action do |args, options|
+    # Do something or c.when_called Aptly-cli::Commands::Package
+  end
+end
+
+command :graph do |c|
+  c.syntax = 'aptly-cli graph [options]'
+  c.summary = ''
+  c.description = ''
+  c.example 'description', 'command example'
+  c.option '--some-switch', 'Some switch that does something'
+  c.action do |args, options|
+    # Do something or c.when_called Aptly-cli::Commands::Graph
+  end
+end
+
+command :version do |c|
+  c.syntax = 'aptly-cli version'
+  c.description = 'Display aptly server version'
+  c.example 'description', 'aptly-cli version'
+  c.action do |args, options|
+    # Do something or c.when_called Aptly-cli::Commands::Version
+  end
+end
+
