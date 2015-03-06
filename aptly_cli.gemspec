@@ -10,11 +10,12 @@ Gem::Specification.new do |spec|
   spec.email         = ["zane.williamson@gmail.com"]
 
   if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = "http://rubygems.org"
+    spec.metadata['allowed_push_host'] = "https://rubygems.org"
   end
 
   spec.summary       = %q{Command line client to interact with Aptly package management system}
-  spec.homepage      = "http://rubygems.org/gems/aptly_cli"
+  spec.description   = %q{Aptly API client}
+  spec.homepage      = "https://github.com/sepulworld/aptly_cli"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
@@ -24,9 +25,9 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.8"
   spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "webmock", "~> 1.20.4"
-  spec.add_development_dependency "vcr", "~> 2.9.3"
+  spec.add_development_dependency "webmock", "~> 1.20"
+  spec.add_development_dependency "vcr", "~> 2.9"
    
   spec.add_dependency "httmultiparty", "~> 0.3.16"
-  spec.add_dependency "commander", "~> 4.3.0"
+  spec.add_dependency "commander", "~> 4.3"
 end
