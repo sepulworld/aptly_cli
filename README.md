@@ -1,8 +1,6 @@
 # AptlyCli
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/aptly_cli`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+A command line interace to execute Aptly commands againts a remote Aptly API server.  Aptly-cli will allow you to interact with the repo, snapshot, publish, packages, graph and version API endpoints of your Aptly server.
 
 ## Installation
 
@@ -22,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+TODO
 
 ## Development
 
