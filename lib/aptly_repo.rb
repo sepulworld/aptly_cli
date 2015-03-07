@@ -3,7 +3,7 @@ require "aptly_load"
 require "httmultiparty"
 
 module AptlyCli
-  class AptlyRepo
+  class AptlyFile
   
     # http://aptly.info/doc/api/repo/
 
