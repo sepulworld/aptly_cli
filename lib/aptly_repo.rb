@@ -3,9 +3,9 @@ require "aptly_load"
 require "httmultiparty"
 
 module AptlyCli
-  class AptlyFile
+  class AptlyRepo
   
-    # http://beta.aptly.info/doc/api/files/
+    # http://aptly.info/doc/api/repo/
 
     include HTTMultiParty
 

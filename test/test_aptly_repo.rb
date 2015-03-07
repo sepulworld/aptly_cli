@@ -3,14 +3,14 @@ require "minitest/autorun"
 
 require "aptly_cli"
 
-describe AptlyCli::AptlyFile do
+describe AptlyCli::AptlyRepo do
  
   it "must work" do
    "Yay!".must_be_instance_of String
   end
 
   it "must include httparty methods" do
-    AptlyCli::AptlyFile.must_include HTTMultiParty
+    AptlyCli::AptlyRepo.must_include HTTMultiParty
   end
 
   it "must have a default server API URL endpoint defined" do
@@ -33,23 +33,23 @@ describe "API files" do
   end
 
   it "records the fixture for files GET" do
-    AptlyCli::AptlyFile.get('/api/files')
+    AptlyCli::AptlyRepo.get('/api/files')
   end
 
   it "records the fixture for directory of debs GET" do
-    AptlyCli::AptlyFile.get('/api/files/redis')
+    AptlyCli::AptlyRepo.get('/api/files/redis')
   end
   
   it "records the fixture for directory of debs that doesn't exist" do
-    AptlyCli::AptlyFile.get('/api/files/nothinghere')
+    AptlyCli::AptlyRepo.get('/api/files/nothinghere')
   end
   
   it "records the fixture for directory of debs POST" do
-    AptlyCli::AptlyFile.post('/api/files/test', :query => { :deb => 'test_1.0_amd64', :file => File.new('test/fixtures/test_1.0_amd64.deb')} )
+    AptlyCli::AptlyRepo.post('/api/files/test', :query => { :deb => 'test_1.0_amd64', :file => File.new('test/fixtures/test_1.0_amd64.deb')} )
   end
   
   it "records the fixture for deleting an uploaded deb" do
-    AptlyCli::AptlyFile.delete('/api/files/redis/redis-server_2.8.3_i386-cc1.deb')
+    AptlyCli::AptlyRepo.delete('/api/files/redis/redis-server_2.8.3_i386-cc1.deb')
   end
 
 end
