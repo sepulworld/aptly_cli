@@ -35,20 +35,20 @@ describe "API GET and DELETE files" do
   end
 
   it "records the fixture for files GET" do
-    AptlyCli::AptlyFile.get('/api/files')
+    file_get_delete.get('/api/files')
   end
 
   it "records the fixture for directory of debs GET" do
-    AptlyCli::AptlyFile.get('/api/files/redis')
+    file_get_delete.get('/api/files/redis')
   end
   
   it "records the fixture for directory of debs that doesn't exist" do
-    AptlyCli::AptlyFile.get('/api/files/nothinghere')
+    file_get_delete.get('/api/files/nothinghere')
   end
   
   
   it "records the fixture for deleting an uploaded deb" do
-    AptlyCli::AptlyFile.delete('/api/files/redis/redis-server_2.8.3_i386-cc1.deb')
+    file_get_delete.delete('/api/files/redis/redis-server_2.8.3_i386-cc1.deb')
   end
 
 end
@@ -87,7 +87,7 @@ describe "API POST package files" do
   end
 
   it "records the fixture for directory of debs POST" do
-    AptlyCli::AptlyFile.post('/api/files/test', :query => { :deb => 'test_1.0_amd64', :file => File.new('test/fixtures/test_1.0_amd64.deb')} )
+    api_file.file_post('/api/files/test', :query => { :deb => 'test_1.0_amd64', :file => File.new('test/fixtures/test_1.0_amd64.deb')} )
   end
 
 end
