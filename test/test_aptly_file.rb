@@ -56,26 +56,34 @@ end
 
 describe "API POST package files" do
 
-  let(:file_post) { AptlyCli::AptlyFile.new }
+  let(:api_file) { AptlyCli::AptlyFile.new('/api/files/test', 'test_1.0_amd64.deb','test/fixtures/test_1.0_amd64.deb') }
 
   before do
-    VCR.insert_cassette 'file_post', :record => :new_episodes
+    VCR.insert_cassette 'api_file', :record => :new_episodes
   end
 
   after do
     VCR.eject_cassette
   end
   
-  it "must hasve a pkg_file method" do
-    repo_post.must_respond_to :pkg_file
+  it "must have a file_post method" do
+    api_file.must_respond_to :file_post
+  end
+  
+  it "must have a file_get method" do
+    api_file.must_respond_to :file_get
+  end
+
+  it "must have a file_delete method" do
+    api_file.must_respond_to :file_delete
   end
 
   it "must parse the api response from JSON to Hash" do
-    repo_post.pkg_file.must_be_instance_of Hash
+    api_file.file_get.must_be_instance_of Hash
   end
 
   it "must perform the request and get the data" do
-    repo_post.pkg_file({'uri_path' => '/api/files/test', :deb => 'test_1.0_amd64.deb', :file => 'test/fixtures/test_1.0_amd64.deb' }).must_equal '[test/test_1.0_amd64.deb]'
+    api_file.file_post({'file_uri' => '/api/files/test', :deb => 'test_1.0_amd64.deb', :file => 'test/fixtures/test_1.0_amd64.deb' }).must_equal '[test/test_1.0_amd64.deb]'
   end
 
   it "records the fixture for directory of debs POST" do
