@@ -10,24 +10,24 @@ module AptlyCli
 
     # Load aptly-cli.conf and establish base_uri
     config = AptlyCli::AptlyLoad.new.configure_with("/etc/aptly-cli.conf")
-    base_uri = "http://#{config[:server]}:#{config[:port]}"
+    base_uri "http://#{config[:server]}:#{config[:port]}"
 
-    def initialize(file_uri=None, deb=None, local_file_path=None)
+    def initialize(file_uri=nil, deb=nil, local_file_path=nil)
       @file_uri = file_uri
       @deb = deb
       @local_file_path = local_file_path
     end
 
-    def file_get
-      self.class.get "#{@file_uri}"
+    def file_get(file_uri)
+      self.class.get "#{file_uri}"
     end
 
-    def file_delete
-      self.class.delete "#{@file_uri}"
+    def file_delete(file_uri)
+      self.class.delete "#{file_uri}"
     end
 
-    def file_post
-      self.class.post(@file_uri, :query => { :deb => @deb, :file => File.new(@local_file_paht)} )
+    def file_post(post_options = {})
+      self.class.post(post_options[:file_uri], :query => { :deb => post_options[:deb], :file => File.new(post_options[:local_file])} )
     end
     
   end

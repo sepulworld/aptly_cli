@@ -35,20 +35,20 @@ describe "API GET and DELETE files" do
   end
 
   it "records the fixture for files GET" do
-    file_get_delete.get('/api/files')
+    file_get_delete.file_get('/api/files')
   end
 
   it "records the fixture for directory of debs GET" do
-    file_get_delete.get('/api/files/redis')
+    file_get_delete.file_get('/api/files/redis')
   end
   
   it "records the fixture for directory of debs that doesn't exist" do
-    file_get_delete.get('/api/files/nothinghere')
+    file_get_delete.file_get('/api/files/nothinghere')
   end
   
   
   it "records the fixture for deleting an uploaded deb" do
-    file_get_delete.delete('/api/files/redis/redis-server_2.8.3_i386-cc1.deb')
+    file_get_delete.file_delete('/api/files/redis/redis-server_2.8.3_i386-cc1.deb')
   end
 
 end
@@ -79,15 +79,11 @@ describe "API POST package files" do
   end
 
   it "must parse the api response from JSON to Hash" do
-    api_file.file_get.must_be_instance_of Hash
+    api_file.file_get('/api/files/test').must_be_instance_of Array 
   end
 
   it "must perform the request and get the data" do
-    api_file.file_post({'file_uri' => '/api/files/test', :deb => 'test_1.0_amd64.deb', :file => 'test/fixtures/test_1.0_amd64.deb' }).must_equal '[test/test_1.0_amd64.deb]'
-  end
-
-  it "records the fixture for directory of debs POST" do
-    api_file.file_post('/api/files/test', :query => { :deb => 'test_1.0_amd64', :file => File.new('test/fixtures/test_1.0_amd64.deb')} )
+    api_file.file_post(:file_uri => '/api/files/test', :deb => 'test_1.0_amd64.deb', :local_file => 'test/fixtures/test_1.0_amd64.deb').must_equal ["test/test_1.0_amd64.deb"]
   end
 
 end
