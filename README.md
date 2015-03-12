@@ -26,7 +26,7 @@ Or install it yourself as:
 
   DESCRIPTION:
 
-    All uploaded files are stored under <rootDir>/upload directory (see configuration). This directory would be created automatically if it doesn’t
+All uploaded files are stored under <rootDir>/upload directory (see configuration). This directory would be created automatically if it doesn’t
 exist. Uploaded files are grouped by directories to support concurrent uploads from multiple package sources. Local repos add API can operate on
 directory (adding all files from directory) or on individual package files. By default, all successfully added package files would be removed.
 
