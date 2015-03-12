@@ -1,7 +1,7 @@
 require_relative 'minitest_helper'
 require 'aptly_cli'
 
-class TestAptlyCli < Minitest::Unit::TestCase 
+class TestAptlyCli < Minitest::Test 
 
   attr_reader :test_aptly_load
 

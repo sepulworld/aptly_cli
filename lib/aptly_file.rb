@@ -6,15 +6,15 @@ module AptlyCli
   class AptlyFile
   
     include HTTMultiParty
-    attr_accessor :file_uri, :deb, :local_file_path
+    attr_accessor :file_uri, :package, :local_file_path
 
     # Load aptly-cli.conf and establish base_uri
     config = AptlyCli::AptlyLoad.new.configure_with("/etc/aptly-cli.conf")
     base_uri "http://#{config[:server]}:#{config[:port]}"
 
-    def initialize(file_uri=nil, deb=nil, local_file_path=nil)
+    def initialize(file_uri=nil, package=nil, local_file_path=nil)
       @file_uri = file_uri
-      @deb = deb
+      @package = package 
       @local_file_path = local_file_path
     end
 
@@ -27,7 +27,7 @@ module AptlyCli
     end
 
     def file_post(post_options = {})
-      self.class.post(post_options[:file_uri], :query => { :deb => post_options[:deb], :file => File.new(post_options[:local_file])} )
+      self.class.post(post_options[:file_uri], :query => { :package => post_options[:package], :file => File.new(post_options[:local_file])} )
     end
     
   end

@@ -2,9 +2,31 @@
 
 require 'rubygems'
 require 'commander/import'
+require 'aptly_cli'
 
 program :version, '0.0.1'
 program :description, 'Aptly repository API client'
+
+command :file do |c|
+  c.syntax = 'aptly-cli file [options]'
+  c.summary = 'Upload package files temporarily to aptly service'
+  
+  c.description = 'All uploaded files are stored under <rootDir>/upload directory (see configuration). This directory would be created automatically if it doesn’t exist. Uploaded files are grouped by directories to support concurrent uploads from multiple package sources. Local repos add API can operate on directory (adding all files from directory) or on individual package files. By default, all successfully added package files would be removed.'
+
+  c.example 'List of directories or files', 'aptly-cli file --list /api/files'
+  c.example 'Upload file to a directory', 'aptly-cli file --upload /tmp/redis/test_1.0_amd64.deb --dest_uri /api/files/redis/'
+  c.example 'Delete file or directory', 'aptly-cli file --delete /api/files/redis/test_1.0_amd64.deb'
+  c.option '--list URI_FILE_PATH', String, 'URI path to list files'
+  c.option '--upload LOCAL_FILE_PATH/PACKAGE', String, 'Path to package to upload'
+  c.option '--dest_uri URI_FILE_PATH', String, 'URI path to directory to upload into'
+  c.option '--delete URI_FILE_PATH/PACKAGE', String, 'URI path to directory to delete or specific package'
+  c.action do |args, options|
+    aptly_command = AptlyCli::AptlyFile.new
+    puts aptly_command.file_get(options.list) if options.list
+    #aptly_command.file_post(:file_uri => options.dest_uri, :package => options.upload, :local_file => options.upload) if options.dest_uri and options.upload
+    #aptly_command.file_delete(options.delete) if options.delete
+  end
+end
 
 command :repo do |c|
   c.syntax = 'aptly-cli repo [options]'
