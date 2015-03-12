@@ -1,5 +1,7 @@
 # AptlyCli
 
+[![Build Status](https://travis-ci.org/sepulworld/aptly_cli.svg)](https://travis-ci.org/sepulworld/aptly_cli)
+
 A command line interace to execute Aptly commands againts a remote Aptly API server.  Aptly-cli will allow you to interact with the repo, snapshot, publish, packages, graph and version API endpoints of your Aptly server.
 
 ## Installation
