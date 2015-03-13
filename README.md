@@ -34,7 +34,7 @@ All uploaded files are stored under rootDir/upload directory (see your Aptly con
     aptly-cli file --list /api/files
 
     # Upload file to a directory
-    aptly-cli file --upload /tmp/redis/test_1.0_amd64.deb --dest_uri /api/files/redis/
+    aptly-cli file --upload /tmp/redis/test_1.0_amd64.deb --dest_uri /api/files/redis
 
     # Delete file or directory
     aptly-cli file --delete /api/files/redis/test_1.0_amd64.deb
