@@ -23,8 +23,8 @@ command :file do |c|
   c.action do |args, options|
     aptly_command = AptlyCli::AptlyFile.new
     puts aptly_command.file_get(options.list) if options.list
-    #aptly_command.file_post(:file_uri => options.dest_uri, :package => options.upload, :local_file => options.upload) if options.dest_uri and options.upload
-    #aptly_command.file_delete(options.delete) if options.delete
+    puts aptly_command.file_post(:file_uri => options.dest_uri, :package => options.upload, :local_file => options.upload) if options.upload and options.dest_uri
+    puts aptly_command.file_delete(options.delete) if options.delete
   end
 end
 
