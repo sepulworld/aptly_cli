@@ -32,12 +32,22 @@ All uploaded files are stored under rootDir/upload directory (see your Aptly con
 
     # List of directories or files
     aptly-cli file --list /api/files
+    geoipupdate_2.0.0_amd64.deb
+    geoipupdate_2.0.0_i386.deb
+    mongo
+    mongodb-mms-monitoring-agent_latest_i386.deb
+    redis
+    redis-server_2.8.3_amd64-cc1.deb
+    test
+    xsp_2.11.0.0-git-master-04062013_i386.deb     
 
     # Upload file to a directory
     aptly-cli file --upload /tmp/redis/test_1.0_amd64.deb --dest_uri /api/files/redis
+    test/test_1.0_amd64.deb
 
     # Delete file or directory
     aptly-cli file --delete /api/files/redis/test_1.0_amd64.deb
+    {}
 
   OPTIONS:
 
