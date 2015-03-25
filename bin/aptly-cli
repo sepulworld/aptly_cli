@@ -13,9 +13,9 @@ command :file do |c|
   
   c.description = 'All uploaded files are stored under <rootDir>/upload directory (see configuration). This directory would be created automatically if it doesn’t exist. Uploaded files are grouped by directories to support concurrent uploads from multiple package sources. Local repos add API can operate on directory (adding all files from directory) or on individual package files. By default, all successfully added package files would be removed.'
 
-  c.example 'List of directories or files', 'aptly-cli file --list /api/files'
-  c.example 'Upload file to a directory', 'aptly-cli file --upload /tmp/redis/test_1.0_amd64.deb --dest_uri /api/files/redis/'
-  c.example 'Delete file or directory', 'aptly-cli file --delete /api/files/redis/test_1.0_amd64.deb'
+  c.example 'List of directories or files', 'aptly-cli file --list / or aptly-cli file --list /redis'
+  c.example 'Upload file to a directory', 'aptly-cli file --upload /tmp/redis/test_1.0_amd64.deb --dest_uri /redis'
+  c.example 'Delete file or directory', 'aptly-cli file --delete /test/test_1.0_amd64.deb'
   c.option '--list URI_FILE_PATH', String, 'URI path to list files'
   c.option '--upload LOCAL_FILE_PATH/PACKAGE', String, 'Path to package to upload'
   c.option '--dest_uri URI_FILE_PATH', String, 'URI path to directory to upload into'

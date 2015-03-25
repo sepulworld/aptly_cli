@@ -31,7 +31,7 @@ All uploaded files are stored under rootDir/upload directory (see your Aptly con
   EXAMPLES:
 
     # List of directories or files
-    aptly-cli file --list /api/files
+    aptly-cli file --list /
     geoipupdate_2.0.0_amd64.deb
     geoipupdate_2.0.0_i386.deb
     mongo
@@ -42,11 +42,11 @@ All uploaded files are stored under rootDir/upload directory (see your Aptly con
     xsp_2.11.0.0-git-master-04062013_i386.deb     
 
     # Upload file to a directory
-    aptly-cli file --upload /tmp/redis/test_1.0_amd64.deb --dest_uri /api/files/redis
+    aptly-cli file --upload /tmp/redis/test_1.0_amd64.deb --dest_uri /redis
     test/test_1.0_amd64.deb
 
     # Delete file or directory
-    aptly-cli file --delete /api/files/redis/test_1.0_amd64.deb
+    aptly-cli file --delete /redis/test_1.0_amd64.deb
     {}
 
   OPTIONS:
