@@ -1,6 +1,9 @@
 language: ruby
 rvm:
-  - 1.9.3 
-  - 2.2.0
-  - 2.2.1
-  - ruby-head
+- 1.9.3
+- 2.2.0
+- 2.2.1
+- ruby-head
+deploy:
+  api_key:
+    secure: XdX/yOaFNWOrD8tVX2Hn+T6vaOwLVsGvyDXcPKd/8inkTXAmQlVWz1S7w/6rpOEc/tcmyi307rlzZI7BfM0tOhcrT3SeAwsgtRqeOzhmDneQ9RIWz2HjR/u+0XDh6/Xaf6dDsYuBKsioRBdmUSizuhs6V9Nq2wmdOhZvGQVSN9s=
