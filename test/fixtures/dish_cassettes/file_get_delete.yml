@@ -1,8 +1,8 @@
 ---
 http_interactions:
 - request:
-    method: get
-    uri: http://127.0.0.1:8082/api/files
+    method: delete
+    uri: http://127.0.0.1:8082/api/files/redis/redis-server_2.8.3_i386-cc1.deb
     body:
       encoding: US-ASCII
       string: ''
@@ -21,45 +21,15 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 07 Mar 2015 19:26:18 GMT
+      - Wed, 25 Mar 2015 05:03:03 GMT
       Content-Length:
-      - '210'
+      - '3'
     body:
       encoding: UTF-8
       string: |
-        ["geoipupdate_2.0.0_amd64.deb","geoipupdate_2.0.0_i386.deb","mongo","mongodb-mms-monitoring-agent_latest_i386.deb","redis","redis-server_2.8.3_amd64-cc1.deb","test","xsp_2.11.0.0-git-master-04062013_i386.deb"]
+        {}
     http_version: 
-  recorded_at: Sat, 07 Mar 2015 19:26:18 GMT
-- request:
-    method: get
-    uri: http://127.0.0.1:8082/api/files/redis
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Sat, 07 Mar 2015 19:26:18 GMT
-      Content-Length:
-      - '37'
-    body:
-      encoding: UTF-8
-      string: |
-        ["redis-server_2.8.3_amd64-cc1.deb"]
-    http_version: 
-  recorded_at: Sat, 07 Mar 2015 19:26:18 GMT
+  recorded_at: Wed, 25 Mar 2015 05:03:03 GMT
 - request:
     method: get
     uri: http://127.0.0.1:8082/api/files/nothinghere
@@ -81,7 +51,7 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 07 Mar 2015 19:26:18 GMT
+      - Wed, 25 Mar 2015 05:03:03 GMT
       Content-Length:
       - '114'
     body:
@@ -89,10 +59,10 @@ http_interactions:
       string: |
         [{"error":"lstat /vagrant_data/.aptly/upload/nothinghere: no such file or directory","meta":"Operation aborted"}]
     http_version: 
-  recorded_at: Sat, 07 Mar 2015 19:26:18 GMT
+  recorded_at: Wed, 25 Mar 2015 05:03:03 GMT
 - request:
-    method: delete
-    uri: http://127.0.0.1:8082/api/files/redis/redis-server_2.8.3_i386-cc1.deb
+    method: get
+    uri: http://127.0.0.1:8082/api/files/redis
     body:
       encoding: US-ASCII
       string: ''
@@ -111,13 +81,43 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 07 Mar 2015 19:26:18 GMT
+      - Wed, 25 Mar 2015 05:03:03 GMT
       Content-Length:
-      - '3'
+      - '37'
     body:
       encoding: UTF-8
       string: |
-        {}
+        ["redis-server_2.8.3_amd64-cc1.deb"]
     http_version: 
-  recorded_at: Sat, 07 Mar 2015 19:26:18 GMT
+  recorded_at: Wed, 25 Mar 2015 05:03:03 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:8082/api/files
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 25 Mar 2015 05:03:03 GMT
+      Content-Length:
+      - '210'
+    body:
+      encoding: UTF-8
+      string: |
+        ["geoipupdate_2.0.0_amd64.deb","geoipupdate_2.0.0_i386.deb","mongo","mongodb-mms-monitoring-agent_latest_i386.deb","redis","redis-server_2.8.3_amd64-cc1.deb","test","xsp_2.11.0.0-git-master-04062013_i386.deb"]
+    http_version: 
+  recorded_at: Wed, 25 Mar 2015 05:03:03 GMT
 recorded_with: VCR 2.9.3
