@@ -5,5 +5,6 @@ rvm:
 - 2.2.1
 - ruby-head
 deploy:
+  provider: rubygems
   api_key:
     secure: EKpsyP07VCbhH4Y/kF00ylB14R1iRekrmqcsC6No1Cf2dELwqeypQfwo3lLTZXhB0DjjgZSuXcnzw+QRTx+xZ6U7gsLrGDoKMd/irr+TBb2qyQhSBmjYuxHAWnRBtFdxWztsh77qi2SVDG7VIaJ94HnTTEjvaRhabsrOUI80MD8=
