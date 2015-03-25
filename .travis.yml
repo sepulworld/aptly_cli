@@ -6,4 +6,4 @@ rvm:
 - ruby-head
 deploy:
   api_key:
-    secure: XdX/yOaFNWOrD8tVX2Hn+T6vaOwLVsGvyDXcPKd/8inkTXAmQlVWz1S7w/6rpOEc/tcmyi307rlzZI7BfM0tOhcrT3SeAwsgtRqeOzhmDneQ9RIWz2HjR/u+0XDh6/Xaf6dDsYuBKsioRBdmUSizuhs6V9Nq2wmdOhZvGQVSN9s=
+    secure: EKpsyP07VCbhH4Y/kF00ylB14R1iRekrmqcsC6No1Cf2dELwqeypQfwo3lLTZXhB0DjjgZSuXcnzw+QRTx+xZ6U7gsLrGDoKMd/irr+TBb2qyQhSBmjYuxHAWnRBtFdxWztsh77qi2SVDG7VIaJ94HnTTEjvaRhabsrOUI80MD8=
