@@ -33,45 +33,45 @@ describe "API Create Repo" do
     repo_api.repo_show({:name => 'nothinghere'})
   end
   
-  it "records the fixture for repo package show" do
-    repo_api.repo_show_packages({:name => 'powerhouse'})
-  end
+#  it "records the fixture for repo package show" do
+#   repo_api.repo_show_packages({:name => 'powerhouse'})
+# end
   
-  it "records the fixture for repo package search" do
-    repo_api.repo_show_packages({:name => 'powerhouse', :query => 'powerhouse_package'})
-  end
+# it "records the fixture for repo package search" do
+#   repo_api.repo_show_packages({:name => 'powerhouse', :query => 'powerhouse_package'})
+# end
 
-  it "records the fixture for repo package search with dependencies" do
-    repo_api.repo_show_packages({:name => 'powerhouse', :query => 'powerhouse_package', :withDeps => 1})
-  end
+# it "records the fixture for repo package search with dependencies" do
+#   repo_api.repo_show_packages({:name => 'powerhouse', :query => 'powerhouse_package', :withDeps => 1})
+# end
   
-  it "records the fixture for repo package search with format details on" do
-    repo_api.repo_show_packages({:name => 'powerhouse', :format => 'details'})
-  end
+# it "records the fixture for repo package search with format details on" do
+#   repo_api.repo_show_packages({:name => 'powerhouse', :format => 'details'})
+# end
   
-  it "records the fixture for repo edit comment" do
-    repo_api.repo_edit({:name => 'powerhouse', :comment => 'This repo holds some solid packages'})
-  end
+# it "records the fixture for repo edit comment" do
+#   repo_api.repo_edit({:name => 'powerhouse', :comment => 'This repo holds some solid packages'})
+# end
   
-  it "records the fixture for repo edit DefaultDistribution" do
-    repo_api.repo_edit({:name => 'powerhouse', :default_distribution => 'binary'})
-  end
+# it "records the fixture for repo edit DefaultDistribution" do
+#   repo_api.repo_edit({:name => 'powerhouse', :default_distribution => 'binary'})
+# end
   
-  it "records the fixture for repo edit DefautlComponent" do
-    repo_api.repo_edit({:name => 'powerhouse', :default_component => 'security'})
-  end
+# it "records the fixture for repo edit DefautlComponent" do
+#   repo_api.repo_edit({:name => 'powerhouse', :default_component => 'security'})
+# end
 
-  it "records the fixture for repo list" do
-    repo_api.repo_list()
-  end
+# it "records the fixture for repo list" do
+#   repo_api.repo_list()
+# end
   
-  it "records the fixture for repo delete" do
-    repo_api.repo_delete({:name => 'powerhouse'})
-  end
+# it "records the fixture for repo delete" do
+#   repo_api.repo_delete({:name => 'powerhouse'})
+# end
   
-  it "records the fixture for repo delete with force flag" do
-    repo_api.repo_delete({:name => 'test', :force => 1})
-  end
+# it "records the fixture for repo delete with force flag" do
+#   repo_api.repo_delete({:name => 'test', :force => 1})
+# end
 
   ### Left off at Add Packages from uploaded file/dir
 end

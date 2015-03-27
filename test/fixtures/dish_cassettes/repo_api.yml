@@ -1,0 +1,77 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://127.0.0.1:8082/api/repos
+    body:
+      encoding: UTF-8
+      string: '{"Name":"powerhouse"}'
+    headers:
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 27 Mar 2015 16:50:48 GMT
+      Content-Length:
+      - '82'
+    body:
+      encoding: UTF-8
+      string: |
+        {"Name":"powerhouse","Comment":"","DefaultDistribution":"","DefaultComponent":""}
+    http_version: 
+  recorded_at: Fri, 27 Mar 2015 16:50:48 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:8082/api/repos/powerhouse
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 27 Mar 2015 16:50:48 GMT
+      Content-Length:
+      - '82'
+    body:
+      encoding: UTF-8
+      string: |
+        {"Name":"powerhouse","Comment":"","DefaultDistribution":"","DefaultComponent":""}
+    http_version: 
+  recorded_at: Fri, 27 Mar 2015 16:50:48 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:8082/api/repos/nothinghere
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 27 Mar 2015 16:50:48 GMT
+      Content-Length:
+      - '84'
+    body:
+      encoding: UTF-8
+      string: |
+        [{"error":"local repo with name nothinghere not found","meta":"Operation aborted"}]
+    http_version: 
+  recorded_at: Fri, 27 Mar 2015 16:50:48 GMT
+recorded_with: VCR 2.9.3
