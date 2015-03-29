@@ -17,15 +17,36 @@ module AptlyCli
       self.class.post(uri, :body=> '"Name": "#{repo_options[:name]}"'.to_json, :headers=>{'Content-Type'=>'application/json'}) 
     end
 
-    def repo_show(repo_options = {:name => nil})
-      if repo_options[:name] == nil
+    def repo_show(name)
+      if name == nil
         uri = "/repos"
       else
-        uri = "/repos/" + repo_options[:name] 
+        uri = "/repos/" + name 
       end
       
       self.class.get uri 
     end
+    
+    def repo_packages(name)
+      if name == nil
+        raise ArgumentError.new('Must pass a repository name')
+      else
+        uri = "/repos/" + name + "/packages"
+      end
 
+      self.class.get uri
+    end
+
+    def repo_packages_query(repo_options = {:name => nil, :query => nil})
+      if repo_options[:name] == nil
+        raise ArgumentError.new('Must pass a repository name')
+      elsif repo_options[:query] == nil
+        raise ArgumentError.new('Must pass a package query')
+      else
+        uri = "/repos/" + repo_options[:name] + "/packages?=" + repo_options[:query]
+      end
+
+      self.class.get uri 
+    end
   end
 end

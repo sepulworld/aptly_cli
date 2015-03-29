@@ -26,16 +26,16 @@ describe "API Create Repo" do
   end
 
   it "records the fixture for showing repo" do
-    repo_api.repo_show({:name => 'powerhouse'})
+    repo_api.repo_show(name = 'powerhouse')
   end
   
   it "records the fixture for showing repo that doesn't exist" do
-    repo_api.repo_show({:name => 'nothinghere'})
+    repo_api.repo_show(name = 'nothinghere')
   end
   
-#  it "records the fixture for repo package show" do
-#   repo_api.repo_show_packages({:name => 'powerhouse'})
-# end
+  it "records the fixture for repo package show" do
+   repo_api.repo_packages(name = 'stable-repo')
+  end
   
 # it "records the fixture for repo package search" do
 #   repo_api.repo_show_packages({:name => 'powerhouse', :query => 'powerhouse_package'})
