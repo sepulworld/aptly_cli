@@ -1,0 +1,107 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://127.0.0.1:8082/api/repos
+    body:
+      encoding: UTF-8
+      string: '{"Name":"powerhouse"}'
+    headers:
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 27 Mar 2015 16:50:48 GMT
+      Content-Length:
+      - '82'
+    body:
+      encoding: UTF-8
+      string: |
+        {"Name":"powerhouse","Comment":"","DefaultDistribution":"","DefaultComponent":""}
+    http_version: 
+  recorded_at: Fri, 27 Mar 2015 16:50:48 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:8082/api/repos/powerhouse
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 27 Mar 2015 16:50:48 GMT
+      Content-Length:
+      - '82'
+    body:
+      encoding: UTF-8
+      string: |
+        {"Name":"powerhouse","Comment":"","DefaultDistribution":"","DefaultComponent":""}
+    http_version: 
+  recorded_at: Fri, 27 Mar 2015 16:50:48 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:8082/api/repos/nothinghere
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 27 Mar 2015 16:50:48 GMT
+      Content-Length:
+      - '84'
+    body:
+      encoding: UTF-8
+      string: |
+        [{"error":"local repo with name nothinghere not found","meta":"Operation aborted"}]
+    http_version: 
+  recorded_at: Fri, 27 Mar 2015 16:50:48 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:8082/api/repos/stable-repo/packages
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 29 Mar 2015 06:44:54 GMT
+      Content-Length:
+      - '415'
+    body:
+      encoding: UTF-8
+      string: |
+        ["Pamd64 voltdb-php-client 1.2 7f4eed5217e92df0","Pi386 geoipupdate 2.0.0 249f3976bd06cce4","Pi386 mongodb-mms-monitoring-agent 2.4.0.101-1 bf58165444e70af6","Pi386 redis-server 2.8.3 324bb47c72149fae","Pi386 xsp 2.11.0.0-git-master-04062013 fb4f20e019c99800","Pamd64 geoipupdate 2.0.0 c7b4081a761741bb","Pamd64 mongodb-mms-monitoring-agent 2.4.0.101-1 fc25ab7d8b9d2158","Pamd64 redis-server 2.8.3 fde8566b85f0a1"]
+    http_version: 
+  recorded_at: Sun, 29 Mar 2015 06:44:54 GMT
+recorded_with: VCR 2.9.3
