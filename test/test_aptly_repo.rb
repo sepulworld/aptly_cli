@@ -34,20 +34,20 @@ describe "API Create Repo" do
   end
   
   it "records the fixture for repo package show" do
-   repo_api.repo_packages(name = 'stable-repo')
+   repo_api.repo_package_query({:name => 'stable-repo'})
   end
   
-# it "records the fixture for repo package search" do
-#   repo_api.repo_show_packages({:name => 'powerhouse', :query => 'powerhouse_package'})
-# end
+ it "records the fixture for repo package search" do
+   repo_api.repo_package_query({:name => 'stable-repo', :query => 'voltdb-php-client'})
+ end
 
-# it "records the fixture for repo package search with dependencies" do
-#   repo_api.repo_show_packages({:name => 'powerhouse', :query => 'powerhouse_package', :withDeps => 1})
-# end
+ it "records the fixture for repo package search with dependencies" do
+   repo_api.repo_package_query({:name => 'stable-repo', :withDeps => 1})
+ end
   
-# it "records the fixture for repo package search with format details on" do
-#   repo_api.repo_show_packages({:name => 'powerhouse', :format => 'details'})
-# end
+ it "records the fixture for repo package search with format details on" do
+   repo_api.repo_package_query({:name => 'stable-repo', :format => 'details'})
+ end
   
 # it "records the fixture for repo edit comment" do
 #   repo_api.repo_edit({:name => 'powerhouse', :comment => 'This repo holds some solid packages'})
