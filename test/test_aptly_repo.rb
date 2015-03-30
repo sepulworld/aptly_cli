@@ -22,7 +22,7 @@ describe "API Create Repo" do
   end
 
   it "records the fixture for repo creation, with name, comment, distribution, and component" do
-    repo_api.repo_create({:name => 'powerhouse', :comment => 'This is a test repo called powerhouse', :default_distribution => 'main', :default_component => 'updates'})
+    repo_api.repo_create({:name => 'powerhouse', :comment => 'This is a test repo called powerhouse', :DefaultDistribution => 'main', :DefaultComponent => 'updates'})
   end
 
   it "records the fixture for showing repo" do

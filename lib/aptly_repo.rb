@@ -13,8 +13,12 @@ module AptlyCli
 
     def repo_create(repo_options = {:name => nil, :comment => nil, :DefaultDistribution => nil, :DefaultComponent => nil})
       uri = "/repos"
+      name = repo_options[:name]
+      comment = repo_options[:comment]
+      default_distribution = repo_options[:DefaultDistribution]
+      default_component = repo_options[:DefaultComponent]
       
-      self.class.post(uri, :query=>"\{'Name': '#{repo_options[:name]}'\}".to_json, :headers=>{'Content-Type'=>'application/json'}) 
+      self.class.post(uri, :query=>{'Name' => name, 'Comment' => comment, 'DefaultDistribution' => default_distribution, 'DefaultComponent' => default_component}.to_json, :headers=>{'Content-Type'=>'application/json'}) 
     end
 
     def repo_show(name)
