@@ -14,7 +14,7 @@ module AptlyCli
     def repo_create(repo_options = {:name => nil, :comment => nil, :DefaultDistribution => nil, :DefaultComponent => nil})
       uri = "/repos"
       
-      self.class.post(uri, :body=> '"Name": "#{repo_options[:name]}"'.to_json, :headers=>{'Content-Type'=>'application/json'}) 
+      self.class.post(uri, :query=>"\{'Name': '#{repo_options[:name]}'\}".to_json, :headers=>{'Content-Type'=>'application/json'}) 
     end
 
     def repo_show(name)
@@ -27,23 +27,22 @@ module AptlyCli
       self.class.get uri 
     end
     
-    def repo_packages(name)
-      if name == nil
-        raise ArgumentError.new('Must pass a repository name')
-      else
-        uri = "/repos/" + name + "/packages"
-      end
-
-      self.class.get uri
-    end
-
-    def repo_packages_query(repo_options = {:name => nil, :query => nil})
+    def repo_package_query(repo_options = {:name => nil, :query => nil, :withdeps => nil, :format => nil})
       if repo_options[:name] == nil
         raise ArgumentError.new('Must pass a repository name')
-      elsif repo_options[:query] == nil
-        raise ArgumentError.new('Must pass a package query')
       else
-        uri = "/repos/" + repo_options[:name] + "/packages?=" + repo_options[:query]
+        uri = "/repos/" + repo_options[:name] + "/packages"
+      end
+
+      if repo_options[:query]
+        uri = uri + "?q=" + repo_options[:query]
+        if repo_options[:withdeps] or repo_options[:format]
+          puts "When specifiying specific package query, other options are invalid."
+        end 
+      elsif repo_options[:format]
+        uri = uri + "?format=#{repo_options[:format]}"
+      elsif repo_options[:withdeps]
+        uri = uri + "?withDeps=1"
       end
 
       self.class.get uri 
