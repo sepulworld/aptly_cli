@@ -53,9 +53,9 @@ describe "API Create Repo" do
    repo_api.repo_edit(name = 'powerhouse', { :Comment => 'This repo holds some solid packages' })
  end
   
-# it "records the fixture for repo list" do
-#   repo_api.repo_list()
-# end
+ it "records the fixture for repo list" do
+   repo_api.repo_list()
+ end
   
 # it "records the fixture for repo delete" do
 #   repo_api.repo_delete({:name => 'powerhouse'})
