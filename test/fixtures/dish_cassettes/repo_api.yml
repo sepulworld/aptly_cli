@@ -172,4 +172,28 @@ http_interactions:
         {"Name":"powerhouse","Comment":"This is a test repo called powerhouse","DefaultDistribution":"binary","DefaultComponent":"updates"}
     http_version: 
   recorded_at: Tue, 31 Mar 2015 05:29:25 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:8082/api/repos
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 31 Mar 2015 05:54:21 GMT
+      Content-Length:
+      - '309'
+    body:
+      encoding: UTF-8
+      string: |
+        [{"Name":"testing-repo","Comment":"","DefaultDistribution":"","DefaultComponent":"main"},{"Name":"stable-repo","Comment":"","DefaultDistribution":"","DefaultComponent":"main"},{"Name":"powerhouse","Comment":"This is a test repo called powerhouse","DefaultDistribution":"binary","DefaultComponent":"updates"}]
+    http_version: 
+  recorded_at: Tue, 31 Mar 2015 05:54:21 GMT
 recorded_with: VCR 2.9.3

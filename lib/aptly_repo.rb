@@ -11,6 +11,12 @@ module AptlyCli
     config = AptlyCli::AptlyLoad.new.configure_with("/etc/aptly-cli.conf")
     base_uri "http://#{config[:server]}:#{config[:port]}/api"
 
+    def repo_list()
+      uri = "/repos"
+      
+      self.class.get(uri)
+    end
+
     def repo_create(repo_options = {:name => nil, :comment => nil, :DefaultDistribution => nil, :DefaultComponent => nil})
       uri = "/repos"
       name = repo_options[:name]
