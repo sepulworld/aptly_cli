@@ -11,12 +11,6 @@ module AptlyCli
     config = AptlyCli::AptlyLoad.new.configure_with("/etc/aptly-cli.conf")
     base_uri "http://#{config[:server]}:#{config[:port]}/api"
 
-    def repo_list()
-      uri = "/repos"
-      
-      self.class.get(uri)
-    end
-
     def repo_create(repo_options = {:name => nil, :comment => nil, :DefaultDistribution => nil, :DefaultComponent => nil})
       uri = "/repos"
       name = repo_options[:name]
@@ -25,6 +19,17 @@ module AptlyCli
       default_component = repo_options[:DefaultComponent]
       
       self.class.post(uri, :query => { 'Name' => name, 'Comment' => comment, 'DefaultDistribution' => default_distribution, 'DefaultComponent' => default_component }.to_json, :headers => {'Content-Type'=>'application/json'}) 
+    end
+
+    def repo_delete(name, force = nil)
+      # Delete repo function.  Pass '1' for second variable to force delete repo 
+      uri = "/repos/" + name
+      
+      if force == 1
+        uri = uri + "?force=1"
+      end
+
+      self.class.delete(uri)
     end
 
     def repo_edit(name, repo_options = { k => v })
@@ -45,14 +50,10 @@ module AptlyCli
       self.class.put(uri, :query => { repo_option => repo_value }.to_json, :headers => {'Content-Type'=>'application/json'})
     end
 
-    def repo_show(name)
-      if name == nil
-        uri = "/repos"
-      else
-        uri = "/repos/" + name 
-      end
+    def repo_list()
+      uri = "/repos"
       
-      self.class.get uri 
+      self.class.get(uri)
     end
     
     def repo_package_query(repo_options = {:name => nil, :query => nil, :withdeps => nil, :format => nil})
@@ -75,5 +76,16 @@ module AptlyCli
 
       self.class.get uri 
     end
+
+    def repo_show(name)
+      if name == nil
+        uri = "/repos"
+      else
+        uri = "/repos/" + name 
+      end
+      
+      self.class.get uri 
+    end
+    
   end
 end

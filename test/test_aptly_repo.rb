@@ -57,9 +57,13 @@ describe "API Create Repo" do
    repo_api.repo_list()
  end
   
-# it "records the fixture for repo delete" do
-#   repo_api.repo_delete({:name => 'powerhouse'})
-# end
+ it "records the fixture for repo force delete" do
+   repo_api.repo_delete(name = 'rocksoftware', 1)
+ end
+ 
+ it "records the fixture for repo force delete, with packages" do
+   repo_api.repo_delete(name = 'rocksoftware22', 1)
+ end
   
 # it "records the fixture for repo delete with force flag" do
 #   repo_api.repo_delete({:name => 'test', :force => 1})
