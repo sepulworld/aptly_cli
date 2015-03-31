@@ -49,18 +49,10 @@ describe "API Create Repo" do
    repo_api.repo_package_query({:name => 'stable-repo', :format => 'details'})
  end
   
-# it "records the fixture for repo edit comment" do
-#   repo_api.repo_edit({:name => 'powerhouse', :comment => 'This repo holds some solid packages'})
-# end
+ it "records the fixture for repo edit comment" do
+   repo_api.repo_edit(name = 'powerhouse', { :Comment => 'This repo holds some solid packages' })
+ end
   
-# it "records the fixture for repo edit DefaultDistribution" do
-#   repo_api.repo_edit({:name => 'powerhouse', :default_distribution => 'binary'})
-# end
-  
-# it "records the fixture for repo edit DefautlComponent" do
-#   repo_api.repo_edit({:name => 'powerhouse', :default_component => 'security'})
-# end
-
 # it "records the fixture for repo list" do
 #   repo_api.repo_list()
 # end
