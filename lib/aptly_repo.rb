@@ -86,6 +86,24 @@ module AptlyCli
       
       self.class.get uri 
     end
-    
+
+    def repo_upload(name, dir, file = nil, noRemove = nil, forceReplace = nil)
+      if file == nil 
+        uri = "/repos/#{name}/file/#{dir}"
+      else
+        uri = "/repos/#{name}/file/#{dir}/#{file}"
+      end
+
+      if forceReplace == 1
+        uri = uri + "?forceReplace=1"
+      end
+      
+      if noRemove == 1
+        uri = uri + "?noRemove=1"
+      end
+
+      self.class.post(uri)
+    end 
+
   end
 end

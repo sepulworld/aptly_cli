@@ -274,4 +274,52 @@ http_interactions:
         {}
     http_version: 
   recorded_at: Tue, 31 Mar 2015 16:12:05 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:8082/api/repos/rocksoftware22/file/rockpackages
+    body:
+      encoding: UTF-8
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 01 Apr 2015 16:22:02 GMT
+      Content-Length:
+      - '260'
+    body:
+      encoding: UTF-8
+      string: |
+        {"failedFiles":["/vagrant_data/.aptly/upload/rockpackages/test_1.0_amd64.deb"],"report":{"warnings":["Unable to add package to repo geoipupdate_2.0.0_amd64: conflict in package geoipupdate_2.0.0_amd64"],"added":["geoipupdate_2.0.0_amd64 added"],"removed":[]}}
+    http_version: 
+  recorded_at: Wed, 01 Apr 2015 16:22:02 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:8082/api/repos/rocksoftware22/file/rockpackages?forceReplace=1?noRemove=1
+    body:
+      encoding: UTF-8
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 01 Apr 2015 16:26:43 GMT
+      Content-Length:
+      - '99'
+    body:
+      encoding: UTF-8
+      string: |
+        {"failedFiles":[],"report":{"warnings":[],"added":["geoipupdate_2.0.0_amd64 added"],"removed":[]}}
+    http_version: 
+  recorded_at: Wed, 01 Apr 2015 16:26:43 GMT
 recorded_with: VCR 2.9.3

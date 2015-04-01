@@ -64,12 +64,15 @@ describe "API Create Repo" do
  it "records the fixture for repo force delete, with packages" do
    repo_api.repo_delete(name = 'rocksoftware22', 1)
  end
-  
-# it "records the fixture for repo delete with force flag" do
-#   repo_api.repo_delete({:name => 'test', :force => 1})
-# end
 
-  ### Left off at Add Packages from uploaded file/dir
-end
+ it "records the fixture for repo upload file" do
+   repo_api.repo_upload(name = 'rocksoftware22', dir = 'rockpackages')
+ end
+ 
+ it "records the fixture for repo upload file, force and noReplace" do
+   repo_api.repo_upload(name = 'rocksoftware22', dir = 'rockpackages', file = nil, noRemove = 1, forceReplace = 1)
+ end
+
+ end
 
 end
