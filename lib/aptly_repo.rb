@@ -1,6 +1,7 @@
 require "aptly_cli/version"
 require "aptly_load"
 require "httmultiparty"
+require "json"
 
 module AptlyCli
   class AptlyRepo
@@ -75,6 +76,7 @@ module AptlyCli
       end
 
       self.class.get uri 
+
     end
 
     def repo_show(name)
@@ -101,8 +103,26 @@ module AptlyCli
       if noRemove == 1
         uri = uri + "?noRemove=1"
       end
+      
+      response = self.class.post(uri)
+      
+      case response.code
+        when 404 
+          puts "repository with such name doesn’t exist"
+      end
 
-      self.class.post(uri)
+      json_response = JSON.parse(response.body)
+     
+      unless json_response["failedFiles"].empty?
+        begin
+        rescue StandardError => e
+          puts "Files that failed to upload... #{json_response["failedFiles"]}"
+          puts e
+        end
+      end
+    
+      return response
+
     end 
 
   end
