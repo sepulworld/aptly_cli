@@ -1,4 +1,4 @@
-require "aptly_cli/version"
+require "aptly_cli/version" 
 require "aptly_load"
 require "httmultiparty"
 require "json"
@@ -112,11 +112,19 @@ module AptlyCli
       end
 
       json_response = JSON.parse(response.body)
-     
+      
       unless json_response["failedFiles"].empty?
         begin
         rescue StandardError => e
           puts "Files that failed to upload... #{json_response["failedFiles"]}"
+          puts e
+        end
+      end
+
+      unless json_response["report"]["warnings"].empty?
+        begin
+        rescue StandardError => e
+          puts "File upload warning message[s]...#{json_response["Report"]["Warnings"]}"
           puts e
         end
       end
