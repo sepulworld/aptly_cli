@@ -107,8 +107,8 @@ module AptlyCli
       response = self.class.post(uri)
       
       case response.code
-        when 404 
-          puts "repository with such name doesn’t exist"
+        when 404
+          puts 'repository with such name does not exist'
       end
 
       json_response = JSON.parse(response.body)
