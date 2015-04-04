@@ -124,11 +124,11 @@ module AptlyCli
       unless json_response["report"]["warnings"].empty?
         begin
         rescue StandardError => e
-          puts "File upload warning message[s]...#{json_response["Report"]["Warnings"]}"
+          puts "File upload warning message[s]...#{json_response["report"]["warnings"]}"
           puts e
         end
       end
-    
+      
       return response
 
     end 
