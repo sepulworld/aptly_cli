@@ -9,7 +9,7 @@ describe AptlyCli::AptlySnapshot do
     AptlyCli::AptlySnapshot.must_include HTTMultiParty
   end
 
-describe "API Create Snapshot" do
+describe "API List Snapshot" do
 
   let(:snapshot_api) { AptlyCli::AptlySnapshot.new }
 
@@ -23,6 +23,10 @@ describe "API Create Snapshot" do
 
   it "records the fixture for listing snapshots" do
     snapshot_api.snapshot_list(sort = 'name')
+  end
+
+  it "must respond with list of snapshots created on system" do
+    snapshot_api.snapshot_list(sort = 'name').must_equal '[{"Name"=>"rocksoftware22_snap", "CreatedAt"=>"2015-03-31T16:10:46.792655706Z", "Description"=>"Snapshot from local repo [rocksoftware22]"}]'.to_s
   end
   
  end
