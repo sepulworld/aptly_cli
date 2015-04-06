@@ -24,4 +24,3 @@ module AptlyCli
 
   end
 end
-
