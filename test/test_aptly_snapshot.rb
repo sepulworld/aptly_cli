@@ -25,8 +25,8 @@ describe "API List Snapshot" do
     snapshot_api.snapshot_list(sort = 'name')
   end
 
-  it "must respond with list of snapshots created on system" do
-    snapshot_api.snapshot_list(sort = 'name').must_equal '[{"Name"=>"rocksoftware22_snap", "CreatedAt"=>"2015-03-31T16:10:46.792655706Z", "Description"=>"Snapshot from local repo [rocksoftware22]"}]'.to_s
+  def test_that_snapshot_list_returns_results
+    assert_equal ([{"Name"=>"rocksoftware22_snap", "CreatedAt"=>"2015-03-31T16:10:46.792655706Z", "Description"=>"Snapshot from local repo [rocksoftware22]"}]).to_s, snapshot_api.snapshot_list(sort = 'name').to_s
   end
   
  end
