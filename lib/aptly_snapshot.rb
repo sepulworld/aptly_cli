@@ -22,5 +22,12 @@ module AptlyCli
       self.class.get(uri)
     end
 
+    def snapshot_create(name, repo, description=nil)
+      # Build uri to create snapshot, requires name of snap and name of repo   
+      uri = "/repos/#{repo}/" + "snapshots"
+      
+      self.class.post(uri, :query => { 'Name' => name, 'Description' => description }.to_json, :headers => {'Content-Type'=>'application/json'})
+    end
+
   end
 end

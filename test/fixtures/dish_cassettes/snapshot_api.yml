@@ -30,4 +30,30 @@ http_interactions:
         [{"Name":"rocksoftware22_snap","CreatedAt":"2015-03-31T16:10:46.792655706Z","Description":"Snapshot from local repo [rocksoftware22]"}]
     http_version: 
   recorded_at: Mon, 06 Apr 2015 05:07:03 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:8082/api/repos/rocksoftware/snapshots
+    body:
+      encoding: UTF-8
+      string: '{"Name":"rocksoftware23_snap","Description":"the best again"}'
+    headers:
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 07 Apr 2015 16:17:55 GMT
+      Content-Length:
+      - '106'
+    body:
+      encoding: UTF-8
+      string: |
+        {"Name":"rocksoftware23_snap","CreatedAt":"2015-04-07T16:17:55.26628127Z","Description":"the best again"}
+    http_version: 
+  recorded_at: Tue, 07 Apr 2015 16:17:55 GMT
 recorded_with: VCR 2.9.3
