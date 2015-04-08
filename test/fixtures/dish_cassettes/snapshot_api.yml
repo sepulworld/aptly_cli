@@ -56,4 +56,30 @@ http_interactions:
         {"Name":"rocksoftware23_snap","CreatedAt":"2015-04-07T16:17:55.26628127Z","Description":"the best again"}
     http_version: 
   recorded_at: Tue, 07 Apr 2015 16:17:55 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:8082/api/snapshots
+    body:
+      encoding: UTF-8
+      string: '{"Name":"rocksoftware23_snap_refs","Description":"snapshot with reference","SourceSnapshots":["rocksoftware22_snap"],"PackageRefs":[]}'
+    headers:
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 08 Apr 2015 23:42:22 GMT
+      Content-Length:
+      - '121'
+    body:
+      encoding: UTF-8
+      string: |
+        {"Name":"rocksoftware23_snap_refs","CreatedAt":"2015-04-08T23:42:22.273881196Z","Description":"snapshot with reference"}
+    http_version: 
+  recorded_at: Wed, 08 Apr 2015 23:42:22 GMT
 recorded_with: VCR 2.9.3

@@ -25,8 +25,12 @@ describe "API List Snapshot" do
     snapshot_api.snapshot_list(sort = "name")
   end
   
-  it "records the fixture for listing snapshots" do
+  it "records the fixture for creating snapshots" do
     snapshot_api.snapshot_create(name = "rocksoftware23_snap", repo = "rocksoftware", description = "the best again")
+  end
+
+  it "records the fixture for creating snapshots from references" do
+    snapshot_api.snapshot_create_ref(name = "rocksoftware23_snap_refs", descrption = "snapshot with reference", sourcesnapshots = ["rocksoftware22_snap"])
   end
 
   def test_that_snapshot_list_returns_results

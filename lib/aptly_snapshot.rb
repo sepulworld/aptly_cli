@@ -29,5 +29,21 @@ module AptlyCli
       self.class.post(uri, :query => { 'Name' => name, 'Description' => description }.to_json, :headers => {'Content-Type'=>'application/json'})
     end
 
+    def snapshot_create_ref(name, description=nil, sourcesnapshots=[], packagerefs=[])
+      uri = "/snapshots"
+
+      begin
+        response = self.class.post(uri, :query => { 'Name' => name, 
+                                                    'Description' => description, 
+                                                    'SourceSnapshots' => sourcesnapshots,
+                                                    'PackageRefs' => packagerefs }.to_json,
+                                        :headers => {'Content-Type'=>'application/json'})
+      rescue Http::Exceptions::HttpException => e
+        return e
+      end
+
+      return response
+    end
+
   end
 end
