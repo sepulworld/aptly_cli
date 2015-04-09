@@ -38,12 +38,25 @@ module AptlyCli
                                                     'SourceSnapshots' => sourcesnapshots,
                                                     'PackageRefs' => packagerefs }.to_json,
                                         :headers => {'Content-Type'=>'application/json'})
-      rescue Http::Exceptions::HttpException => e
+      rescue HTTParty::Error => e
         return e
       end
 
       return response
     end
 
+    def snapshot_update(name, name_update, description=nil)
+      uri = "/snapshots/#{name}"
+
+      begin
+        response = self.class.put(uri, :query => { 'Name' => name_update,
+                                                   'Description' => description }.to_json,
+                                       :headers => {'Content-Type'=>'application/json'})
+      rescue HTTParty::Error => e
+        puts e
+      end
+
+      return response
+    end
   end
 end

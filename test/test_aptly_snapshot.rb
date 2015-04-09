@@ -33,6 +33,10 @@ describe "API List Snapshot" do
     snapshot_api.snapshot_create_ref(name = "rocksoftware23_snap_refs", descrption = "snapshot with reference", sourcesnapshots = ["rocksoftware22_snap"])
   end
 
+  it "records the fixture for updating a snapshot with a new name and description" do
+    snapshot_api.snapshot_update(name = "rocksoftware24", name_update = "rocksoftware24_new_name_baby", description = "Checkout my new name")
+  end
+
   def test_that_snapshot_list_returns_results
     assert_equal ([{"Name"=>"rocksoftware22_snap", "CreatedAt"=>"2015-03-31T16:10:46.792655706Z", "Description"=>"Snapshot from local repo [rocksoftware22]"}]).to_s, snapshot_api.snapshot_list(sort = 'name').to_s
   end
