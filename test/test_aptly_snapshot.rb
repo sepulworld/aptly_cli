@@ -37,6 +37,10 @@ describe "API List Snapshot" do
     snapshot_api.snapshot_update(name = "rocksoftware24", name_update = "rocksoftware24_new_name_baby", description = "Checkout my new name")
   end
 
+  it "records the fixture for updating a snapshot that doesn't exist" do
+    snapshot_api.snapshot_update(name = "rocksoftware50_not_here", name_update = "rocksoftware50_new_name_baby", description = "I am not a snapshot presently")
+  end
+
   def test_that_snapshot_list_returns_results
     assert_equal ([{"Name"=>"rocksoftware22_snap", "CreatedAt"=>"2015-03-31T16:10:46.792655706Z", "Description"=>"Snapshot from local repo [rocksoftware22]"}]).to_s, snapshot_api.snapshot_list(sort = 'name').to_s
   end

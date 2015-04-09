@@ -33,30 +33,28 @@ module AptlyCli
       uri = "/snapshots"
 
       begin
-        response = self.class.post(uri, :query => { 'Name' => name, 
-                                                    'Description' => description, 
-                                                    'SourceSnapshots' => sourcesnapshots,
-                                                    'PackageRefs' => packagerefs }.to_json,
-                                        :headers => {'Content-Type'=>'application/json'})
+        self.class.post(uri, :query => { 'Name' => name, 
+                                         'Description' => description, 
+                                         'SourceSnapshots' => sourcesnapshots,
+                                         'PackageRefs' => packagerefs }.to_json,
+                             :headers => {'Content-Type'=>'application/json'})
       rescue HTTParty::Error => e
         return e
       end
 
-      return response
     end
 
     def snapshot_update(name, name_update, description=nil)
       uri = "/snapshots/#{name}"
 
       begin
-        response = self.class.put(uri, :query => { 'Name' => name_update,
-                                                   'Description' => description }.to_json,
-                                       :headers => {'Content-Type'=>'application/json'})
-      rescue HTTParty::Error => e
-        puts e
+        self.class.put(uri, :query => { 'Name' => name_update,
+                                        'Description' => description }.to_json,
+                            :headers => {'Content-Type'=>'application/json'})
+      rescue HTTPary::Error => e
+        puts e 
       end
 
-      return response
     end
   end
 end
