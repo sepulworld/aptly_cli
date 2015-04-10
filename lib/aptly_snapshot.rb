@@ -44,6 +44,11 @@ module AptlyCli
 
     end
 
+    def snapshot_show(name)
+      uri = "/snapshots/#{name}"
+      self.class.get(uri)
+    end
+
     def snapshot_update(name, name_update, description=nil)
       uri = "/snapshots/#{name}"
 
