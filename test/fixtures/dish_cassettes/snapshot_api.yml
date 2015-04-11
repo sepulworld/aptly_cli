@@ -196,4 +196,154 @@ http_interactions:
         {"Name":"rocksoftware24_new_name_baby","CreatedAt":"2015-04-09T15:33:25.381621145Z","Description":"Checkout my new name"}
     http_version: 
   recorded_at: Fri, 10 Apr 2015 16:17:57 GMT
+- request:
+    method: delete
+    uri: http://127.0.0.1:8082/api/snapshots/rocksoftware25
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sat, 11 Apr 2015 16:07:04 GMT
+      Content-Length:
+      - '3'
+    body:
+      encoding: UTF-8
+      string: |
+        {}
+    http_version: 
+  recorded_at: Sat, 11 Apr 2015 16:07:04 GMT
+- request:
+    method: delete
+    uri: http://127.0.0.1:8082/api/snapshots/rocksoftware200
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sat, 11 Apr 2015 16:08:16 GMT
+      Content-Length:
+      - '86'
+    body:
+      encoding: UTF-8
+      string: |
+        [{"error":"snapshot with name rocksoftware200 not found","meta":"Operation aborted"}]
+    http_version: 
+  recorded_at: Sat, 11 Apr 2015 16:08:16 GMT
+- request:
+    method: delete
+    uri: http://127.0.0.1:8082/api/snapshots/rocksoftware300
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 409
+      message: Conflict
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sat, 11 Apr 2015 16:11:08 GMT
+      Content-Length:
+      - '79'
+    body:
+      encoding: UTF-8
+      string: |
+        [{"error":"unable to drop: snapshot is published","meta":"Operation aborted"}]
+    http_version: 
+  recorded_at: Sat, 11 Apr 2015 16:11:08 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:8082/api/snapshots/rocksoftware300/packages?format='details'
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sat, 11 Apr 2015 18:13:36 GMT
+      Content-Length:
+      - '415'
+    body:
+      encoding: UTF-8
+      string: |
+        ["Pi386 xsp 2.11.0.0-git-master-04062013 fb4f20e019c99800","Pamd64 geoipupdate 2.0.0 c7b4081a761741bb","Pamd64 mongodb-mms-monitoring-agent 2.4.0.101-1 fc25ab7d8b9d2158","Pamd64 redis-server 2.8.3 fde8566b85f0a1","Pamd64 voltdb-php-client 1.2 7f4eed5217e92df0","Pi386 geoipupdate 2.0.0 249f3976bd06cce4","Pi386 mongodb-mms-monitoring-agent 2.4.0.101-1 bf58165444e70af6","Pi386 redis-server 2.8.3 324bb47c72149fae"]
+    http_version: 
+  recorded_at: Sat, 11 Apr 2015 18:13:36 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:8082/api/snapshots/rocksoftware300/packages
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sat, 11 Apr 2015 18:16:55 GMT
+      Content-Length:
+      - '415'
+    body:
+      encoding: UTF-8
+      string: |
+        ["Pamd64 redis-server 2.8.3 fde8566b85f0a1","Pamd64 voltdb-php-client 1.2 7f4eed5217e92df0","Pi386 geoipupdate 2.0.0 249f3976bd06cce4","Pi386 mongodb-mms-monitoring-agent 2.4.0.101-1 bf58165444e70af6","Pi386 redis-server 2.8.3 324bb47c72149fae","Pi386 xsp 2.11.0.0-git-master-04062013 fb4f20e019c99800","Pamd64 geoipupdate 2.0.0 c7b4081a761741bb","Pamd64 mongodb-mms-monitoring-agent 2.4.0.101-1 fc25ab7d8b9d2158"]
+    http_version: 
+  recorded_at: Sat, 11 Apr 2015 18:16:55 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:8082/api/snapshots/rocksoftware302/packages?q=Name%20(~%20geoipupdate)
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sat, 11 Apr 2015 19:16:02 GMT
+      Content-Length:
+      - '89'
+    body:
+      encoding: UTF-8
+      string: |
+        ["Pamd64 geoipupdate 2.0.0 c7b4081a761741bb","Pi386 geoipupdate 2.0.0 249f3976bd06cce4"]
+    http_version: 
+  recorded_at: Sat, 11 Apr 2015 19:16:02 GMT
 recorded_with: VCR 2.9.3
