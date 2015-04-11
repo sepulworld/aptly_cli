@@ -61,13 +61,13 @@ describe "API List Snapshot" do
     snapshot_api.snapshot_delete(name = "rocksoftware300")
   end
   
-#  it "records the fixture for searching a snapshot for all pacakges" do
-#    snapshot_api.snapshot_search(name = "rocksoftware300")
-#  end
+  it "records the fixture for searching a snapshot for all pacakges" do
+    snapshot_api.snapshot_search(name = "rocksoftware300")
+  end
   
-#  it "records the fixture for searching a snapshot for all pacakges" do
-#    snapshot_api.snapshot_search(name = "rocksoftware300", { :format => 'details' })
-#  end
+  it "records the fixture for searching a snapshot for all pacakges" do
+    snapshot_api.snapshot_search(name = "rocksoftware300", { :format => 'details' })
+  end
   
   it "records the fixture for searching a snapshot for package called geoipupdate" do
     snapshot_api.snapshot_search(name = "rocksoftware302", { :q => 'geoipupdate' })
