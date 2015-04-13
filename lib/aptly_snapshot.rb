@@ -54,6 +54,11 @@ module AptlyCli
 
     end
 
+    def snapshot_diff(name, with_snapshot)
+      uri = "/snapshots/#{name}/diff/#{with_snapshot}"
+      self.class.get(uri)
+    end
+
     def snapshot_search(name, search_options={})
       uri = "/snapshots/#{name}/packages"
       @options = { query: {} } 

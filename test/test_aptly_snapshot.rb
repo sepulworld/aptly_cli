@@ -72,6 +72,14 @@ describe "API List Snapshot" do
   it "records the fixture for searching a snapshot for package called geoipupdate" do
     snapshot_api.snapshot_search(name = "rocksoftware302", { :q => 'geoipupdate' })
   end
+  
+  it "records the fixture for diffing 2 snapshots that contain different packages " do
+    snapshot_api.snapshot_diff(name = "rocksoftware22_snap", with_snapshot = "rocksoftware24_new_name_baby")
+  end
+  
+  it "records the fixture for diffing 2 snapshots that contain different packages " do
+    snapshot_api.snapshot_diff(name = "rocksoftware22_snap", with_snapshot = "rocksoftware23_snap")
+  end
 
   def test_that_snapshot_list_returns_results
     assert_equal ([{"Name"=>"rocksoftware22_snap", "CreatedAt"=>"2015-03-31T16:10:46.792655706Z", "Description"=>"Snapshot from local repo [rocksoftware22]"}]).to_s, snapshot_api.snapshot_list(sort = 'name').to_s
