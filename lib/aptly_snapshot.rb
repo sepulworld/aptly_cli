@@ -12,6 +12,16 @@ module AptlyCli
     config = AptlyCli::AptlyLoad.new.configure_with("/etc/aptly-cli.conf")
     base_uri "http://#{config[:server]}:#{config[:port]}/api"
 
+    def snapshot_delete(name, force=0)
+      uri = "/snapshots/#{name}"
+
+      if force == 1
+        uri = uri + "?force=1"
+      end
+
+      self.class.delete(uri)
+    end
+
     def snapshot_list(sort=nil)
       uri = "/snapshots"
 
@@ -42,6 +52,25 @@ module AptlyCli
         return e
       end
 
+    end
+
+    def snapshot_search(name, search_options={})
+      uri = "/snapshots/#{name}/packages"
+      @options = { query: {} } 
+    
+      if search_options[:format]
+        @options[:query] = {format: "#{search_options[:format]}" }
+      end
+
+      if search_options[:q]
+        @options[:query] = {q: "Name (~ #{search_options[:q]})" }
+      end
+
+      if search_options[:withDeps] == 1
+        @options[:query] = {withDeps:  "1" }
+      end
+
+      self.class.get(uri, @options)
     end
 
     def snapshot_show(name)

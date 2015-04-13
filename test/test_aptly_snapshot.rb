@@ -48,6 +48,30 @@ describe "API List Snapshot" do
   it "records the fixture for showing a snapshot that doesn't exist" do
     snapshot_api.snapshot_show(name = "rocksoftware24_new_name_baby")
   end
+  
+  it "records the fixture for deleting a snapshot" do
+    snapshot_api.snapshot_delete(name = "rocksoftware25")
+  end
+  
+  it "records the fixture for deleting a snapshot that doesn't exist" do
+    snapshot_api.snapshot_delete(name = "rocksoftware200")
+  end
+
+  it "records the fixture for deleting a snapshot that has been published, but with no force" do
+    snapshot_api.snapshot_delete(name = "rocksoftware300")
+  end
+  
+  it "records the fixture for searching a snapshot for all pacakges" do
+    snapshot_api.snapshot_search(name = "rocksoftware300")
+  end
+  
+  it "records the fixture for searching a snapshot for all pacakges" do
+    snapshot_api.snapshot_search(name = "rocksoftware300", { :format => 'details' })
+  end
+  
+  it "records the fixture for searching a snapshot for package called geoipupdate" do
+    snapshot_api.snapshot_search(name = "rocksoftware302", { :q => 'geoipupdate' })
+  end
 
   def test_that_snapshot_list_returns_results
     assert_equal ([{"Name"=>"rocksoftware22_snap", "CreatedAt"=>"2015-03-31T16:10:46.792655706Z", "Description"=>"Snapshot from local repo [rocksoftware22]"}]).to_s, snapshot_api.snapshot_list(sort = 'name').to_s
