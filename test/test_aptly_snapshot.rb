@@ -85,6 +85,18 @@ describe "API List Snapshot" do
     assert_equal ([{"Name"=>"rocksoftware22_snap", "CreatedAt"=>"2015-03-31T16:10:46.792655706Z", "Description"=>"Snapshot from local repo [rocksoftware22]"}]).to_s, snapshot_api.snapshot_list(sort = 'name').to_s
   end
 
+  def test_snapshot_create
+    assert_equal ({"Name" => "rocksoftware23_snap","CreatedAt" => "2015-04-07T16:17:55.26628127Z","Description" => "the best again"}).to_s, snapshot_api.snapshot_create(name = 'rocksoftware23_snap', repo = 'rocksoftware', description = 'the best again').to_s
+  end
+  
+  def test_snapshot_create
+    assert_equal ({"Name" => "rocksoftware24_new_name_baby","CreatedAt" => "2015-04-09T15:33:25.381621145Z","Description" => "Checkout my new name"}).to_s, snapshot_api.snapshot_update(name = 'rocksoftware24', name_update = 'rocksoftware24_new_name_baby', description = 'Checkout my new name').to_s
+  end
+
+  def test_failed_snapshot_show_snapshot_doesnt_exist
+    assert_equal ([{"error" => "snapshot with name rocksoftware50_not_here not found","meta" => "Operation aborted"}]).to_s, snapshot_api.snapshot_update(name = "rocksoftware50_not_here", name_update = "rocksoftware50_new_name_baby", description = "I am not a snapshot presently").to_s 
+  end
+
  end
 
 end
