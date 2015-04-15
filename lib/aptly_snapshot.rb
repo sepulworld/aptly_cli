@@ -75,7 +75,12 @@ module AptlyCli
         @options[:query] = {withDeps:  "1" }
       end
 
-      self.class.get(uri, @options)
+      if @options.empty?
+        self.class.get(uri)
+      else
+        self.class.get(uri, @options)
+      end
+
     end
 
     def snapshot_show(name)
