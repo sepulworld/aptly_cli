@@ -81,6 +81,23 @@ describe "API List Snapshot" do
     snapshot_api.snapshot_diff(name = "rocksoftware22_snap", with_snapshot = "rocksoftware23_snap")
   end
 
+  # Need to fix this function
+  #def test_that_snapshot_search
+  #  assert_equal (["Pamd64 redis-server 2.8.3 fde8566b85f0a1","Pamd64 voltdb-php-client 1.2 7f4eed5217e92df0","Pi386 geoipupdate 2.0.0 249f3976bd06cce4","Pi386 mongodb-mms-monitoring-agent 2.4.0.101-1 bf58165444e70af6","Pi386 redis-server 2.8.3 324bb47c72149fae","Pi386 xsp 2.11.0.0-git-master-04062013 fb4f20e019c99800","Pamd64 geoipupdate 2.0.0 c7b4081a761741bb","Pamd64 mongodb-mms-monitoring-agent 2.4.0.101-1 fc25ab7d8b9d2158"]["Pamd64 redis-server 2.8.3 fde8566b85f0a1","Pamd64 voltdb-php-client 1.2 7f4eed5217e92df0","Pi386 geoipupdate 2.0.0 249f3976bd06cce4","Pi386 mongodb-mms-monitoring-agent 2.4.0.101-1 bf58165444e70af6","Pi386 redis-server 2.8.3 324bb47c72149fae","Pi386 xsp 2.11.0.0-git-master-04062013 fb4f20e019c99800","Pamd64 geoipupdate 2.0.0 c7b4081a761741bb","Pamd64 mongodb-mms-monitoring-agent 2.4.0.101-1 fc25ab7d8b9d2158"]).to_s, snapshot_api.snapshot_search("rocksoftware302", { :q => 'geoipupdate' })
+  #end
+
+  def test_that_deleting_snapshot_that_is_published_conflicts
+    assert_equal ([{"error" => "unable to drop: snapshot is published","meta" => "Operation aborted"}]).to_s, snapshot_api.snapshot_delete(name = "rocksoftware300").to_s
+  end
+
+  def test_that_deleting_snapshot_that_doesnt_exist_errors
+    assert_equal ([{"error" => "snapshot with name rocksoftware200 not found","meta" => "Operation aborted"}]).to_s, snapshot_api.snapshot_delete(name = "rocksoftware200").to_s
+  end
+
+  def test_that_snapshot_delete_returns_200
+    assert_equal ('200'), snapshot_api.snapshot_delete(name = "rocksoftware25").code.to_s
+  end
+
   def test_that_snapshot_list_returns_results
     assert_equal ([{"Name"=>"rocksoftware22_snap", "CreatedAt"=>"2015-03-31T16:10:46.792655706Z", "Description"=>"Snapshot from local repo [rocksoftware22]"}]).to_s, snapshot_api.snapshot_list(sort = 'name').to_s
   end
@@ -95,6 +112,10 @@ describe "API List Snapshot" do
 
   def test_failed_snapshot_show_snapshot_doesnt_exist
     assert_equal ([{"error" => "snapshot with name rocksoftware50_not_here not found","meta" => "Operation aborted"}]).to_s, snapshot_api.snapshot_update(name = "rocksoftware50_not_here", name_update = "rocksoftware50_new_name_baby", description = "I am not a snapshot presently").to_s 
+  end
+  
+  def test_failed_snapshot_show_snapshot_returns_404
+    assert_equal ('404'), snapshot_api.snapshot_update(name = "rocksoftware50_not_here", name_update = "rocksoftware50_new_name_baby", description = "I am not a snapshot presently").code.to_s
   end
 
  end

@@ -270,30 +270,6 @@ http_interactions:
   recorded_at: Sat, 11 Apr 2015 16:11:08 GMT
 - request:
     method: get
-    uri: http://127.0.0.1:8082/api/snapshots/rocksoftware300/packages?format='details'
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers: {}
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Sat, 11 Apr 2015 18:13:36 GMT
-      Content-Length:
-      - '415'
-    body:
-      encoding: UTF-8
-      string: |
-        ["Pi386 xsp 2.11.0.0-git-master-04062013 fb4f20e019c99800","Pamd64 geoipupdate 2.0.0 c7b4081a761741bb","Pamd64 mongodb-mms-monitoring-agent 2.4.0.101-1 fc25ab7d8b9d2158","Pamd64 redis-server 2.8.3 fde8566b85f0a1","Pamd64 voltdb-php-client 1.2 7f4eed5217e92df0","Pi386 geoipupdate 2.0.0 249f3976bd06cce4","Pi386 mongodb-mms-monitoring-agent 2.4.0.101-1 bf58165444e70af6","Pi386 redis-server 2.8.3 324bb47c72149fae"]
-    http_version: 
-  recorded_at: Sat, 11 Apr 2015 18:13:36 GMT
-- request:
-    method: get
     uri: http://127.0.0.1:8082/api/snapshots/rocksoftware300/packages
     body:
       encoding: US-ASCII
