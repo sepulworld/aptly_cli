@@ -62,12 +62,12 @@ module AptlyCli
     def snapshot_search(name, search_options={})
       uri = "/snapshots/#{name}/packages"
       @options = { query: {} } 
-    
-      if search_options[:format]
+
+      if search_options.has_key?(:format)
         @options[:query] = {format: "#{search_options[:format]}" }
       end
 
-      if search_options[:q]
+      if search_options.has_key?(:q)
         @options[:query] = {q: "Name (~ #{search_options[:q]})" }
       end
 
@@ -75,11 +75,7 @@ module AptlyCli
         @options[:query] = {withDeps:  "1" }
       end
 
-      if @options.empty?
-        self.class.get(uri)
-      else
-        self.class.get(uri, @options)
-      end
+      self.class.get(uri, @options)
 
     end
 
