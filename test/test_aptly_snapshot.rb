@@ -81,10 +81,9 @@ describe "API List Snapshot" do
     snapshot_api.snapshot_diff(name = "rocksoftware22_snap", with_snapshot = "rocksoftware23_snap")
   end
 
-  # Fix this one
-  #def test_snapshot_search_for_all_with_details
-  #  assert_must_include ("c7e177319723a901e69cfb84ab6082b61acf84e138d4af0f9f497936b60af915").to_s, snapshot_api.snapshot_search(name = "rocksoftware300", search_options = { :format => 'details' }).to_s
-  #end
+  def test_snapshot_search_for_all_with_details
+    assert_includes snapshot_api.snapshot_search(name = "rocksoftware300", search_options = { :format => 'details' }).to_s, "c7e177319723a901e69cfb84ab6082b61acf84e138d4af0f9f497936b60af915".to_s
+  end
 
   def test_snapshot_search_for_all_with_no_details
     assert_equal ("[\"Pi386 xsp 2.11.0.0-git-master-04062013 fb4f20e019c99800\", \"Pamd64 geoipupdate 2.0.0 c7b4081a761741bb\", \"Pamd64 mongodb-mms-monitoring-agent 2.4.0.101-1 fc25ab7d8b9d2158\", \"Pamd64 redis-server 2.8.3 fde8566b85f0a1\", \"Pamd64 voltdb-php-client 1.2 7f4eed5217e92df0\", \"Pi386 geoipupdate 2.0.0 249f3976bd06cce4\", \"Pi386 mongodb-mms-monitoring-agent 2.4.0.101-1 bf58165444e70af6\", \"Pi386 redis-server 2.8.3 324bb47c72149fae\"]").to_s, snapshot_api.snapshot_search(name = "rocksoftware302").to_s
