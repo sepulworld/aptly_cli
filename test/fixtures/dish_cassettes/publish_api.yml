@@ -1,0 +1,33 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://127.0.0.1:8082/api/publish
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Mon, 20 Apr 2015 04:38:10 GMT
+      Content-Length:
+      - '578'
+    body:
+      encoding: UTF-8
+      string: |
+        [{"Architectures":["amd64","i386"],"Distribution":"main","Label":"","Origin":"","Prefix":".","SourceKind":"snapshot","Sources":[{"Component":"main","Name":"rocksoftware300"}],"Storage":""},{"Architectures":["amd64","i386"],"Distribution":"precise","Label":"","Origin":"","Prefix":"stable","SourceKind":"local","Sources":[{"Component":"main","Name":"stable-repo"}],"Storage":""},{"Architectures":["amd64","i386"],"Distribution":"precise-testing","Label":"","Origin":"","Prefix":"testing","SourceKind":"local","Sources":[{"Component":"main","Name":"testing-repo"}],"Storage":""}]
+    http_version: 
+  recorded_at: Mon, 20 Apr 2015 04:38:10 GMT
+recorded_with: VCR 2.9.3
