@@ -17,5 +17,14 @@ module AptlyCli
       self.class.get(uri)
     end
 
+    def publish_repo(name, publish_options={})
+      uri = "/publish"
+      @options = { :body => { 'SourceKind' => "#{publish_options[:sourcekind]}", 
+                              'Sources' => ['Name' => "#{name}"]}.to_json, 
+                   headers: {'Content-Type'=>'application/json'}}
+
+      self.class.post(uri, @options) 
+    end
+
   end
 end

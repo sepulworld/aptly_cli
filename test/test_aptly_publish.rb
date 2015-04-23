@@ -24,7 +24,11 @@ describe "API List Publish" do
   it "records the fixture for listing publish points" do
     publish_api.publish_list()
   end
-  
+
+  it "records the fixture for publishing a snapshot" do
+    publish_api.publish_repo(name = "rocksoftware301", publish_options = { :sourcekind => 'snapshot' })
+  end
+
  end
 
 end
