@@ -30,3 +30,29 @@ http_interactions:
         [{"Architectures":["amd64","i386"],"Distribution":"main","Label":"","Origin":"","Prefix":".","SourceKind":"snapshot","Sources":[{"Component":"main","Name":"rocksoftware300"}],"Storage":""},{"Architectures":["amd64","i386"],"Distribution":"precise","Label":"","Origin":"","Prefix":"stable","SourceKind":"local","Sources":[{"Component":"main","Name":"stable-repo"}],"Storage":""},{"Architectures":["amd64","i386"],"Distribution":"precise-testing","Label":"","Origin":"","Prefix":"testing","SourceKind":"local","Sources":[{"Component":"main","Name":"testing-repo"}],"Storage":""}]
     http_version: 
   recorded_at: Mon, 20 Apr 2015 04:38:10 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:8082/api/publish
+    body:
+      encoding: UTF-8
+      string: '{"SourceKind":"snapshot","Sources":[{"Name":"rocksoftware301"}]}'
+    headers:
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Content-Type:
+      - text/plain
+      Date:
+      - Thu, 23 Apr 2015 05:56:12 GMT
+      Content-Length:
+      - '18'
+    body:
+      encoding: UTF-8
+      string: 404 page not found
+    http_version: 
+  recorded_at: Thu, 23 Apr 2015 05:56:12 GMT
+recorded_with: VCR 2.9.3
