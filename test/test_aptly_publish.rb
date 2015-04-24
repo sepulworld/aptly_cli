@@ -25,6 +25,20 @@ describe "API List Publish" do
     publish_api.publish_list()
   end
 
+ end
+
+describe "API Publish Repo" do
+
+  let(:publish_api) { AptlyCli::AptlyPublish.new }
+
+  before do
+    VCR.insert_cassette 'publish_api', :record => :new_episodes
+  end
+
+  after do
+    VCR.eject_cassette
+  end
+
   it "records the fixture for publishing a snapshot" do
     publish_api.publish_repo(name = "rocksoftware301", publish_options = { :sourcekind => 'snapshot' })
   end

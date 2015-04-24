@@ -47,12 +47,12 @@ http_interactions:
       Content-Type:
       - text/plain
       Date:
-      - Thu, 23 Apr 2015 05:56:12 GMT
+      - Fri, 24 Apr 2015 15:59:56 GMT
       Content-Length:
       - '18'
     body:
       encoding: UTF-8
       string: 404 page not found
     http_version: 
-  recorded_at: Thu, 23 Apr 2015 05:56:12 GMT
+  recorded_at: Fri, 24 Apr 2015 15:59:56 GMT
 recorded_with: VCR 2.9.3
