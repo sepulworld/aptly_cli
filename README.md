@@ -65,11 +65,11 @@ All uploaded files are stored under rootDir/upload directory (see your Aptly con
 
 ###     aptly-cli repo [options]
 
-TODO
+functions, fixtures, tests done.  Need to add to bin/aptly-cli and document
 
 ###     aptly-cli snapshot [options]
 
-TODO
+functions, fixtures, tests done.  Need to add to bin/aptly-cli and document
 
 ###     aptly-cli publish [options]
 
@@ -77,7 +77,7 @@ TODO
 
 ###     aptly-cli package [options]
 
-TODO
+functions, fixtures, tests done.  Need to add to bin/aptly-cli and document
 
 ###     aptly-cli graph [options]
 
