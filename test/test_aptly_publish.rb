@@ -45,4 +45,22 @@ describe "API Publish Repo" do
 
  end
 
+describe "API Drop Repo" do
+
+  let(:publish_api) { AptlyCli::AptlyPublish.new }
+
+  before do
+    VCR.insert_cassette 'publish_api', :record => :new_episodes
+  end
+
+  after do
+    VCR.eject_cassette
+  end
+
+  it "records the fixture for droping a published repository" do
+    publish_api.publish_drop(prefix = "main", distribution = "precise", force = 1)
+  end
+ 
+ end
+
 end

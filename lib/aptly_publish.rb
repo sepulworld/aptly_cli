@@ -12,6 +12,16 @@ module AptlyCli
     config = AptlyCli::AptlyLoad.new.configure_with("/etc/aptly-cli.conf")
     base_uri "http://#{config[:server]}:#{config[:port]}/api"
 
+    def publish_drop(prefix, distribution, force=nil)
+      uri = "/publish/#{prefix}/#{distribution}"
+
+      if force == 1
+        uri = uri + "?force=1"
+      end
+      
+      self.class.delete(uri)
+    end
+
     def publish_list()
       uri = "/publish"
       self.class.get(uri)
