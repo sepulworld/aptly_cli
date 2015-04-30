@@ -4,7 +4,7 @@ require 'rubygems'
 require 'commander/import'
 require 'aptly_cli'
 
-program :version, '0.0.1'
+program :version, '0.0.2'
 program :description, 'Aptly repository API client'
 
 command :file do |c|
@@ -74,12 +74,13 @@ end
 
 command :graph do |c|
   c.syntax = 'aptly-cli graph [options]'
-  c.summary = ''
-  c.description = ''
-  c.example 'description', 'command example'
-  c.option '--some-switch', 'Some switch that does something'
+  c.summary = 'Download a graph of repository layout.  Current options are "svg" and "png"'
+  c.description = 'Download an svg or png graph of repository layout'
+  c.example 'description', 'aptly-cli graph png > ~/repo_graph.png'
+  c.option '--type GRAPH_TYPE', String, 'Type of graph to download, present options are png or svg'
   c.action do |args, options|
-    # Do something or c.when_called Aptly-cli::Commands::Graph
+    aptly_command = AptlyCli::AptlyMisc.new
+    puts aptly_command.get_graph(options.type)
   end
 end
 
@@ -88,7 +89,8 @@ command :version do |c|
   c.description = 'Display aptly server version'
   c.example 'description', 'aptly-cli version'
   c.action do |args, options|
-    # Do something or c.when_called Aptly-cli::Commands::Version
+    aptly_command = AptlyCli::AptlyMisc.new
+    puts aptly_command.get_version() 
   end
 end
 
