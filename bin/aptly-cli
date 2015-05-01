@@ -28,14 +28,22 @@ command :file do |c|
   end
 end
 
-command :repo do |c|
-  c.syntax = 'aptly-cli repo [options]'
-  c.summary = ''
-  c.description = ''
-  c.example 'description', 'command example'
-  c.option '--some-switch', 'Some switch that does something'
+command :repo_create do |c|
+  c.syntax = 'aptly-cli repo_create [options]'
+  c.summary = 'Create a new repository, requires --name'
+  c.description = 'Create a new repository, requires --name'
+  c.example 'description', 'aptly-cli repo_create --name="megatronsoftware'
+  c.option '--name', 'Local repository name, required'
+  c.option '--comment', 'Text describing local repository for the user'
+  c.option '--default_distribution', 'Default distribution when publishing from this local repo'
+  c.option '--default_component', 'Default component when publishing from this local repo'
   c.action do |args, options|
-    # Do something or c.when_called Aptly-cli::Commands::Repo
+    aptly_command = AptlyCli::AptlyRepo.new
+    repo_options = { :name => options.name.to_s, 
+                     :comment => options.comment.to_s, 
+                     :DefaultDistribution => options.default_distribution.to_s,
+                     :DefaultComponent => options.default_component.to_s }
+    puts aptly_command.repo_create(repo_options)
   end
 end
 
