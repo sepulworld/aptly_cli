@@ -1,0 +1,29 @@
+---
+http_interactions:
+- request:
+    method: put
+    uri: http://127.0.0.1:8082/api/repos/powerhouse
+    body:
+      encoding: UTF-8
+      string: '{"Comment":"This repo holds some solid packages"}'
+    headers:
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sat, 02 May 2015 05:56:25 GMT
+      Content-Length:
+      - '130'
+    body:
+      encoding: UTF-8
+      string: |
+        {"Name":"powerhouse","Comment":"This repo holds some solid packages","DefaultDistribution":"binary","DefaultComponent":"updates"}
+    http_version: 
+  recorded_at: Sat, 02 May 2015 06:11:08 GMT
+recorded_with: VCR 2.9.3

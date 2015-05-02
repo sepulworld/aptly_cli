@@ -33,17 +33,57 @@ command :repo_create do |c|
   c.summary = 'Create a new repository, requires --name'
   c.description = 'Create a new repository, requires --name'
   c.example 'description', 'aptly-cli repo_create --name="megatronsoftware'
-  c.option '--name', 'Local repository name, required'
-  c.option '--comment', 'Text describing local repository for the user'
-  c.option '--default_distribution', 'Default distribution when publishing from this local repo'
-  c.option '--default_component', 'Default component when publishing from this local repo'
+  c.option '--name NAME', String, 'Local repository name, required'
+  c.option '--comment COMMENT', String, 'Text describing local repository for the user'
+  c.option '--default_distribution DISTRIBUTION', String, 'Default distribution when publishing from this local repo'
+  c.option '--default_component COMPONENT', String, 'Default component when publishing from this local repo'
   c.action do |args, options|
+    puts options.name
     aptly_command = AptlyCli::AptlyRepo.new
     repo_options = { :name => options.name.to_s, 
                      :comment => options.comment.to_s, 
                      :DefaultDistribution => options.default_distribution.to_s,
                      :DefaultComponent => options.default_component.to_s }
     puts aptly_command.repo_create(repo_options)
+  end
+end
+
+command :repo_delete do |c|
+  c.syntax = 'aptly-cli repo_delete [options]'
+  c.summary = 'Delete a local repository, requires --name'
+  c.description = 'Delete a local repository, requires --name'
+  c.example 'description', 'aptly-cli repo_delete --name megatronsoftware'
+  c.option '--name NAME', String, 'Local repository name, required'
+  c.option '--force'
+  c.action do |args, options|
+    aptly_command = AptlyCli::AptlyRepo.new
+    repo_options = { :name => options.name.to_s, 
+                     :force => options.force.to_s }
+    puts aptly_command.repo_delete(repo_options)
+  end
+end
+
+command :repo_edit do |c|
+  c.syntax = 'aptly-cli repo_edit [options]'
+  c.summary = 'Edit a local repository metadata, requires --name'
+  c.description = 'Edit a local repository metadata, requires --name'
+  c.example 'description', 'aptly-cli repo_edit --name megatronsoftware --default_distribution trusty'
+  c.option '--name NAME', String, 'Local repository name, required'
+  c.option '--comment COMMENT', String, 'Edit repository comment'
+  c.option '--default_distribution DISTRIBUTION', String, 'Edit DefaultDistribution for repo'
+  c.option '--default_component COMPONENT', String, 'Edit DefaultComponent for repo'
+  c.action do |args, options|
+    aptly_command = AptlyCli::AptlyRepo.new
+    if options.default_distribution
+      repo_options = { :DefaultDistribution => options.default_distribution.to_s }
+    end
+    if options.default_component
+      repo_options = { :DefaultComponent => options.default_component.to_s }
+    end
+    if options.comment
+      repo_options = { :Comment => options.comment.to_s }
+    end
+    puts aptly_command.repo_edit(options.name.to_s, repo_options)
   end
 end
 

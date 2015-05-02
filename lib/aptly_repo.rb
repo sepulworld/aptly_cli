@@ -22,11 +22,10 @@ module AptlyCli
       self.class.post(uri, :query => { 'Name' => name, 'Comment' => comment, 'DefaultDistribution' => default_distribution, 'DefaultComponent' => default_component }.to_json, :headers => {'Content-Type'=>'application/json'}) 
     end
 
-    def repo_delete(name, force = nil)
-      # Delete repo function.  Pass '1' for second variable to force delete repo 
-      uri = "/repos/" + name
+    def repo_delete(repo_options = {:name => nil, :force => nil})
+      uri = "/repos/" + repo_options[:name]
       
-      if force == 1
+      if repo_options[:force] == true 
         uri = uri + "?force=1"
       end
 
