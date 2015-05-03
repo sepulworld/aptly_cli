@@ -15,11 +15,16 @@ module AptlyCli
     def initialize(file_uri=nil, package=nil, local_file_path=nil)
     end
 
+    def file_dir()
+      uri = "/files"
+      self.class.get uri
+    end
+
     def file_get(file_uri)
       if file_uri == "/"
         uri = "/files"
       else
-        uri = "/files" + file_uri
+        uri = "/files/" + file_uri
       end
       
       self.class.get uri 

@@ -56,7 +56,7 @@ module AptlyCli
       self.class.get(uri)
     end
     
-    def repo_package_query(repo_options = {:name => nil, :query => nil, :withdeps => nil, :format => nil})
+    def repo_package_query(repo_options = {:name => nil, :query => nil, :withdeps => false, :format => nil})
       if repo_options[:name] == nil
         raise ArgumentError.new('Must pass a repository name')
       else
@@ -70,7 +70,7 @@ module AptlyCli
         end 
       elsif repo_options[:format]
         uri = uri + "?format=#{repo_options[:format]}"
-      elsif repo_options[:withdeps]
+      elsif repo_options[:withdeps] == true
         uri = uri + "?withDeps=1"
       end
 
