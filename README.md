@@ -2,14 +2,13 @@
 
 [![Build Status](https://travis-ci.org/sepulworld/aptly_cli.svg)](https://travis-ci.org/sepulworld/aptly_cli)
 
-A command line interace to execute Aptly commands againts a remote Aptly API server.  Aptly-cli will allow you to interact with the repo, snapshot, publish, packages, graph and version API endpoints of your Aptly server.
+A command line interace to execute Aptly commands againts remote Aptly API servers.  Aptly-cli will allow you to interact with the file, repo, snapshot, publish, packages, graph and version API endpoints of your Aptly server.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-```ruby
-gem 'aptly_cli'
+```ruby gem 'aptly_cli'
 ```
 
 And then execute:
@@ -22,59 +21,118 @@ Or install it yourself as:
 
 ## Usage
 
-###    aptly-cli file [options]
+###    aptly-cli file_list [options]
+  
+  NAME:
+
+    file_list
+
+  SYNOPSIS:
+
+    aptly-cli file_list [options]
 
   DESCRIPTION:
 
-All uploaded files are stored under rootDir/upload directory (see your Aptly configuration). This directory would be created automatically if it doesn’t exist. Uploaded files are grouped by directories to support concurrent uploads from multiple package sources. Local repos add API can operate on directory (adding all files from directory) or on individual package files. By default, all successfully added package files would be removed.
+List all directories that contain uploaded files
 
   EXAMPLES:
 
-    # List of directories or files
-    aptly-cli file --list /
-    geoipupdate_2.0.0_amd64.deb
-    geoipupdate_2.0.0_i386.deb
-    mongo
-    mongodb-mms-monitoring-agent_latest_i386.deb
-    redis
-    redis-server_2.8.3_amd64-cc1.deb
-    test
-    xsp_2.11.0.0-git-master-04062013_i386.deb     
-
-    # Upload file to a directory
-    aptly-cli file --upload /tmp/redis/test_1.0_amd64.deb --dest_uri /redis
-    test/test_1.0_amd64.deb
-
-    # Delete file or directory
-    aptly-cli file --delete /redis/test_1.0_amd64.deb
-    {}
+    # List all directories for file uploads
+    aptly-cli file_list
+    # List all files in redis directory
+    aptly-cli file_list --directory redis
 
   OPTIONS:
 
-    --list URI_FILE_PATH
-        URI path to list files
+    --directory DIRECTORY
+        Directory to list on server
 
-    --upload LOCAL_FILE_PATH/PACKAGE
-        Path to package to upload
+###    aptly-cli file_upload [options]
+ 
+  NAME:
 
-    --dest_uri URI_FILE_PATH
-        URI path to directory to upload into
+    file_upload
 
-    --delete URI_FILE_PATH/PACKAGE
-        URI path to directory to delete or specific package
+  SYNOPSIS:
 
-###     aptly-cli repo [options]
+    aptly-cli file_upload [options]
 
-functions, fixtures, tests done.  Need to add to bin/aptly-cli and document
+  DESCRIPTION:
 
-###     aptly-cli snapshot [options]
+    File upload
 
-functions, fixtures, tests done.  Need to add to bin/aptly-cli and document
+  EXAMPLES:
 
-###     aptly-cli publish [options]
+    # upload file package.deb to apt server inside directory /aptlyserver_directory/
+    aptly-cli file_upload --upload /local/copy/of/package.deb --directory /aptlyserver_directory/
 
-TODO
+  OPTIONS:
 
+    --directory DIRECTORY
+        Directory to load packages into
+
+    --upload UPLOAD
+        Package(s) to upload
+
+###     aptly-cli file_delete [options]
+
+  NAME:
+
+    file_delete
+
+  SYNOPSIS:
+
+    aptly-cli file_delete [options]
+
+  DESCRIPTION:
+
+    File delete
+
+  EXAMPLES:
+
+    # Delete package redis-server found in redis upload directory
+    aptly-cli file_delete --target /redis/redis-server_2.8.3_i386-cc1.deb
+
+  OPTIONS:
+
+    --target TARGET
+        Path to directory or specific package to delete
+
+###     aptly-cli repo_create [options]
+
+  NAME:
+
+    repo_create
+
+  SYNOPSIS:
+
+    aptly-cli repo_create [options]
+
+  DESCRIPTION:
+
+    Create a new repository, requires --name
+    
+  EXAMPLES:
+
+    # creat repo
+    aptly-cli repo_create --name megatronsoftware
+    # creat repo with distribution set to 'trusty'
+    aptly-cli repo_create --name megatronsoftware --default_distribution trusty
+
+  OPTIONS:
+
+    --name NAME
+        Local repository name, required
+
+    --comment COMMENT
+        Text describing local repository for the user
+
+    --default_distribution DISTRIBUTION
+        Default distribution when publishing from this local repo
+
+
+    --default_component COMPONENT
+        Default component when publishing from this local repo
 ###     aptly-cli package [options]
 
 functions, fixtures, tests done.  Need to add to bin/aptly-cli and document
