@@ -11,8 +11,8 @@ command :file_list do |c|
   c.syntax  = 'aptly-cli file_list [options]'
   c.summary = 'List all directories that contain uploaded files'
   c.description = 'List all directories'
-  c.example 'description', 'aptly-cli file_list'
-  c.option '--directory DIRECTORY', String, 'Directory to list packages in'
+  c.example 'List all directories for file uploads', 'aptly-cli file_list'
+  c.option '--directory DIRECTORY', String, 'Directory to list packages on server'
   c.action do |args, options|
     aptly_command = AptlyCli::AptlyFile.new
     if options.directory
@@ -40,7 +40,7 @@ command :file_delete do |c|
   c.syntax  = 'aptly-cli file_delete [options]'
   c.summary = 'Deletes all files in upload directory and directory itself. Or delete just a file'
   c.description = 'File delete'
-  c.example 'description', 'aptly-cli file_delete --upload /local/copy/of/package.deb --directory /aptlyserver_directory/'
+  c.example 'Delete package redis-server found in redis upload directory', 'aptly-cli file_delete --target /redis/redis-server_2.8.3_i386-cc1.deb'
   c.option '--target TARGET', String, 'Path to directory or specific package to delete'
   c.action do |args, options|
     aptly_command = AptlyCli::AptlyFile.new
@@ -52,7 +52,8 @@ command :repo_create do |c|
   c.syntax = 'aptly-cli repo_create [options]'
   c.summary = 'Create a new repository, requires --name'
   c.description = 'Create a new repository, requires --name'
-  c.example 'description', 'aptly-cli repo_create --name="megatronsoftware'
+  c.example 'create repo', 'aptly-cli repo_create --name meagasoftware'
+  c.example 'creat repo with distribution set to "trusty"', 'aptly-cli repo_create --name megatronsoftware --default_distribution trusty'
   c.option '--name NAME', String, 'Local repository name, required'
   c.option '--comment COMMENT', String, 'Text describing local repository for the user'
   c.option '--default_distribution DISTRIBUTION', String, 'Default distribution when publishing from this local repo'
