@@ -109,8 +109,8 @@ end
 
 command :repo_list do |c|
   c.syntax = 'aptly-cli repo_list [options]'
-  c.summary = 'Show list of currently available local repositories. Each repository is returned as in “show” API'
-  c.description = 'Show list of currently available local repositories. Each repository is returned as in “show” API'
+  c.summary = 'Show list of currently available local repositories'
+  c.description = 'Show list of currently available local repositories'
   c.example 'description', 'aptly-cli repo_list'
   c.action do |args, options|
     aptly_command = AptlyCli::AptlyRepo.new
@@ -139,6 +139,27 @@ command :repo_package_query do |c|
       repo_options = { :name => options.name.to_s }
     end
     puts aptly_command.repo_package_query(repo_options)
+
+command :repo_upload do |c|
+  c.syntax = 'aptly-cli repo_upload [options]'
+  c.summary = 'Import packages from files (uploaded using File Upload API) to the local repository. If directory specified, aptly would discover package files automatically.
+  
+  Adding same package to local repository is not an error.
+  
+  By default aptly would try to remove every successfully processed file and directory :dir (if it becomes empty after import).'
+  c.description = 'Import packages from files'
+  c.example 'description', 'aptly-cli repo_upload --name rocksoftware --dir rockpackages --noremove'
+  c.option '--name NAME', String, 'Local repository name, required'
+  c.option '--dir DIR', String, 'Directory where packages are stored via File API'
+  c.option '--file FILE', String, 'Specific file to upload, if not provided the entire directory of files will be uploaded'
+  c.option '--noremove', 'Flag to not remove any files that were uploaded via File API after repo upload'
+  c.option '--forcereplace', 'flag to replace file(s) already in the repo'
+  c.action do |args, options|
+    aptly_command = AptlyCli::AptlyRepo.new
+    puts aptly_command.repo_upload({:name => options.name, :dir => options.dir,
+                                    :file => options.file, :noremove => options.noremove,
+                                    :forcereplace => options.forcereplace })
+
   end
 end
 

@@ -164,11 +164,11 @@ describe "API Upload to Repo" do
   end
  
   it "records the fixture for repo upload file" do
-    repo_api.repo_upload(name = 'rocksoftware22', dir = 'rockpackages')
+    repo_api.repo_upload({:name => 'rocksoftware22', :dir => 'rockpackages'})
   end
  
   it "records the fixture for repo upload file, force and noReplace" do
-    repo_api.repo_upload(name = 'rocksoftware22', dir = 'rockpackages', file = nil, noRemove = 1, forceReplace = 1)
+    repo_api.repo_upload({:name => 'rocksoftware22', :dir => 'rockpackages', :file => nil, :noremove => true, :forcereplace => true})
   end
 
  end

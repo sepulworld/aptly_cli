@@ -88,18 +88,26 @@ module AptlyCli
       self.class.get uri 
     end
 
-    def repo_upload(name, dir, file = nil, noRemove = nil, forceReplace = nil)
+    def repo_upload(repo_options = {:name => nil, :dir => nil, :file => nil, 
+                                    :noremove => false, :forcereplace => false})
+
+      name = repo_options[:name]
+      dir  = repo_options[:dir]
+      file = repo_options[:file]
+      noremove = repo_options[:noremove]
+      forcereplace = repo_options[:forcereplace]
+
       if file == nil 
         uri = "/repos/#{name}/file/#{dir}"
       else
         uri = "/repos/#{name}/file/#{dir}/#{file}"
       end
 
-      if forceReplace == 1
+      if forcereplace == true 
         uri = uri + "?forceReplace=1"
       end
       
-      if noRemove == 1
+      if noremove == true 
         uri = uri + "?noRemove=1"
       end
       
