@@ -139,6 +139,8 @@ command :repo_package_query do |c|
       repo_options = { :name => options.name.to_s }
     end
     puts aptly_command.repo_package_query(repo_options)
+  end
+end
 
 command :repo_upload do |c|
   c.syntax = 'aptly-cli repo_upload [options]'
@@ -159,18 +161,6 @@ command :repo_upload do |c|
     puts aptly_command.repo_upload({:name => options.name, :dir => options.dir,
                                     :file => options.file, :noremove => options.noremove,
                                     :forcereplace => options.forcereplace })
-
-  end
-end
-
-command :snapshot do |c|
-  c.syntax = 'aptly-cli snapshot [options]'
-  c.summary = ''
-  c.description = ''
-  c.example 'description', 'command example'
-  c.option '--some-switch', 'Some switch that does something'
-  c.action do |args, options|
-    # Do something or c.when_called Aptly-cli::Commands::Snapshot
   end
 end
 
@@ -183,28 +173,6 @@ command :repo_show do |c|
   c.action do |args, options|
     aptly_command = AptlyCli::AptlyRepo.new
     puts aptly_command.repo_show(options.name)
-  end
-end
-
-command :publish do |c|
-  c.syntax = 'aptly-cli publish [options]'
-  c.summary = ''
-  c.description = ''
-  c.example 'description', 'command example'
-  c.option '--some-switch', 'Some switch that does something'
-  c.action do |args, options|
-    # Do something or c.when_called Aptly-cli::Commands::Publish
-  end
-end
-
-command :package do |c|
-  c.syntax = 'aptly-cli package [options]'
-  c.summary = ''
-  c.description = ''
-  c.example 'description', 'command example'
-  c.option '--some-switch', 'Some switch that does something'
-  c.action do |args, options|
-    # Do something or c.when_called Aptly-cli::Commands::Package
   end
 end
 
