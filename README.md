@@ -8,8 +8,7 @@ A command line interace to execute Aptly commands againts remote Aptly API serve
 
 Add this line to your application's Gemfile:
 
-```ruby gem 'aptly_cli'
-```
+    $ ruby gem 'aptly_cli'
 
 And then execute:
 
