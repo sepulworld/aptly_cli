@@ -177,6 +177,27 @@ command :repo_show do |c|
   end
 end
 
+command :publish_repo do |c|
+  c.syntax = 'aptly-cli publish_repo [options]'
+  c.summary = 'Publish local repository or snapshot under specified prefix. Storage might be passed in prefix as well, e.g. s3:packages/. To supply empty prefix, just remove last part (POST /api/publish/:prefix/<:repos>or<:snapshots>'
+  c.description = 'Publish local repository or snapshot under specified prefix'
+  c.example 'description', 'aptly-cli publish_repo --sourcekind local --name precise/megatronsoftware trusty/rocksoftware22 --architectures i386 amd64'
+  c.example 'description', 'aptly-cli publish_repo --sourcekind local --name megatronsoftware --architectures i386 amd64 --forceoverwrite true'
+  c.example 'description', 'aptly-cli publish_repo --sourcekind snapshot --name precise/rocksoftware300 --label test_snap'
+  c.example 'description', 'aptly-cli publish_repo --sourcekind snapshot --name precise/rocksoftware300 --origin testorigin'
+  c.option '--name NAME', String, 'Local repository name with optional component, required'
+  c.option '--sourcekind SOURCEKIND', String, 'Local for local repositories and snapshot for snapshots, required'
+  c.option '--label LABEL', String, 'value of Label: field in published repository stanza'
+  c.option '--origin ORIGIN', String, 'value of Origin: field in published repository stanza'
+  c.option '--forceoverwrite FORCEOVERWRITE', String, 'when publishing, overwrite files in pool/ directory without notice'
+  c.option '--architectures ARCHITECTURES', String, 'override list of published architectures'
+  c.option '--signing SIGNING', String, 'Signing options, e.g Skip, Batch, GpgKey, Keyring. See Aptly docs for more info'
+  c.action do |args, options|
+    aptly_command = AptlyCli::AptlyRepo.new
+    puts aptly_command.publish_repo(options.name)
+  end
+end
+
 command :graph do |c|
   c.syntax = 'aptly-cli graph [options]'
   c.summary = 'Download a graph of repository layout.  Current options are "svg" and "png"'

@@ -40,7 +40,7 @@ describe "API Publish Repo" do
   end
 
   it "records the fixture for publishing a snapshot" do
-    publish_api.publish_repo(name = "rocksoftware301", publish_options = { :sourcekind => 'snapshot' })
+    publish_api.publish_repo(name = "rocksoftware301", publish_options = { :sourcekind => 'snapshot', :distribution => 'precise2'})
   end
 
  end
