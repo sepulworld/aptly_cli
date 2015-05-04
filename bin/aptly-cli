@@ -159,9 +159,9 @@ command :repo_upload do |c|
   c.option '--forcereplace', 'flag to replace file(s) already in the repo'
   c.action do |args, options|
     aptly_command = AptlyCli::AptlyRepo.new
-    puts aptly_command.repo_upload({:name => options.name, :dir => options.dir,
-                                    :file => options.file, :noremove => options.noremove,
-                                    :forcereplace => options.forcereplace })
+    puts aptly_command.repo_upload({ :name => options.name, :dir => options.dir,
+                                     :file => options.file, :noremove => options.noremove,
+                                     :forcereplace => options.forcereplace })
   end
 end
 
@@ -187,14 +187,17 @@ command :publish_repo do |c|
   c.example 'description', 'aptly-cli publish_repo --sourcekind snapshot --name precise/rocksoftware300 --origin testorigin'
   c.option '--name NAME', String, 'Local repository name with optional component, required'
   c.option '--sourcekind SOURCEKIND', String, 'Local for local repositories and snapshot for snapshots, required'
+  c.option '--distribution DISTRIBUTION', String, 'Distribution name, if missing aptly would try to guess from sources'
   c.option '--label LABEL', String, 'value of Label: field in published repository stanza'
   c.option '--origin ORIGIN', String, 'value of Origin: field in published repository stanza'
   c.option '--forceoverwrite FORCEOVERWRITE', String, 'when publishing, overwrite files in pool/ directory without notice'
   c.option '--architectures ARCHITECTURES', String, 'override list of published architectures'
   c.option '--signing SIGNING', String, 'Signing options, e.g Skip, Batch, GpgKey, Keyring. See Aptly docs for more info'
   c.action do |args, options|
-    aptly_command = AptlyCli::AptlyRepo.new
-    puts aptly_command.publish_repo(options.name)
+    aptly_command = AptlyCli::AptlyPublish.new
+    puts aptly_command.publish_repo(options.name, { :sourcekind => options.sourcekind, :label => options.label, :distribution => options.distribution,
+                                                    :origin => options.origin, :forceoverwrite => options.forceoverwrite,
+                                                    :architectures => options.architectures, :signing => options.signing })
   end
 end
 
