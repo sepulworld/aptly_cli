@@ -47,7 +47,7 @@ module AptlyCli
     end
 
     def publish_repo(names, publish_options={})
-      uri = "/publish/"
+      uri = "/publish"
       repos_json = self.parse_names(names).to_json
 
       # Need to figure out how to pass repos_json into @options[:body][:Sources] properly.  Research HTTParty needed
@@ -57,14 +57,6 @@ module AptlyCli
 
       if publish_options[:prefix]
         uri = uri + publish_options[:prefix]
-      end
-
-      if publish_options[:sourcekind] == "snapshot"
-        uri = uri + '/snapshots'
-      elsif publish_options[:sourcekind] == "local"
-        uri = uri + '/repos'
-      else
-        raise ArgumentError.new('Must pass a repository name')
       end
 
       # Need to figure out proper merge, test in irb
