@@ -21,41 +21,42 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sun, 03 May 2015 18:11:31 GMT
+      - Tue, 05 May 2015 07:16:45 GMT
       Content-Length:
-      - '780'
+      - '957'
     body:
       encoding: UTF-8
       string: |
-        [{"Architectures":["amd64","i386"],"Distribution":"main","Label":"","Origin":"","Prefix":".","SourceKind":"snapshot","Sources":[{"Component":"main","Name":"rocksoftware300"}],"Storage":""},{"Architectures":["amd64","i386"],"Distribution":"precise","Label":"","Origin":"","Prefix":"rocksoft","SourceKind":"snapshot","Sources":[{"Component":"main","Name":"rocksoftware22_snap"}],"Storage":""},{"Architectures":["amd64","i386"],"Distribution":"precise","Label":"","Origin":"","Prefix":"stable","SourceKind":"local","Sources":[{"Component":"main","Name":"stable-repo"}],"Storage":""},{"Architectures":["amd64","i386"],"Distribution":"precise-testing","Label":"","Origin":"","Prefix":"testing","SourceKind":"local","Sources":[{"Component":"main","Name":"testing-repo"}],"Storage":""}]
+        [{"Architectures":["amd64","i386"],"Distribution":"main","Label":"","Origin":"","Prefix":".","SourceKind":"snapshot","Sources":[{"Component":"main","Name":"rocksoftware300"}],"Storage":""},{"Architectures":["i386"],"Distribution":"precise","Label":"","Origin":"","Prefix":".","SourceKind":"local","Sources":[{"Component":"main","Name":"rocksoftware"}],"Storage":""},{"Architectures":["amd64","i386"],"Distribution":"precise","Label":"","Origin":"","Prefix":"rocksoft","SourceKind":"snapshot","Sources":[{"Component":"main","Name":"rocksoftware22_snap"}],"Storage":""},{"Architectures":["amd64","i386"],"Distribution":"precise","Label":"","Origin":"","Prefix":"stable","SourceKind":"local","Sources":[{"Component":"main","Name":"stable-repo"}],"Storage":""},{"Architectures":["amd64","i386"],"Distribution":"precise-testing","Label":"","Origin":"","Prefix":"testing","SourceKind":"local","Sources":[{"Component":"main","Name":"testing-repo"}],"Storage":""}]
     http_version: 
-  recorded_at: Sun, 03 May 2015 18:11:31 GMT
+  recorded_at: Tue, 05 May 2015 07:16:45 GMT
 - request:
     method: post
     uri: http://127.0.0.1:8082/api/publish//snapshots
     body:
       encoding: UTF-8
-      string: Distribution=precise2
+      string: '{"SourceKind":"snapshot","Sources":[{"Name":"rocksoftware300","Component":"precise3"}]}'
     headers:
       Content-Type:
       - application/json
   response:
     status:
-      code: 400
-      message: Bad Request
+      code: 307
+      message: Temporary Redirect
     headers:
-      Content-Type:
-      - application/json; charset=utf-8
+      Location:
+      - "/api/publish/snapshots"
       Date:
-      - Sun, 03 May 2015 18:11:31 GMT
+      - Tue, 05 May 2015 07:16:46 GMT
       Content-Length:
-      - '94'
+      - '0'
+      Content-Type:
+      - text/plain; charset=utf-8
     body:
       encoding: UTF-8
-      string: |
-        [{"error":"invalid character 'D' looking for beginning of value","meta":"Operation aborted"}]
+      string: ''
     http_version: 
-  recorded_at: Sun, 03 May 2015 18:11:31 GMT
+  recorded_at: Tue, 05 May 2015 07:16:46 GMT
 - request:
     method: delete
     uri: http://127.0.0.1:8082/api/publish/main/precise?force=1
@@ -65,19 +66,45 @@ http_interactions:
     headers: {}
   response:
     status:
-      code: 400
-      message: Bad Request
+      code: 500
+      message: Internal Server Error
     headers:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sun, 03 May 2015 18:11:31 GMT
+      - Tue, 05 May 2015 07:16:46 GMT
       Content-Length:
-      - '3'
+      - '128'
     body:
       encoding: UTF-8
       string: |
-        {}
+        [{"error":"unable to drop: published repo with storage:prefix/distribution main/precise not found","meta":"Operation aborted"}]
     http_version: 
-  recorded_at: Sun, 03 May 2015 18:11:31 GMT
+  recorded_at: Tue, 05 May 2015 07:16:46 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:8082/api/publish
+    body:
+      encoding: UTF-8
+      string: '{"SourceKind":"snapshot","Sources":[{"Name":"rocksoftware300","Component":"precise3"}]}'
+    headers:
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 05 May 2015 07:19:47 GMT
+      Content-Length:
+      - '121'
+    body:
+      encoding: UTF-8
+      string: |
+        [{"error":"unable to publish: unable to guess distribution name, please specify explicitly","meta":"Operation aborted"}]
+    http_version: 
+  recorded_at: Tue, 05 May 2015 07:19:47 GMT
 recorded_with: VCR 2.9.3
