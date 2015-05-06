@@ -36,10 +36,10 @@ module AptlyCli
 
       names.each do |k|
         if k.include? "/"
-          repo_with_component, component = k.split("/")
-          repos_to_publish << {"Name" => "#{repo_with_component}", "Component" => "#{component}"}
+          repo, component = k.split("/")
+          repos_to_publish << {"Name" => component, "Component" => repo }
         else
-          repos_to_publish << {"Name" => "#{k}"}
+          repos_to_publish << {"Name" => k}
         end
       end
       
@@ -48,22 +48,20 @@ module AptlyCli
 
     def publish_repo(names, publish_options={})
       uri = "/publish"
-      repos_json = self.parse_names(names).to_json
-
-      # Need to figure out how to pass repos_json into @options[:body][:Sources] properly.  Research HTTParty needed
-      @options = { :body    => { 'SourceKind' => "#{publish_options[:sourcekind]}",
-                                 'Sources' => ["Name" => "rocksoftware300","Component" => "precise3"]}.to_json,
-                   :headers => {'Content-Type'=>'application/json'}}
-
+      repos = self.parse_names(names)
+      
+      @body = {}
+      @body[:SourceKind] = publish_options[:sourcekind]
+      @body[:Sources] = repos
+      
       if publish_options[:prefix]
         uri = uri + publish_options[:prefix]
       end
 
-      # Need to figure out proper merge, test in irb
-      #if publish_options.has_key?(:distribution)
-      #  @options[:body].merge!({:Distribution => "#{publish_options[:distribution]}"}.to_json)
-      #end
-      
+      if publish_options.has_key?(:distribution)
+        @body[:Distribution] = publish_options[:distribution]
+      end
+
       #if publish_options.has_key?(:label)
       #  @options[:body] = {Label: "#{publish_options[:label]}" }
       #end
@@ -83,8 +81,8 @@ module AptlyCli
       #if publish_options.has_key?(:signing)
       #  @options[:body] = {Signing: "[#{publish_options[:signing]}]" }
       #end
-      
-      self.class.post(uri, @options)
+     
+      self.class.post(uri, :headers => { 'Content-Type'=>'application/json' }, :body => @body_json)
 
     end
 
