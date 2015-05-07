@@ -21,33 +21,37 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 05 May 2015 07:16:45 GMT
+      - Thu, 07 May 2015 06:57:13 GMT
       Content-Length:
-      - '957'
+      - '1783'
     body:
       encoding: UTF-8
       string: |
-        [{"Architectures":["amd64","i386"],"Distribution":"main","Label":"","Origin":"","Prefix":".","SourceKind":"snapshot","Sources":[{"Component":"main","Name":"rocksoftware300"}],"Storage":""},{"Architectures":["i386"],"Distribution":"precise","Label":"","Origin":"","Prefix":".","SourceKind":"local","Sources":[{"Component":"main","Name":"rocksoftware"}],"Storage":""},{"Architectures":["amd64","i386"],"Distribution":"precise","Label":"","Origin":"","Prefix":"rocksoft","SourceKind":"snapshot","Sources":[{"Component":"main","Name":"rocksoftware22_snap"}],"Storage":""},{"Architectures":["amd64","i386"],"Distribution":"precise","Label":"","Origin":"","Prefix":"stable","SourceKind":"local","Sources":[{"Component":"main","Name":"stable-repo"}],"Storage":""},{"Architectures":["amd64","i386"],"Distribution":"precise-testing","Label":"","Origin":"","Prefix":"testing","SourceKind":"local","Sources":[{"Component":"main","Name":"testing-repo"}],"Storage":""}]
+        [{"Architectures":["amd64","i386"],"Distribution":"binary1","Label":"","Origin":"","Prefix":".","SourceKind":"local","Sources":[{"Component":"precise4","Name":"rocksoftware22"},{"Component":"precise5","Name":"rocksoftware"}],"Storage":""},{"Architectures":["amd64","i386"],"Distribution":"main","Label":"","Origin":"","Prefix":".","SourceKind":"snapshot","Sources":[{"Component":"main","Name":"rocksoftware300"}],"Storage":""},{"Architectures":["i386"],"Distribution":"precise","Label":"","Origin":"","Prefix":".","SourceKind":"local","Sources":[{"Component":"main","Name":"rocksoftware"}],"Storage":""},{"Architectures":["amd64","i386"],"Distribution":"radical","Label":"","Origin":"","Prefix":".","SourceKind":"snapshot","Sources":[{"Component":"precise2","Name":"rocksoftware300"}],"Storage":""},{"Architectures":["amd64","i386"],"Distribution":"radical2","Label":"zane","Origin":"","Prefix":".","SourceKind":"snapshot","Sources":[{"Component":"precise2","Name":"rocksoftware300"}],"Storage":""},{"Architectures":["amd64","i386"],"Distribution":"precise","Label":"","Origin":"","Prefix":"rocksoft","SourceKind":"snapshot","Sources":[{"Component":"main","Name":"rocksoftware22_snap"}],"Storage":""},{"Architectures":["amd64","i386"],"Distribution":"precise","Label":"","Origin":"","Prefix":"stable","SourceKind":"local","Sources":[{"Component":"main","Name":"stable-repo"}],"Storage":""},{"Architectures":["amd64","i386"],"Distribution":"precise-testing","Label":"","Origin":"","Prefix":"testing","SourceKind":"local","Sources":[{"Component":"main","Name":"testing-repo"}],"Storage":""},{"Architectures":["amd64","i386"],"Distribution":"precise2","Label":"","Origin":"","Prefix":".","SourceKind":"snapshot","Sources":[{"Component":"main2","Name":"rocksoftware301"}],"Storage":""}]
     http_version: 
-  recorded_at: Tue, 05 May 2015 07:16:45 GMT
+  recorded_at: Thu, 07 May 2015 06:57:13 GMT
 - request:
-    method: post
-    uri: http://127.0.0.1:8082/api/publish//snapshots
+    method: delete
+    uri: http://127.0.0.1:8082/api/publish/rocksoftware/precise?force=1
     body:
-      encoding: UTF-8
-      string: '{"SourceKind":"snapshot","Sources":[{"Name":"rocksoftware300","Component":"precise3"}]}'
+      encoding: US-ASCII
+      string: ''
     headers:
-      Content-Type:
-      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
   response:
     status:
       code: 307
       message: Temporary Redirect
     headers:
       Location:
-      - "/api/publish/snapshots"
+      - "/api/publish/rocksoftware/precise?force=1"
       Date:
-      - Tue, 05 May 2015 07:16:46 GMT
+      - Thu, 07 May 2015 06:57:13 GMT
       Content-Length:
       - '0'
       Content-Type:
@@ -56,55 +60,61 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Tue, 05 May 2015 07:16:46 GMT
-- request:
-    method: delete
-    uri: http://127.0.0.1:8082/api/publish/main/precise?force=1
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers: {}
-  response:
-    status:
-      code: 500
-      message: Internal Server Error
-    headers:
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Tue, 05 May 2015 07:16:46 GMT
-      Content-Length:
-      - '128'
-    body:
-      encoding: UTF-8
-      string: |
-        [{"error":"unable to drop: published repo with storage:prefix/distribution main/precise not found","meta":"Operation aborted"}]
-    http_version: 
-  recorded_at: Tue, 05 May 2015 07:16:46 GMT
+  recorded_at: Thu, 07 May 2015 06:57:13 GMT
 - request:
     method: post
     uri: http://127.0.0.1:8082/api/publish
     body:
       encoding: UTF-8
-      string: '{"SourceKind":"snapshot","Sources":[{"Name":"rocksoftware300","Component":"precise3"}]}'
+      string: '{"SourceKind":"snapshot","Sources":[{"Name":"rocksoftware301","Component":"main2"}],"Distribution":"precise2"}'
     headers:
       Content-Type:
       - application/json
   response:
     status:
-      code: 500
-      message: Internal Server Error
+      code: 400
+      message: Bad Request
     headers:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 05 May 2015 07:19:47 GMT
+      - Thu, 07 May 2015 06:57:13 GMT
       Content-Length:
-      - '121'
+      - '203'
     body:
       encoding: UTF-8
       string: |
-        [{"error":"unable to publish: unable to guess distribution name, please specify explicitly","meta":"Operation aborted"}]
+        [{"error":"prefix/distribution already used by another published repo: ./precise2 [amd64, i386] publishes {main2: [rocksoftware301]: Snapshot from local repo [stable-repo]}","meta":"Operation aborted"}]
     http_version: 
-  recorded_at: Tue, 05 May 2015 07:19:47 GMT
+  recorded_at: Thu, 07 May 2015 06:57:13 GMT
+- request:
+    method: delete
+    uri: http://127.0.0.1:8082/api/publish//precise?force=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 07 May 2015 07:02:28 GMT
+      Content-Length:
+      - '3'
+    body:
+      encoding: UTF-8
+      string: |
+        {}
+    http_version: 
+  recorded_at: Thu, 07 May 2015 07:02:28 GMT
 recorded_with: VCR 2.9.3

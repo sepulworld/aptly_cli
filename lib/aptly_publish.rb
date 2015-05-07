@@ -49,7 +49,7 @@ module AptlyCli
     def publish_repo(names, publish_options={})
       uri = "/publish"
       repos = self.parse_names(names)
-      
+      @available_options = [ :distribution, :label, :origin, :forceoverwrite, :architectures, :signing ]
       @body = {}
       @body[:SourceKind] = publish_options[:sourcekind]
       @body[:Sources] = repos
@@ -58,30 +58,14 @@ module AptlyCli
         uri = uri + publish_options[:prefix]
       end
 
-      if publish_options.has_key?(:distribution)
-        @body[:Distribution] = publish_options[:distribution]
+      @available_options.each do |option|
+        if publish_options.has_key?(option)
+          @body[option.capitalize] = publish_options[option]
+        end
       end
 
-      #if publish_options.has_key?(:label)
-      #  @options[:body] = {Label: "#{publish_options[:label]}" }
-      #end
-      
-      #if publish_options.has_key?(:origin)
-      #  @options[:body] = {Origin: "#{publish_options[:origin]}" }
-      #end
-      
-      #if publish_options.has_key?(:forceoverwrite)
-      #  @options[:body] = {ForceOverwrite: "#{publish_options[:forceoverwrite]}" }
-      #end
-      
-      #if publish_options.has_key?(:architectures)
-      #  @options[:body] = {Architectures: "[#{publish_options[:architectures]}]" }
-      #end
+      @body_json = @body.to_json
 
-      #if publish_options.has_key?(:signing)
-      #  @options[:body] = {Signing: "[#{publish_options[:signing]}]" }
-      #end
-     
       self.class.post(uri, :headers => { 'Content-Type'=>'application/json' }, :body => @body_json)
 
     end
