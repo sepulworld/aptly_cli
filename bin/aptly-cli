@@ -185,6 +185,7 @@ command :publish_repo do |c|
   c.example 'description', 'aptly-cli publish_repo --sourcekind local --name megatronsoftware --architectures i386 amd64 --forceoverwrite true'
   c.example 'description', 'aptly-cli publish_repo --sourcekind snapshot --name precise/rocksoftware300 --label test_snap'
   c.example 'description', 'aptly-cli publish_repo --sourcekind snapshot --name precise/rocksoftware300 --origin testorigin'
+  c.example 'publish repo with signing keyring', 'aptly-cli publish_repo --sourcekind snapshot --name precise/rocksoftware300 --origin testorigin --gpg_keyring /etc/apt/trustdb.gpg'
   c.option '--name NAME', String, 'Local repository name with optional component, required'
   c.option '--sourcekind SOURCEKIND', String, 'Local for local repositories and snapshot for snapshots, required'
   c.option '--distribution DISTRIBUTION', String, 'Distribution name, if missing aptly would try to guess from sources'
@@ -192,12 +193,20 @@ command :publish_repo do |c|
   c.option '--origin ORIGIN', String, 'value of Origin: field in published repository stanza'
   c.option '--forceoverwrite FORCEOVERWRITE', String, 'when publishing, overwrite files in pool/ directory without notice'
   c.option '--architectures ARCHITECTURES', String, 'override list of published architectures'
-  c.option '--signing SIGNING', String, 'Signing options, e.g Skip, Batch, GpgKey, Keyring. See Aptly docs for more info'
+  c.option '--gpg_skip', 'Don’t sign published repository'
+  c.option '--gpg_batch', 'should be set if passing passphrase'
+  c.option '--gpg_key GPGKEY', String, 'gpg key name (local to aptly server/user)'
+  c.option '--gpg_keyring GPGKEYRING', String, 'gpg keyring filename (local to aptly server/user)'
+  c.option '--gpg_secret_keyring GPGSECRET', String, 'gpg secret keyring filename (local to aptly server/user)'
+  c.option '--gpg_passphrase GPGPASS', String, 'gpg key passphrase (if using over http, would be transmitted in clear text!)'
+  c.option '--gpg_passphrase_file GPGPASSFILE', String, 'gpg passphrase file (local to aptly server/user)'
   c.action do |args, options|
     aptly_command = AptlyCli::AptlyPublish.new
     puts aptly_command.publish_repo(options.name, { :sourcekind => options.sourcekind, :label => options.label, :distribution => options.distribution,
                                                     :origin => options.origin, :forceoverwrite => options.forceoverwrite,
-                                                    :architectures => options.architectures, :signing => options.signing })
+                                                    :architectures => options.architectures, :gpg_skip => options.gpg_skip, :gpg_batch => options.gpg_batch,
+                                                    :gpg_key => options.gpg_key, :gpg_keyring => options.gpg_keyring, :gpg_secret_keyring => options.gpg_secret_keyring,
+                                                    :gpg_passphrase => options.gpg_passphrase, :gpg_passphrase_file => options.gpg_passphrase_file })
   end
 end
 
