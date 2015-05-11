@@ -51,8 +51,8 @@ module AptlyCli
       repos = self.parse_names(names)
       gpg_options = {} 
       @available_options     = [ :distribution, :label, :origin, :forceoverwrite, :architectures, ]
-      @available_gpg_options = [ :gpg_skip, :gpg_batch, :gpg_key, :gpg_keyring, :gpg_secret_keyring, 
-                                 :gpg_passphrase, :gpg_passphrase_file ]
+      @available_gpg_options = [ :skip, :batch, :gpgKey, :keyring, :secretKeyring, 
+                                 :passphrase, :passphraseFile ]
       @body = {}
       @body[:SourceKind] = publish_options[:sourcekind]
       @body[:Sources] = repos
@@ -69,14 +69,16 @@ module AptlyCli
 
       @available_gpg_options.each do |option|
         if publish_options.has_key?(option)
-          gpg_options.merge!("#{option.capitalize}" => "#{publish_options[option]}")
+          unless publish_options[option].nil?
+            gpg_options.merge!("#{option.capitalize}" => "#{publish_options[option]}")
+          end
         end
       end
 
       unless gpg_options.empty?
         @body[:Signing] = gpg_options
       end
-
+      puts @body
       @body_json = @body.to_json
 
       self.class.post(uri, :headers => { 'Content-Type'=>'application/json' }, :body => @body_json)

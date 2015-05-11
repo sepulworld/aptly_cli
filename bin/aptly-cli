@@ -204,9 +204,9 @@ command :publish_repo do |c|
     aptly_command = AptlyCli::AptlyPublish.new
     puts aptly_command.publish_repo(options.name, { :sourcekind => options.sourcekind, :label => options.label, :distribution => options.distribution,
                                                     :origin => options.origin, :forceoverwrite => options.forceoverwrite,
-                                                    :architectures => options.architectures, :gpg_skip => options.gpg_skip, :gpg_batch => options.gpg_batch,
-                                                    :gpg_key => options.gpg_key, :gpg_keyring => options.gpg_keyring, :gpg_secret_keyring => options.gpg_secret_keyring,
-                                                    :gpg_passphrase => options.gpg_passphrase, :gpg_passphrase_file => options.gpg_passphrase_file })
+                                                    :architectures => options.architectures, :skip => options.gpg_skip, :batch => options.gpg_batch,
+                                                    :gpgKey => options.gpg_key, :keyring => options.gpg_keyring, :secretKeyring => options.gpg_secret_keyring,
+                                                    :passphrase => options.gpg_passphrase, :passphraseFile => options.gpg_passphrase_file })
   end
 end
 
