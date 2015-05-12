@@ -4,7 +4,7 @@ require 'rubygems'
 require 'commander/import'
 require 'aptly_cli'
 
-program :version, '0.0.2'
+program :version, '0.1.1'
 program :description, 'Aptly repository API client'
 
 command :file_list do |c|
@@ -174,6 +174,31 @@ command :repo_show do |c|
   c.action do |args, options|
     aptly_command = AptlyCli::AptlyRepo.new
     puts aptly_command.repo_show(options.name)
+  end
+end
+
+command :publish_drop do |c|
+  c.syntax = 'aptly-cli publish_drop [options]'
+  c.summary = 'Delete published repository, clean up files in published directory.'
+  c.description = 'Delete published repository' 
+  c.example 'Delete publish repository called ', 'aptly-cli repo_list'
+  c.option '--prefix', String, 'prefix, optional'
+  c.option '--distribution', String, 'distribution'
+  c.option '--force', 'force published repository removal even if component cleanup fails'
+  c.action do |args, options|
+    aptly_command = AptlyCli::AptlyPublish.new
+    puts aptly_command.publish_drop({ :prefix => options.prefix, :distribution => options.distribution, :force => options.force })
+  end
+end
+
+command :publish_list do |c|
+  c.syntax = 'aptly-cli publish_list [options]'
+  c.summary = 'List published repositories.'
+  c.description = 'List published repositories.'
+  c.example 'List published repositories', 'aptly-cli publish_list'
+  c.action do |args, options|
+    aptly_command = AptlyCli::AptlyPublish.new
+    puts aptly_command.publish_list()
   end
 end
 

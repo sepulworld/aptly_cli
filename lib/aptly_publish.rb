@@ -18,10 +18,16 @@ module AptlyCli
     @@available_options_for_repo   = [ :distribution, :label, :origin, :forceoverwrite, :architectures, ]
     @@available_options_for_update = [ :prefix, :distribution, :forceoverwrite, ]
 
-    def publish_drop(prefix, distribution, force=nil)
-      uri = "/publish/#{prefix}/#{distribution}"
+    def publish_drop(publish_options={})
+      uri = "/publish"
+      
+      if publish_options[:prefix]
+        uri = uri + "/#{publish_options[:prefix]}"
+      end
+      
+      uri = uri + "/#{publish_options[:distribution]}"
 
-      if force == 1
+      if publish_options[:force] == true 
         uri = uri + "?force=1"
       end
       
@@ -64,7 +70,7 @@ module AptlyCli
       return gpg_options
     end
     
-    def parse_func_options(available_options_for_func, publish_options, body)
+    def build_body(available_options_for_func, publish_options, body)
       available_options_for_func.each do |option|
         if publish_options.has_key?(option)
           body[option.capitalize] = publish_options[option]
@@ -83,7 +89,7 @@ module AptlyCli
       @body = {}
       @body[:SourceKind] = publish_options[:sourcekind]
       @body[:Sources] = repos
-      parse_func_options(@@available_options_for_repo, publish_options, @body)
+      build_body(@@available_options_for_repo, publish_options, @body)
       
       unless gpg_options.empty?
         @body[:Signing] = gpg_options
@@ -110,7 +116,7 @@ module AptlyCli
         @body[:Snapshots] = snapshots
       end
 
-      parse_func_options(@@available_options_for_update, publish_options, @body)
+      build_body(@@available_options_for_update, publish_options, @body)
       
       if publish_options[:prefix]
         uri = uri + "/#{publish_options[:prefix]}"
