@@ -210,6 +210,31 @@ command :publish_repo do |c|
   end
 end
 
+command :publish_update do |c|
+  c.syntax = 'aptly-cli publish_update [options]'
+  c.summary = 'Update published repository. If local repository has been published, published repository would be updated to match local repository contents. If snapshots have been been published, it is possible to switch each component to new snapshot'
+  c.description = 'Update published repository'
+  c.example 'description', 'aptly-cli publish_update --sourcekind snapshot --name precise/rocksoftware300 --origin testorigin'
+  c.option '--prefix PREFIX', String, 'Publishing prefix, default root'
+  c.option '--distribution DISTRIBUTION', String, 'Distribution name'
+  c.option '--snapshots SNAPSHOTS', String, 'When updating published snapshots, list of objects component/name seperated by space'
+  c.option '--forceoverwrite FORCEOVERWRITE', String, 'When publishing, overwrite files in pool/ directory without notice'
+  c.option '--gpg_skip', 'Don’t sign published repository'
+  c.option '--gpg_batch', 'should be set if passing passphrase'
+  c.option '--gpg_key GPGKEY', String, 'gpg key name (local to aptly server/user)'
+  c.option '--gpg_keyring GPGKEYRING', String, 'gpg keyring filename (local to aptly server/user)'
+  c.option '--gpg_secret_keyring GPGSECRET', String, 'gpg secret keyring filename (local to aptly server/user)'
+  c.option '--gpg_passphrase GPGPASS', String, 'gpg key passphrase (if using over http, would be transmitted in clear text!)'
+  c.option '--gpg_passphrase_file GPGPASSFILE', String, 'gpg passphrase file (local to aptly server/user)'
+  c.action do |args, options|
+    aptly_command = AptlyCli::AptlyPublish.new
+    puts aptly_command.publish_update(options.snapshots, { :prefix => options.prefix, :distribution => options.distribution, :forceoverwrite => options.forceoverwrite,
+                                                    :skip => options.gpg_skip, :batch => options.gpg_batch, :gpgKey => options.gpg_key,
+                                                    :keyring => options.gpg_keyring, :secretKeyring => options.gpg_secret_keyring,
+                                                    :passphrase => options.gpg_passphrase, :passphraseFile => options.gpg_passphrase_file })
+  end
+end
+
 command :graph do |c|
   c.syntax = 'aptly-cli graph [options]'
   c.summary = 'Download a graph of repository layout.  Current options are "svg" and "png"'

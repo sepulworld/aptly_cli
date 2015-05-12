@@ -12,6 +12,12 @@ module AptlyCli
     config = AptlyCli::AptlyLoad.new.configure_with("/etc/aptly-cli.conf")
     base_uri "http://#{config[:server]}:#{config[:port]}/api"
 
+    @@available_gpg_options = [ :skip, :batch, :gpgKey, :keyring, :secretKeyring, 
+                               :passphrase, :passphraseFile ]
+
+    @@available_options_for_repo   = [ :distribution, :label, :origin, :forceoverwrite, :architectures, ]
+    @@available_options_for_update = [ :prefix, :distribution, :forceoverwrite, ]
+
     def publish_drop(prefix, distribution, force=nil)
       uri = "/publish/#{prefix}/#{distribution}"
 
@@ -27,9 +33,8 @@ module AptlyCli
       self.class.get(uri)
     end
     
-    def parse_names(names)
+    def parse_names(names, label_type)
       repos_to_publish = Array.new
-      
       if names.is_a? String
         names = [names] 
       end
@@ -37,37 +42,18 @@ module AptlyCli
       names.each do |k|
         if k.include? "/"
           repo, component = k.split("/")
-          repos_to_publish << {"Name" => component, "Component" => repo }
+          repos_to_publish << {"#{label_type}" => component, "Component" => repo }
         else
-          repos_to_publish << {"Name" => k}
+          repos_to_publish << {"#{label_type}" => k}
         end
       end
       
       return repos_to_publish
     end
-
-    def publish_repo(names, publish_options={})
-      uri = "/publish"
-      repos = self.parse_names(names)
-      gpg_options = {} 
-      @available_options     = [ :distribution, :label, :origin, :forceoverwrite, :architectures, ]
-      @available_gpg_options = [ :skip, :batch, :gpgKey, :keyring, :secretKeyring, 
-                                 :passphrase, :passphraseFile ]
-      @body = {}
-      @body[:SourceKind] = publish_options[:sourcekind]
-      @body[:Sources] = repos
-      
-      if publish_options[:prefix]
-        uri = uri + publish_options[:prefix]
-      end
-
-      @available_options.each do |option|
-        if publish_options.has_key?(option)
-          @body[option.capitalize] = publish_options[option]
-        end
-      end
-
-      @available_gpg_options.each do |option|
+    
+    def parse_gpg_options(available_gpg_options, publish_options)
+      gpg_options = {}
+      available_gpg_options.each do |option|
         if publish_options.has_key?(option)
           unless publish_options[option].nil?
             gpg_options.merge!("#{option.capitalize}" => "#{publish_options[option]}")
@@ -75,15 +61,71 @@ module AptlyCli
         end
       end
 
+      return gpg_options
+    end
+    
+    def parse_func_options(available_options_for_func, publish_options, body)
+      available_options_for_func.each do |option|
+        if publish_options.has_key?(option)
+          body[option.capitalize] = publish_options[option]
+        end
+      end
+
+      return body
+    end
+
+    def publish_repo(names, publish_options={})
+      uri = "/publish"
+      label_type = "Name"
+      repos = self.parse_names(names, label_type)
+      gpg_options = self.parse_gpg_options(@@available_gpg_options, publish_options)
+
+      @body = {}
+      @body[:SourceKind] = publish_options[:sourcekind]
+      @body[:Sources] = repos
+      parse_func_options(@@available_options_for_repo, publish_options, @body)
+      
       unless gpg_options.empty?
         @body[:Signing] = gpg_options
       end
-      puts @body
+      
+      if publish_options[:prefix]
+        uri = uri + publish_options[:prefix]
+      end
+     
       @body_json = @body.to_json
 
       self.class.post(uri, :headers => { 'Content-Type'=>'application/json' }, :body => @body_json)
 
     end
+
+    def publish_update(snapshots=[], publish_options={})
+      uri = "/publish"
+      label_type = "Snapshots"
+      gpg_options = self.parse_gpg_options(@@available_gpg_options, publish_options)
+      @body = {}
+      
+      unless snapshots.nil?
+        snapshots = self.parse_names(snapshots, label_type)
+        @body[:Snapshots] = snapshots
+      end
+
+      parse_func_options(@@available_options_for_update, publish_options, @body)
+      
+      if publish_options[:prefix]
+        uri = uri + "/#{publish_options[:prefix]}"
+      else 
+        uri = uri + "/"
+      end
+      
+      uri = uri + "/#{publish_options[:distribution]}"
+
+      @body_json = @body.to_json
+
+      self.class.put(uri, :headers => { 'Content-Type'=>'application/json' }, :body => @body_json)
+
+    end
+
 
   end
 end
