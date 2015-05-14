@@ -58,7 +58,7 @@ describe "API Drop Repo" do
   end
 
   it "records the fixture for droping a published repository" do
-    publish_api.publish_drop(prefix = "", distribution = "precise", force = 1)
+    publish_api.publish_drop(publish_options = { :prefix => "", :distribution => "radical2", :force => '1' })
   end
  
  end
