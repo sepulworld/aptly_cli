@@ -84,13 +84,25 @@ module AptlyCli
       self.class.get(uri)
     end
 
-    def snapshot_update(name, name_update, description=nil)
+    def snapshot_update(name, new_name, description=nil)
       uri = "/snapshots/#{name}"
 
+      unless new_name.nil?
+        snap_name = name
+      else
+        snap_name = new_name
+      end
+
+      @query = {}
+      @query[:Name] = snap_name 
+
+      unless description.nil?
+        @query[:Description] = description
+      end
+      @query_json = @query.to_json
+
       begin
-        self.class.put(uri, :query => { 'Name' => name_update,
-                                        'Description' => description }.to_json,
-                            :headers => {'Content-Type'=>'application/json'})
+        self.class.put(uri, :query => @query_json, :headers => {'Content-Type'=>'application/json'})
       rescue HTTPary::Error => e
         puts e 
       end

@@ -260,6 +260,32 @@ command :publish_update do |c|
   end
 end
 
+command :snapshot_show do |c|
+  c.syntax = 'aptly-cli snapshot_show [options]'
+  c.summary = 'Get information about snapshot by name'
+  c.description = 'Get information about snapshot by name., require --name'
+  c.example 'Show snapshot information for repo named megatronsoftware', 'aptly-cli snapshot_show --name megatronsoftware'
+  c.option '--name NAME', String, 'Local snapshot name, required'
+  c.action do |args, options|
+    aptly_command = AptlyCli::AptlySnapshot.new
+    puts aptly_command.snapshot_show(options.name)
+  end
+end
+
+command :snapshot_update do |c|
+  c.syntax = 'aptly-cli snapshot_update [options]'
+  c.summary = 'Update snapshot’s description or name'
+  c.description = 'Update snapshot’s description or name, require --name'
+  c.example 'Updating the snapshot megasoftware22 to a new name', 'aptly-cli snapshot_update --name megatronsoftware --new_name meagsoftware12-12-13'
+  c.option '--name NAME', String, 'Local snapshot name, required'
+  c.option '--new_name NEWNAME', String, 'New name for the snapshot'
+  c.option '--description DESCRIPTION', String, 'Update description for snapshot'
+  c.action do |args, options|
+    aptly_command = AptlyCli::AptlySnapshot.new
+    puts aptly_command.snapshot_update(options.name, options.new_name, options.description)
+  end
+end
+
 command :graph do |c|
   c.syntax = 'aptly-cli graph [options]'
   c.summary = 'Download a graph of repository layout.  Current options are "svg" and "png"'
