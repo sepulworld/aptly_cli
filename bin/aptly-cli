@@ -260,6 +260,77 @@ command :publish_update do |c|
   end
 end
 
+command :snapshot_create do |c|
+  c.syntax = 'aptly-cli snapshot_create [options]'
+  c.summary = 'Create snapshot of current local repository :name contents as new snapshot with name :snapname'
+  c.description = 'Create snapshot, require --name'
+  c.example 'Creating new snapshot megasoftware22-snap from megasoftware22 repo', 'aptly-cli snapshot_create --name megasoftware22-snap --repo meagsoftware22'
+  c.option '--name NAME', String, 'Name of new snapshot, required'
+  c.option '--repo REPO', String, 'Name of repo to snapshot'
+  c.option '--description DESCRIPTION', String, 'Set description for snapshot'
+  c.action do |args, options|
+    aptly_command = AptlyCli::AptlySnapshot.new
+    puts aptly_command.snapshot_create(options.name, options.repo, options.description)
+  end
+end
+
+command :snapshot_delete do |c|
+  c.syntax = 'aptly-cli snapshot_delete [options]'
+  c.summary = 'Delete snapshot. Snapshot can’t be deleted if it is published. aptly would refuse to delete snapshot if it has been used as source to create other snapshots, but that could be overridden with force parameter'
+  c.description = 'Delete snapshot, require --name'
+  c.example 'Deleting the snapshot megasoftware22', 'aptly-cli snapshot_delete --name megatronsoftware22'
+  c.example 'Deleting the snapshot megasoftware22 with force option', 'aptly-cli snapshot_delete --name megatronsoftware22 --force'
+  c.option '--name NAME', String, 'Local snapshot name, required'
+  c.option '--force', 'Force'
+  c.action do |args, options|
+    aptly_command = AptlyCli::AptlySnapshot.new
+    puts aptly_command.snapshot_delete(options.name, options.force)
+  end
+end
+
+command :snapshot_diff do |c|
+  c.syntax = 'aptly-cli snapshot_diff [options]'
+  c.summary = 'Calculate difference between two snapshots --name (left) and --withsnapshot (right).'
+  c.description = 'Calculate difference between two snapshots, require --name, require --withsnapshot'
+  c.example 'Show difference between megatronsoftware and rocksoftware snapshots', 'aptly-cli snapshot_diff --name megatronsoftware --withsnapshot rocksoftware'
+  c.option '--name NAME', String, 'Local snapshot name (left)'
+  c.option '--withsnapshot WITHSNAPSHOT', String, 'Snapshot to diff against (right)'
+  c.action do |args, options|
+    aptly_command = AptlyCli::AptlySnapshot.new
+    puts aptly_command.snapshot_diff(options.name, options.withsnapshot)
+  end
+end
+
+command :snapshot_list do |c|
+  c.syntax = 'aptly-cli snapshot_list [options]'
+  c.summary = 'Return list of all snapshots created in the system'
+  c.description = 'Return list of all snapshots created in the system'
+  c.example 'Return list of all snapshots created in the system', 'aptly-cli snapshot_list'
+  c.example 'Return list sorted by time', 'aptly-cli snapshot_list --sort time'
+  c.option '--sort', String, 'Set sort by'
+  c.action do |args, options|
+    aptly_command = AptlyCli::AptlySnapshot.new
+    puts aptly_command.snapshot_list(options.name, options.sort)
+  end
+end
+
+command :snapshot_search do |c|
+  c.syntax = 'aptly-cli snapshot_search [options]'
+  c.summary = 'List all packages in snapshot or perform search on snapshot contents and return result'
+  c.description = 'List all packages in snapshot or perform search'
+  c.example 'List all packages in snapshot megasoftware22-snap', 'aptly-cli snapshot_search --name megasoftware22-snap'
+  c.example 'List all packages in snapshot megasoftware22-snap with format set to details', 'aptly-cli snapshot_search --name megasoftware22-snap --format details'
+  c.example 'Search for package called nginx in snapshot megasoftware22-snap', 'aptly-cli snapshot_search --name megasoftware22-snap --query nginx'
+  c.option '--name NAME', String, 'Name of snapshot to search, required'
+  c.option '--query QUERY', String, 'Specific package to query'
+  c.option '--withdeps', 'Include package dependencies'
+  c.option '--format FORMAT', String, 'Format the respone of the snapshot search results, compact by default.'
+  c.action do |args, options|
+    aptly_command = AptlyCli::AptlySnapshot.new
+    puts aptly_command.snapshot_search(options.name, { :query => options.query, :format => options.format, :withdeps => options.withdeps })
+  end
+end
+
 command :snapshot_show do |c|
   c.syntax = 'aptly-cli snapshot_show [options]'
   c.summary = 'Get information about snapshot by name'
@@ -276,7 +347,7 @@ command :snapshot_update do |c|
   c.syntax = 'aptly-cli snapshot_update [options]'
   c.summary = 'Update snapshot’s description or name'
   c.description = 'Update snapshot’s description or name, require --name'
-  c.example 'Updating the snapshot megasoftware22 to a new name', 'aptly-cli snapshot_update --name megatronsoftware --new_name meagsoftware12-12-13'
+  c.example 'Updating the snapshot megasoftware22 to a new name', 'aptly-cli snapshot_update --name megasoftware22 --new_name meagsoftware12-12-13'
   c.option '--name NAME', String, 'Local snapshot name, required'
   c.option '--new_name NEWNAME', String, 'New name for the snapshot'
   c.option '--description DESCRIPTION', String, 'Update description for snapshot'

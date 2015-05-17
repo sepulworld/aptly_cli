@@ -12,10 +12,10 @@ module AptlyCli
     config = AptlyCli::AptlyLoad.new.configure_with("/etc/aptly-cli.conf")
     base_uri "http://#{config[:server]}:#{config[:port]}/api"
 
-    def snapshot_delete(name, force=0)
+    def snapshot_delete(name, force=nil)
       uri = "/snapshots/#{name}"
 
-      if force == 1
+      if force == true 
         uri = uri + "?force=1"
       end
 
@@ -71,7 +71,7 @@ module AptlyCli
         @options[:query] = {q: "Name (~ #{search_options[:q]})" }
       end
 
-      if search_options[:withDeps] == 1
+      if search_options[:withDeps] == true 
         @options[:query] = {withDeps:  "1" }
       end
 
