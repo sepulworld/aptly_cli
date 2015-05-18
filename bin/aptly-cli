@@ -4,7 +4,7 @@ require 'rubygems'
 require 'commander/import'
 require 'aptly_cli'
 
-program :version, '0.1.4'
+program :version, '0.1.5'
 program :description, 'Aptly repository API client'
 
 command :file_list do |c|

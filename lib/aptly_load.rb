@@ -28,7 +28,7 @@ module AptlyCli
       begin
         config = YAML::load(IO.read(path_to_yaml_file))
       rescue Errno::ENOENT
-        @log.warn("YAML configuration file couldn't be found. Using defaults.") 
+        @log.warn("YAML configuration file couldn't be found at /etc/aptly-cli.conf. Using defaults.") 
         return @config
       rescue Psych::SyntaxError
         @log.warn("YAML configuration file contains invalid syntax. Using defaults.")
