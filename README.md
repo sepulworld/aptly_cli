@@ -18,6 +18,15 @@ And then execute:
 Or install it yourself as:
 
     $ gem install aptly_cli
+    
+
+Create a configuration file with aptly server and port, /etc/aptly-cli.conf:
+
+    ---
+    :server: 127.0.0.1
+    :port: 8082
+
+If a configuration file is not found the defaults in the example configuration file above will be used
 
 ## Usage
 
