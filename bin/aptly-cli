@@ -1,10 +1,11 @@
 #!/usr/bin/env ruby
+# encoding: utf-8
 
 require 'rubygems'
 require 'commander/import'
 require 'aptly_cli'
 
-program :version, '0.1.5'
+program :version, '0.1.6'
 program :description, 'Aptly repository API client'
 
 command :file_list do |c|
