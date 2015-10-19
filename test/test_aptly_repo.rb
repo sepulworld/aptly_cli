@@ -1,7 +1,6 @@
 require 'minitest_helper.rb'
-require "minitest/autorun"
-
-require "aptly_cli"
+require 'minitest/autorun'
+require 'aptly_cli'
 
 describe AptlyCli::AptlyRepo do
  
@@ -147,6 +146,29 @@ describe "API Delete Repo" do
  
   it "records the fixture for repo force delete, with packages" do
     repo_api.repo_delete({:name => 'rocksoftware22', :force => true})
+  end
+
+ end
+
+describe "API Upload to Repo, failure scenario" do
+
+  let(:repo_api_fail) { AptlyCli::AptlyRepo.new }
+  let(:data) { repo_api_fail.repo_upload({:name => 'rocksoftware22', :dir => 'rockpackages', :file => 'test_package_not_here', :noremove => true })}
+
+  before do
+    VCR.insert_cassette 'repo_api_failure', :record => :new_episodes
+  end
+
+  after do
+    VCR.eject_cassette
+  end
+
+  it "records the fixture for repo upload file that doesn't exist in upload folder" do
+    repo_api_fail.repo_upload({:name => 'rocksoftware22', :dir => 'rockpackages', :file => 'test_package_not_here', :noremove => true })
+  end
+
+  def test_repo_upload_fail_response
+    assert_equal "[\"Unable to process /vagrant_data/.aptly/upload/rockpackages/test_package_not_here: stat /vagrant_data/.aptly/upload/rockpackages/test_package_not_here: no such file or directory\"]", data['Report']['Warnings'].to_s
   end
 
  end
