@@ -120,18 +120,18 @@ module AptlyCli
 
       json_response = JSON.parse(response.body)
       
-      unless json_response["failedFiles"].empty?
+      unless json_response["FailedFiles"].empty?
         begin
         rescue StandardError => e
-          puts "Files that failed to upload... #{json_response["failedFiles"]}"
+          puts "Files that failed to upload... #{json_response["FailedFiles"]}"
           puts e
         end
       end
 
-      unless json_response["report"]["warnings"].empty?
+      unless json_response["Report"]["Warnings"].empty?
         begin
         rescue StandardError => e
-          puts "File upload warning message[s]...#{json_response["report"]["warnings"]}"
+          puts "File upload warning message[s]...#{json_response["Report"]["Warnings"]}"
           puts e
         end
       end

@@ -57,6 +57,7 @@ end
 describe "API POST package files" do
 
   let(:api_file) { AptlyCli::AptlyFile.new('/test', 'test_1.0_amd64.deb', 'test/fixtures/test_1.0_amd64.deb') }
+  let(:data_for_not_found) { api_file.file_get('test_package_not_here') }
 
   before do
     VCR.insert_cassette 'api_file', :record => :new_episodes
@@ -82,8 +83,16 @@ describe "API POST package files" do
     api_file.file_get('test').must_be_instance_of Array 
   end
 
+  it "must parse the api response from JSON to Array" do
+    api_file.file_get('test_package_not_here').must_be_instance_of Array
+  end
+
   it "must perform the request and get the data" do
     api_file.file_post(post_options = {:file_uri => '/test', :package => 'test/fixtures/test_1.0_amd64.deb', :local_file => 'test/fixtures/test_1.0_amd64.deb' }).must_equal ["test/test_1.0_amd64.deb"]
+  end
+
+  def test_failed_file_not_found
+    assert_equal ('[{"error"=>"lstat /vagrant_data/.aptly/upload/test_package_not_here: no such file or directory", "meta"=>"Operation aborted"}]'), data_for_not_found.to_s
   end
 
 end
