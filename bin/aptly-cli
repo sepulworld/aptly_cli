@@ -311,7 +311,7 @@ command :snapshot_list do |c|
   c.option '--sort', String, 'Set sort by'
   c.action do |args, options|
     aptly_command = AptlyCli::AptlySnapshot.new
-    puts aptly_command.snapshot_list(options.name, options.sort)
+    puts aptly_command.snapshot_list(options.sort)
   end
 end
 
