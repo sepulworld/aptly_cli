@@ -12,6 +12,10 @@ module AptlyCli
     config = AptlyCli::AptlyLoad.new.configure_with("/etc/aptly-cli.conf")
     base_uri "http://#{config[:server]}:#{config[:port]}/api"
 
+    if config[:debug] == true
+      debug_output $stdout
+    end
+
     @@available_gpg_options = [ :skip, :batch, :gpgKey, :keyring, :secretKeyring, 
                                :passphrase, :passphraseFile ]
 
@@ -123,7 +127,7 @@ module AptlyCli
       else 
         uri = uri + "/"
       end
-      
+
       uri = uri + "/#{publish_options[:distribution]}"
 
       @body_json = @body.to_json
@@ -131,7 +135,5 @@ module AptlyCli
       self.class.put(uri, :headers => { 'Content-Type'=>'application/json' }, :body => @body_json)
 
     end
-
-
   end
 end

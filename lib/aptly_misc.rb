@@ -12,6 +12,10 @@ module AptlyCli
     config = AptlyCli::AptlyLoad.new.configure_with("/etc/aptly-cli.conf")
     base_uri "http://#{config[:server]}:#{config[:port]}/api"
 
+    if config[:debug] == true
+      debug_output $stdout
+    end
+
     def get_graph(extension)
       uri = "/graph.#{extension}"
       self.class.get(uri)

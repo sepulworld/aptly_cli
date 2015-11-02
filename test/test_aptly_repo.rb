@@ -21,7 +21,7 @@ describe "API Create Repo" do
   end
 
   it "records the fixture for repo creation, with name, comment, distribution, and component" do
-    repo_api.repo_create({:name => 'powerhouse', :comment => 'This is a test repo called powerhouse', :DefaultDistribution => 'main', :DefaultComponent => 'updates'})
+    repo_api.repo_create({:name => 'powerhouse_create', :comment => 'This is a test repo called powerhouse', :DefaultDistribution => 'main', :DefaultComponent => 'updates'})
   end
 
  end
@@ -39,7 +39,7 @@ describe "API Show Repo" do
   end
 
   it "records the fixture for showing repo" do
-    repo_api.repo_show(name = 'powerhouse')
+    repo_api.repo_show(name = 'powerhouse_show')
   end
   
   it "records the fixture for showing repo that doesn't exist" do
@@ -101,11 +101,11 @@ describe "API Edit Repo" do
 
 
   it "records the fixture for repo edit comment" do
-    repo_api.repo_edit(name = 'powerhouse', { :Comment => 'This repo holds some solid packages' })
+    repo_api.repo_edit(name = 'powerhouse_edit', { :Comment => 'This repo holds some solid packages' })
   end
  
   it "records the fixture for repo edit DefaultDistribution" do
-    repo_api2.repo_edit(name = 'powerhouse', { :DefaultDistribution => 'binary' })
+    repo_api2.repo_edit(name = 'powerhouse_edit', { :DefaultDistribution => 'binary' })
   end
 
  end
