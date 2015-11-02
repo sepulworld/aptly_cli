@@ -66,14 +66,14 @@ module AptlyCli
       available_gpg_options.each do |option|
         if publish_options.has_key?(option)
           unless publish_options[option].nil?
-            gpg_options.merge!("#{option.capitalize}" => "#{publish_options[option]}")
+            gpg_options.merge!("#{option.capitalize}" => publish_options[option])
           end
         end
       end
 
       return gpg_options
     end
-    
+
     def build_body(available_options_for_func, publish_options, body)
       available_options_for_func.each do |option|
         if publish_options.has_key?(option)
@@ -118,6 +118,10 @@ module AptlyCli
       unless snapshots.nil?
         snapshots = self.parse_names(snapshots, label_type)
         @body[:Snapshots] = snapshots
+      end
+
+      unless gpg_options.empty?
+        @body[:Signing] = gpg_options
       end
 
       build_body(@@available_options_for_update, publish_options, @body)
