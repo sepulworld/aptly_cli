@@ -26,6 +26,7 @@ Create a configuration file with aptly server and port, /etc/aptly-cli.conf (YAM
     ---
     :server: 127.0.0.1
     :port: 8082
+    :debug: false
 
 If a configuration file is not found the defaults in the example configuration file above will be used
 
