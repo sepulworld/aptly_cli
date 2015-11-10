@@ -1,5 +1,7 @@
 # AptlyCli
 
+[![Join the chat at https://gitter.im/sepulworld/aptly_cli](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/sepulworld/aptly_cli?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Build Status](https://travis-ci.org/sepulworld/aptly_cli.svg)](https://travis-ci.org/sepulworld/aptly_cli)
 [![Gem Version](https://badge.fury.io/rb/aptly_cli.svg)](http://badge.fury.io/rb/aptly_cli)
 
