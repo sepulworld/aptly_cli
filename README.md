@@ -30,6 +30,13 @@ Create a configuration file with aptly server and port, /etc/aptly-cli.conf (YAM
     :port: 8082
     :debug: false
 
+If you use Basic Authentication to protect your API, add username and password:
+
+    :username: api-user
+    :password: api-password
+
+Also make sure that your config file isn't world readable (```chmod o-rw /etc/aptly-cli.conf```)
+
 If a configuration file is not found the defaults in the example configuration file above will be used
 
 ## Usage - available aptly-cli commands
