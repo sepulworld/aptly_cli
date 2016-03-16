@@ -12,6 +12,12 @@ module AptlyCli
     config = AptlyCli::AptlyLoad.new.configure_with("/etc/aptly-cli.conf")
     base_uri "http://#{config[:server]}:#{config[:port]}/api"
 
+    if config[:username]
+      if config[:password]
+        basic_auth "#{config[:username]}", "#{config[:password]}"
+      end
+    end
+
     if config[:debug] == true
       debug_output $stdout
     end
