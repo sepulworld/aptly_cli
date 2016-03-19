@@ -32,15 +32,15 @@ module AptlyCli
       uri = "/publish"
       
       if publish_options[:prefix]
-        uri = uri + "/#{publish_options[:prefix]}"
+        uri += "/#{publish_options[:prefix]}"
       else
-        uri = uri + "/:."
+        uri += "/:."
       end
       
-      uri = uri + "/#{publish_options[:distribution]}"
+      uri += "/#{publish_options[:distribution]}"
 
       if publish_options[:force] == true 
-        uri = uri + "?force=1"
+        uri += "?force=1"
       end
       
       self.class.delete(uri)
@@ -108,7 +108,7 @@ module AptlyCli
       end
       
       if publish_options[:prefix]
-        uri = uri + "/#{publish_options[:prefix]}"
+        uri += "/#{publish_options[:prefix]}"
       end
      
       @body_json = @body.to_json
@@ -135,12 +135,12 @@ module AptlyCli
       build_body(@@available_options_for_update, publish_options, @body)
       
       if publish_options[:prefix]
-        uri = uri + "/#{publish_options[:prefix]}"
+        uri += "/#{publish_options[:prefix]}"
       else 
-        uri = uri + "/"
+        uri += "/"
       end
 
-      uri = uri + "/#{publish_options[:distribution]}"
+      uri += "/#{publish_options[:distribution]}"
 
       @body_json = @body.to_json
 

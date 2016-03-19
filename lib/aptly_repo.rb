@@ -36,7 +36,7 @@ module AptlyCli
       uri = "/repos/" + repo_options[:name]
       
       if repo_options[:force] == true 
-        uri = uri + "?force=1"
+        uri += "?force=1"
       end
 
       self.class.delete(uri)
@@ -74,14 +74,14 @@ module AptlyCli
       end
 
       if repo_options[:query]
-        uri = uri + "?q=" + repo_options[:query]
+        uri += "?q=" + repo_options[:query]
         if repo_options[:withdeps] or repo_options[:format]
           puts "When specifiying specific package query, other options are invalid."
         end 
       elsif repo_options[:format]
-        uri = uri + "?format=#{repo_options[:format]}"
+        uri += "?format=#{repo_options[:format]}"
       elsif repo_options[:withdeps] == true
-        uri = uri + "?withDeps=1"
+        uri += "?withDeps=1"
       end
 
       self.class.get uri 
@@ -114,11 +114,11 @@ module AptlyCli
       end
 
       if forcereplace == true 
-        uri = uri + "?forceReplace=1"
+        uri += "?forceReplace=1"
       end
       
       if noremove == true 
-        uri = uri + "?noRemove=1"
+        uri += "?noRemove=1"
       end
       
       response = self.class.post(uri)
