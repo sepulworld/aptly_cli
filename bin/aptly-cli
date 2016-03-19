@@ -183,8 +183,8 @@ command :publish_drop do |c|
   c.summary = 'Delete published repository, clean up files in published directory.'
   c.description = 'Delete published repository' 
   c.example 'Delete publish repository called ', 'aptly-cli repo_list'
-  c.option '--prefix', String, 'prefix, optional'
-  c.option '--distribution', String, 'distribution'
+  c.option '--prefix PREFIX', String, 'prefix, optional'
+  c.option '--distribution DISTRIBUTION', String, 'distribution'
   c.option '--force', 'force published repository removal even if component cleanup fails'
   c.action do |args, options|
     aptly_command = AptlyCli::AptlyPublish.new
@@ -214,6 +214,7 @@ command :publish_repo do |c|
   c.example 'publish repo with signing keyring', 'aptly-cli publish_repo --sourcekind snapshot --name precise/rocksoftware300 --origin testorigin --gpg_keyring /etc/apt/trustdb.gpg'
   c.option '--name NAME', String, 'Local repository name with optional component, required'
   c.option '--sourcekind SOURCEKIND', String, 'Local for local repositories and snapshot for snapshots, required'
+  c.option '--prefix PREFIX', String, 'prefix'
   c.option '--distribution DISTRIBUTION', String, 'Distribution name, if missing aptly would try to guess from sources'
   c.option '--label LABEL', String, 'value of Label: field in published repository stanza'
   c.option '--origin ORIGIN', String, 'value of Origin: field in published repository stanza'
@@ -228,7 +229,8 @@ command :publish_repo do |c|
   c.option '--gpg_passphrase_file GPGPASSFILE', String, 'gpg passphrase file (local to aptly server/user)'
   c.action do |args, options|
     aptly_command = AptlyCli::AptlyPublish.new
-    puts aptly_command.publish_repo(options.name, { :sourcekind => options.sourcekind, :label => options.label, :distribution => options.distribution,
+    puts aptly_command.publish_repo(options.name, { :sourcekind => options.sourcekind, :prefix => options.prefix,
+                                                    :label => options.label, :distribution => options.distribution,
                                                     :origin => options.origin, :forceoverwrite => options.forceoverwrite,
                                                     :architectures => options.architectures, :skip => options.gpg_skip, :batch => options.gpg_batch,
                                                     :gpgKey => options.gpg_key, :keyring => options.gpg_keyring, :secretKeyring => options.gpg_secret_keyring,

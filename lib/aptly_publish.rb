@@ -33,6 +33,8 @@ module AptlyCli
       
       if publish_options[:prefix]
         uri = uri + "/#{publish_options[:prefix]}"
+      else
+        uri = uri + "/:."
       end
       
       uri = uri + "/#{publish_options[:distribution]}"
@@ -106,7 +108,7 @@ module AptlyCli
       end
       
       if publish_options[:prefix]
-        uri = uri + publish_options[:prefix]
+        uri = uri + "/#{publish_options[:prefix]}"
       end
      
       @body_json = @body.to_json
