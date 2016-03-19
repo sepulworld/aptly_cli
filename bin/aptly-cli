@@ -242,7 +242,7 @@ command :publish_update do |c|
   c.syntax = 'aptly-cli publish_update [options]'
   c.summary = 'Update published repository. If local repository has been published, published repository would be updated to match local repository contents. If snapshots have been been published, it is possible to switch each component to new snapshot'
   c.description = 'Update published repository'
-  c.example 'description', 'aptly-cli publish_update --sourcekind snapshot --name precise/rocksoftware300 --origin testorigin'
+  c.example 'description', 'aptly-cli publish_update --forceoverwrite --distribution precise'
   c.option '--prefix PREFIX', String, 'Publishing prefix, default root'
   c.option '--distribution DISTRIBUTION', String, 'Distribution name'
   c.option '--snapshots SNAPSHOTS', String, 'When updating published snapshots, list of objects component/name seperated by space'
