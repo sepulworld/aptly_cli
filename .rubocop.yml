@@ -1,2 +1,5 @@
 SpaceAroundEqualsInParameterDefault:
   Enabled: false
+TrivialAccessors:
+  Enabled: true
+  ExactNameMatch: true
