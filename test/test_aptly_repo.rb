@@ -69,7 +69,7 @@ describe "API Package Query Repo" do
   end
 
   it "records the fixture for repo package search with dependencies" do
-    repo_api.repo_package_query({:name => 'stable-repo', :withDeps => true})
+    repo_api.repo_package_query({:name => 'stable-repo', :with_deps => true})
    end
   
    it "records the fixture for repo package search with format details on" do

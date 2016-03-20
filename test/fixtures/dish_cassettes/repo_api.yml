@@ -20,8 +20,13 @@ http_interactions:
       - '415'
     body:
       encoding: UTF-8
-      string: |
-        ["Pi386 geoipupdate 2.0.0 249f3976bd06cce4","Pi386 mongodb-mms-monitoring-agent 2.4.0.101-1 bf58165444e70af6","Pi386 redis-server 2.8.3 324bb47c72149fae","Pi386 xsp 2.11.0.0-git-master-04062013 fb4f20e019c99800","Pamd64 geoipupdate 2.0.0 c7b4081a761741bb","Pamd64 mongodb-mms-monitoring-agent 2.4.0.101-1 fc25ab7d8b9d2158","Pamd64 redis-server 2.8.3 fde8566b85f0a1","Pamd64 voltdb-php-client 1.2 7f4eed5217e92df0"]
+      string: '["Pi386 geoipupdate 2.0.0 249f3976bd06cce4","Pi386 mongodb-mms-monitoring-agent
+        2.4.0.101-1 bf58165444e70af6","Pi386 redis-server 2.8.3 324bb47c72149fae","Pi386
+        xsp 2.11.0.0-git-master-04062013 fb4f20e019c99800","Pamd64 geoipupdate 2.0.0
+        c7b4081a761741bb","Pamd64 mongodb-mms-monitoring-agent 2.4.0.101-1 fc25ab7d8b9d2158","Pamd64
+        redis-server 2.8.3 fde8566b85f0a1","Pamd64 voltdb-php-client 1.2 7f4eed5217e92df0"]
+
+'
     http_version: 
   recorded_at: Tue, 31 Mar 2015 05:28:32 GMT
 - request:
@@ -44,8 +49,45 @@ http_interactions:
       - chunked
     body:
       encoding: UTF-8
-      string: |
-        [{"Architecture":"i386","Description":" The MMS Monitoring Agent monitors MongoDB performance\n             metrics and sends them to the MongoDB MMS hosted service.\n","Filename":"mongodb-mms-monitoring-agent_latest_i386.deb","FilesHash":"bf58165444e70af6","Homepage":"http://mms.mongodb.com","Key":"Pi386 mongodb-mms-monitoring-agent 2.4.0.101-1 bf58165444e70af6","MD5sum":"5e45518ec52cd8ae0bbe30daf0a69dad","Maintainer":"Cory Mintz \u003ccory.mintz@mongodb.com\u003e","Package":"mongodb-mms-monitoring-agent","Pre-Depends":"logrotate","SHA1":" ace44d6ca505556cd05d4f10cfbdc3512aa37ecb","SHA256":" 9468d54a83f9b715eea9e5bfcb07fac495dccdb3d99c8a3c5e59bf8abe5e015a","ShortKey":"Pi386 mongodb-mms-monitoring-agent 2.4.0.101-1","Size":"2470876","Version":"2.4.0.101-1"},{"Architecture":"i386","Depends":"libc6 (\u003e= 2.7)","Description":" no description given\n","Filename":"redis-server_2.8.3_i386-cc1.deb","FilesHash":"324bb47c72149fae","Homepage":"http://example.com/no-uri-given","Installed-Size":"13146","Key":"Pi386 redis-server 2.8.3 324bb47c72149fae","License":"unknown","MD5sum":"26e97c9f59864acab0ad38f502e7d051","Maintainer":"\u003croot@puppetmaster.georiot.com\u003e","Package":"redis-server","Priority":"extra","SHA1":" 577894765fd4c08bee2695e414d59fac31c7d614","SHA256":" 85ddeae587d3362800d652d249ddedc1db8de20c0063179b91a138747bf58062","Section":"default","ShortKey":"Pi386 redis-server 2.8.3","Size":"4360310","Vendor":"root@puppetmaster.georiot.com","Version":"2.8.3"},{"Architecture":"i386","Description":" no description given\n","Filename":"xsp_2.11.0.0-git-master-04062013_i386.deb","FilesHash":"fb4f20e019c99800","Homepage":"http://example.com/no-uri-given","Installed-Size":"920","Key":"Pi386 xsp 2.11.0.0-git-master-04062013 fb4f20e019c99800","License":"unknown","MD5sum":"7884701226877b41fd1ab77d843013c6","Maintainer":"\u003croot@puppetmaster.georiot.com\u003e","Package":"xsp","Priority":"extra","SHA1":" d332cb2f61bc204e2e3057546023d626b47eb597","SHA256":" d847c7cde23ab5590fa125223ad8bdb3ca9f92a405717ad546433959a1795803","Section":"default","ShortKey":"Pi386 xsp 2.11.0.0-git-master-04062013","Size":"407854","Vendor":"root@puppetmaster.georiot.com","Version":"2.11.0.0-git-master-04062013"},{"Architecture":"amd64","Description":" no description given\n","Filename":"geoipupdate_2.0.0_amd64.deb","FilesHash":"c7b4081a761741bb","Homepage":"http://example.com/no-uri-given","Installed-Size":"92","Key":"Pamd64 geoipupdate 2.0.0 c7b4081a761741bb","License":"unknown","MD5sum":"6d8eacf9ebc273201935c79cd7851dde","Maintainer":"\u003croot@ubuntu.zane.podzone.net\u003e","Package":"geoipupdate","Priority":"extra","SHA1":" d9445055c184d4ef42a4a2b7db52b8fc01cd3ff7","SHA256":" f15259d84acdbee42cfe8cb67743d54e34d351d8102ca9de0b55a3ebae89b9d9","Section":"default","ShortKey":"Pamd64 geoipupdate 2.0.0","Size":"39268","Vendor":"root@ubuntu.zane.podzone.net","Version":"2.0.0"},{"Architecture":"amd64","Description":" The MMS Monitoring Agent monitors MongoDB performance\n             metrics and sends them to the MongoDB MMS hosted service.\n","Filename":"mongodb-mms-monitoring-agent_latest_amd64.deb","FilesHash":"fc25ab7d8b9d2158","Homepage":"http://mms.mongodb.com","Key":"Pamd64 mongodb-mms-monitoring-agent 2.4.0.101-1 fc25ab7d8b9d2158","MD5sum":"03ce337e9a0f13cf1f44673fab382fba","Maintainer":"Cory Mintz \u003ccory.mintz@mongodb.com\u003e","Package":"mongodb-mms-monitoring-agent","Pre-Depends":"logrotate","SHA1":" 802551f1255a8de7188e33fc4ae56c7eef15ce83","SHA256":" c7e177319723a901e69cfb84ab6082b61acf84e138d4af0f9f497936b60af915","ShortKey":"Pamd64 mongodb-mms-monitoring-agent 2.4.0.101-1","Size":"2558260","Version":"2.4.0.101-1"},{"Architecture":"amd64","Depends":"libc6 (\u003e= 2.7)","Description":" no description given\n","Filename":"redis-server_2.8.3_amd64-cc1.deb","FilesHash":"fde8566b85f0a1","Homepage":"http://example.com/no-uri-given","Installed-Size":"14464","Key":"Pamd64 redis-server 2.8.3 fde8566b85f0a1","License":"unknown","MD5sum":"1512b02d8d055b181ecedfa236bf0c90","Maintainer":"\u003croot@utility3-production.wdc.softlayer.georiot.com\u003e","Package":"redis-server","Priority":"extra","SHA1":" 68fc5a042bda735c2b3ccde1fd167deb6d5092aa","SHA256":" 01901e2abe5ad7d0de395b5de8267578c7e055a781ce13b255959d09f991ff3d","Section":"default","ShortKey":"Pamd64 redis-server 2.8.3","Size":"4434640","Vendor":"root@utility3-production.wdc.softlayer.georiot.com","Version":"2.8.3"},{"Architecture":"amd64","Depends":"php5-common","Description":" no description given\n","Filename":"voltdb-php-client_1.2_amd64.deb","FilesHash":"7f4eed5217e92df0","Homepage":"http://voltdb.com/","Installed-Size":"3490","Key":"Pamd64 voltdb-php-client 1.2 7f4eed5217e92df0","License":"unknown","MD5sum":"9f02812ffd20360a62ffc9f6ea18989b","Maintainer":"\u003croot@vagrant-ubuntu-precise-64\u003e","Package":"voltdb-php-client","Priority":"extra","SHA1":" 2679d4bdc171d856d0673cd67e8c3afefdf76241","SHA256":" f4df086f99a12abdbdeeb9f5c1cefd468db89869f8cba6ee5fc54a7183212f0b","Section":"optional","ShortKey":"Pamd64 voltdb-php-client 1.2","Size":"1109500","Version":"1.2"},{"Architecture":"i386","Description":" no description given\n","Filename":"geoipupdate_2.0.0_i386.deb","FilesHash":"249f3976bd06cce4","Homepage":"http://example.com/no-uri-given","Installed-Size":"73","Key":"Pi386 geoipupdate 2.0.0 249f3976bd06cce4","License":"unknown","MD5sum":"3e0d395332472cbdbb9e885ea532c2cf","Maintainer":"\u003croot@puppetmaster.georiot.com\u003e","Package":"geoipupdate","Priority":"extra","SHA1":" 95165202b8183ca9c9abcfc59857ee13fab07387","SHA256":" 5db57febcda21721878ed353c87a57da69de2a0c6a185e2862f166ab84eecb08","Section":"default","ShortKey":"Pi386 geoipupdate 2.0.0","Size":"36876","Vendor":"root@puppetmaster.georiot.com","Version":"2.0.0"}]
+      string: '[{"Architecture":"i386","Description":" The MMS Monitoring Agent monitors
+        MongoDB performance\n             metrics and sends them to the MongoDB MMS
+        hosted service.\n","Filename":"mongodb-mms-monitoring-agent_latest_i386.deb","FilesHash":"bf58165444e70af6","Homepage":"http://mms.mongodb.com","Key":"Pi386
+        mongodb-mms-monitoring-agent 2.4.0.101-1 bf58165444e70af6","MD5sum":"5e45518ec52cd8ae0bbe30daf0a69dad","Maintainer":"Cory
+        Mintz \u003ccory.mintz@mongodb.com\u003e","Package":"mongodb-mms-monitoring-agent","Pre-Depends":"logrotate","SHA1":"
+        ace44d6ca505556cd05d4f10cfbdc3512aa37ecb","SHA256":" 9468d54a83f9b715eea9e5bfcb07fac495dccdb3d99c8a3c5e59bf8abe5e015a","ShortKey":"Pi386
+        mongodb-mms-monitoring-agent 2.4.0.101-1","Size":"2470876","Version":"2.4.0.101-1"},{"Architecture":"i386","Depends":"libc6
+        (\u003e= 2.7)","Description":" no description given\n","Filename":"redis-server_2.8.3_i386-cc1.deb","FilesHash":"324bb47c72149fae","Homepage":"http://example.com/no-uri-given","Installed-Size":"13146","Key":"Pi386
+        redis-server 2.8.3 324bb47c72149fae","License":"unknown","MD5sum":"26e97c9f59864acab0ad38f502e7d051","Maintainer":"\u003croot@puppetmaster.georiot.com\u003e","Package":"redis-server","Priority":"extra","SHA1":"
+        577894765fd4c08bee2695e414d59fac31c7d614","SHA256":" 85ddeae587d3362800d652d249ddedc1db8de20c0063179b91a138747bf58062","Section":"default","ShortKey":"Pi386
+        redis-server 2.8.3","Size":"4360310","Vendor":"root@puppetmaster.georiot.com","Version":"2.8.3"},{"Architecture":"i386","Description":"
+        no description given\n","Filename":"xsp_2.11.0.0-git-master-04062013_i386.deb","FilesHash":"fb4f20e019c99800","Homepage":"http://example.com/no-uri-given","Installed-Size":"920","Key":"Pi386
+        xsp 2.11.0.0-git-master-04062013 fb4f20e019c99800","License":"unknown","MD5sum":"7884701226877b41fd1ab77d843013c6","Maintainer":"\u003croot@puppetmaster.georiot.com\u003e","Package":"xsp","Priority":"extra","SHA1":"
+        d332cb2f61bc204e2e3057546023d626b47eb597","SHA256":" d847c7cde23ab5590fa125223ad8bdb3ca9f92a405717ad546433959a1795803","Section":"default","ShortKey":"Pi386
+        xsp 2.11.0.0-git-master-04062013","Size":"407854","Vendor":"root@puppetmaster.georiot.com","Version":"2.11.0.0-git-master-04062013"},{"Architecture":"amd64","Description":"
+        no description given\n","Filename":"geoipupdate_2.0.0_amd64.deb","FilesHash":"c7b4081a761741bb","Homepage":"http://example.com/no-uri-given","Installed-Size":"92","Key":"Pamd64
+        geoipupdate 2.0.0 c7b4081a761741bb","License":"unknown","MD5sum":"6d8eacf9ebc273201935c79cd7851dde","Maintainer":"\u003croot@ubuntu.zane.podzone.net\u003e","Package":"geoipupdate","Priority":"extra","SHA1":"
+        d9445055c184d4ef42a4a2b7db52b8fc01cd3ff7","SHA256":" f15259d84acdbee42cfe8cb67743d54e34d351d8102ca9de0b55a3ebae89b9d9","Section":"default","ShortKey":"Pamd64
+        geoipupdate 2.0.0","Size":"39268","Vendor":"root@ubuntu.zane.podzone.net","Version":"2.0.0"},{"Architecture":"amd64","Description":"
+        The MMS Monitoring Agent monitors MongoDB performance\n             metrics
+        and sends them to the MongoDB MMS hosted service.\n","Filename":"mongodb-mms-monitoring-agent_latest_amd64.deb","FilesHash":"fc25ab7d8b9d2158","Homepage":"http://mms.mongodb.com","Key":"Pamd64
+        mongodb-mms-monitoring-agent 2.4.0.101-1 fc25ab7d8b9d2158","MD5sum":"03ce337e9a0f13cf1f44673fab382fba","Maintainer":"Cory
+        Mintz \u003ccory.mintz@mongodb.com\u003e","Package":"mongodb-mms-monitoring-agent","Pre-Depends":"logrotate","SHA1":"
+        802551f1255a8de7188e33fc4ae56c7eef15ce83","SHA256":" c7e177319723a901e69cfb84ab6082b61acf84e138d4af0f9f497936b60af915","ShortKey":"Pamd64
+        mongodb-mms-monitoring-agent 2.4.0.101-1","Size":"2558260","Version":"2.4.0.101-1"},{"Architecture":"amd64","Depends":"libc6
+        (\u003e= 2.7)","Description":" no description given\n","Filename":"redis-server_2.8.3_amd64-cc1.deb","FilesHash":"fde8566b85f0a1","Homepage":"http://example.com/no-uri-given","Installed-Size":"14464","Key":"Pamd64
+        redis-server 2.8.3 fde8566b85f0a1","License":"unknown","MD5sum":"1512b02d8d055b181ecedfa236bf0c90","Maintainer":"\u003croot@utility3-production.wdc.softlayer.georiot.com\u003e","Package":"redis-server","Priority":"extra","SHA1":"
+        68fc5a042bda735c2b3ccde1fd167deb6d5092aa","SHA256":" 01901e2abe5ad7d0de395b5de8267578c7e055a781ce13b255959d09f991ff3d","Section":"default","ShortKey":"Pamd64
+        redis-server 2.8.3","Size":"4434640","Vendor":"root@utility3-production.wdc.softlayer.georiot.com","Version":"2.8.3"},{"Architecture":"amd64","Depends":"php5-common","Description":"
+        no description given\n","Filename":"voltdb-php-client_1.2_amd64.deb","FilesHash":"7f4eed5217e92df0","Homepage":"http://voltdb.com/","Installed-Size":"3490","Key":"Pamd64
+        voltdb-php-client 1.2 7f4eed5217e92df0","License":"unknown","MD5sum":"9f02812ffd20360a62ffc9f6ea18989b","Maintainer":"\u003croot@vagrant-ubuntu-precise-64\u003e","Package":"voltdb-php-client","Priority":"extra","SHA1":"
+        2679d4bdc171d856d0673cd67e8c3afefdf76241","SHA256":" f4df086f99a12abdbdeeb9f5c1cefd468db89869f8cba6ee5fc54a7183212f0b","Section":"optional","ShortKey":"Pamd64
+        voltdb-php-client 1.2","Size":"1109500","Version":"1.2"},{"Architecture":"i386","Description":"
+        no description given\n","Filename":"geoipupdate_2.0.0_i386.deb","FilesHash":"249f3976bd06cce4","Homepage":"http://example.com/no-uri-given","Installed-Size":"73","Key":"Pi386
+        geoipupdate 2.0.0 249f3976bd06cce4","License":"unknown","MD5sum":"3e0d395332472cbdbb9e885ea532c2cf","Maintainer":"\u003croot@puppetmaster.georiot.com\u003e","Package":"geoipupdate","Priority":"extra","SHA1":"
+        95165202b8183ca9c9abcfc59857ee13fab07387","SHA256":" 5db57febcda21721878ed353c87a57da69de2a0c6a185e2862f166ab84eecb08","Section":"default","ShortKey":"Pi386
+        geoipupdate 2.0.0","Size":"36876","Vendor":"root@puppetmaster.georiot.com","Version":"2.0.0"}]
+
+'
     http_version: 
   recorded_at: Tue, 31 Mar 2015 05:28:32 GMT
 - request:
@@ -68,8 +110,9 @@ http_interactions:
       - '50'
     body:
       encoding: UTF-8
-      string: |
-        ["Pamd64 voltdb-php-client 1.2 7f4eed5217e92df0"]
+      string: '["Pamd64 voltdb-php-client 1.2 7f4eed5217e92df0"]
+
+'
     http_version: 
   recorded_at: Tue, 31 Mar 2015 05:28:32 GMT
 - request:
@@ -92,8 +135,10 @@ http_interactions:
       - '84'
     body:
       encoding: UTF-8
-      string: |
-        [{"error":"local repo with name nothinghere not found","meta":"Operation aborted"}]
+      string: '[{"error":"local repo with name nothinghere not found","meta":"Operation
+        aborted"}]
+
+'
     http_version: 
   recorded_at: Tue, 31 Mar 2015 05:28:32 GMT
 - request:
@@ -118,8 +163,9 @@ http_interactions:
       - '130'
     body:
       encoding: UTF-8
-      string: |
-        {"Name":"powerhouse","Comment":"This is a test repo called powerhouse","DefaultDistribution":"main","DefaultComponent":"updates"}
+      string: '{"Name":"powerhouse","Comment":"This is a test repo called powerhouse","DefaultDistribution":"main","DefaultComponent":"updates"}
+
+'
     http_version: 
   recorded_at: Tue, 31 Mar 2015 05:28:32 GMT
 - request:
@@ -144,8 +190,9 @@ http_interactions:
       - '132'
     body:
       encoding: UTF-8
-      string: |
-        {"Name":"powerhouse","Comment":"This is a test repo called powerhouse","DefaultDistribution":"binary","DefaultComponent":"updates"}
+      string: '{"Name":"powerhouse","Comment":"This is a test repo called powerhouse","DefaultDistribution":"binary","DefaultComponent":"updates"}
+
+'
     http_version: 
   recorded_at: Tue, 31 Mar 2015 05:29:07 GMT
 - request:
@@ -168,8 +215,9 @@ http_interactions:
       - '132'
     body:
       encoding: UTF-8
-      string: |
-        {"Name":"powerhouse","Comment":"This is a test repo called powerhouse","DefaultDistribution":"binary","DefaultComponent":"updates"}
+      string: '{"Name":"powerhouse","Comment":"This is a test repo called powerhouse","DefaultDistribution":"binary","DefaultComponent":"updates"}
+
+'
     http_version: 
   recorded_at: Tue, 31 Mar 2015 05:29:25 GMT
 - request:
@@ -192,8 +240,10 @@ http_interactions:
       - '309'
     body:
       encoding: UTF-8
-      string: |
-        [{"Name":"testing-repo","Comment":"","DefaultDistribution":"","DefaultComponent":"main"},{"Name":"stable-repo","Comment":"","DefaultDistribution":"","DefaultComponent":"main"},{"Name":"powerhouse","Comment":"This is a test repo called powerhouse","DefaultDistribution":"binary","DefaultComponent":"updates"}]
+      string: '[{"Name":"testing-repo","Comment":"","DefaultDistribution":"","DefaultComponent":"main"},{"Name":"stable-repo","Comment":"","DefaultDistribution":"","DefaultComponent":"main"},{"Name":"powerhouse","Comment":"This
+        is a test repo called powerhouse","DefaultDistribution":"binary","DefaultComponent":"updates"}]
+
+'
     http_version: 
   recorded_at: Tue, 31 Mar 2015 05:54:21 GMT
 - request:
@@ -216,8 +266,7 @@ http_interactions:
       - '3'
     body:
       encoding: UTF-8
-      string: |
-        {}
+      string: "{}\n"
     http_version: 
   recorded_at: Tue, 31 Mar 2015 15:54:16 GMT
 - request:
@@ -246,8 +295,10 @@ http_interactions:
       - '81'
     body:
       encoding: UTF-8
-      string: |
-        [{"error":"unable to drop, local repo is published","meta":"Operation aborted"}]
+      string: '[{"error":"unable to drop, local repo is published","meta":"Operation
+        aborted"}]
+
+'
     http_version: 
   recorded_at: Tue, 31 Mar 2015 16:03:16 GMT
 - request:
@@ -270,8 +321,7 @@ http_interactions:
       - '3'
     body:
       encoding: UTF-8
-      string: |
-        {}
+      string: "{}\n"
     http_version: 
   recorded_at: Tue, 31 Mar 2015 16:12:05 GMT
 - request:
@@ -294,8 +344,11 @@ http_interactions:
       - '260'
     body:
       encoding: UTF-8
-      string: |
-        {"FailedFiles":["/vagrant_data/.aptly/upload/rockpackages/test_1.0_amd64.deb"],"Report":{"Warnings":["Unable to add package to repo geoipupdate_2.0.0_amd64: conflict in package geoipupdate_2.0.0_amd64"],"added":["geoipupdate_2.0.0_amd64 added"],"removed":[]}}
+      string: '{"FailedFiles":["/vagrant_data/.aptly/upload/rockpackages/test_1.0_amd64.deb"],"Report":{"Warnings":["Unable
+        to add package to repo geoipupdate_2.0.0_amd64: conflict in package geoipupdate_2.0.0_amd64"],"added":["geoipupdate_2.0.0_amd64
+        added"],"removed":[]}}
+
+'
     http_version: 
   recorded_at: Wed, 01 Apr 2015 16:22:02 GMT
 - request:
@@ -318,8 +371,10 @@ http_interactions:
       - '99'
     body:
       encoding: UTF-8
-      string: |
-        {"FailedFiles":[],"Report":{"Warnings":[],"added":["geoipupdate_2.0.0_amd64 added"],"removed":[]}}
+      string: '{"FailedFiles":[],"Report":{"Warnings":[],"added":["geoipupdate_2.0.0_amd64
+        added"],"removed":[]}}
+
+'
     http_version: 
   recorded_at: Wed, 01 Apr 2015 16:26:43 GMT
 - request:
@@ -342,8 +397,38 @@ http_interactions:
       - '91'
     body:
       encoding: UTF-8
-      string: |
-        {"Name":"powerhouse_show","Comment":"","DefaultDistribution":"","DefaultComponent":"main"}
+      string: '{"Name":"powerhouse_show","Comment":"","DefaultDistribution":"","DefaultComponent":"main"}
+
+'
     http_version: 
   recorded_at: Mon, 19 Oct 2015 21:52:30 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:8082/api/repos/stable-repo/packages?withDeps=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 20 Mar 2016 20:31:35 GMT
+      Content-Length:
+      - '367'
+    body:
+      encoding: UTF-8
+      string: '["Pi386 xsp 2.11.0.0-git-master-04062013 fb4f20e019c99800","Pamd64
+        geoipupdate 2.0.0 c7b4081a761741bb","Pamd64 mongodb-mms-monitoring-agent 2.4.0.101-1
+        fc25ab7d8b9d2158","Pamd64 redis-server 2.8.3 fde8566b85f0a1","Pi386 geoipupdate
+        2.0.0 249f3976bd06cce4","Pi386 mongodb-mms-monitoring-agent 2.4.0.101-1 bf58165444e70af6","Pi386
+        redis-server 2.8.3 324bb47c72149fae"]
+
+'
+    http_version: 
+  recorded_at: Sun, 20 Mar 2016 20:31:35 GMT
 recorded_with: VCR 2.9.3
