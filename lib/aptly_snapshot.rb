@@ -26,7 +26,7 @@ module AptlyCli
       uri = "/snapshots/#{name}"
 
       if force == true 
-        uri = uri + "?force=1"
+        uri += "?force=1"
       end
 
       self.class.delete(uri)
@@ -36,7 +36,7 @@ module AptlyCli
       uri = "/snapshots"
 
       if sort 
-        uri = uri + "?sort=#{sort}"
+        uri += "?sort=#{sort}"
       end
 
       self.class.get(uri)
