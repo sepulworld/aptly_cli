@@ -57,6 +57,7 @@ module AptlyCli
           repos_to_publish << { label_type.to_s => k }
         end
       end
+      return repos_to_publish
     end
 
     def parse_gpg_options(available_gpg_options, publish_options)
