@@ -1,154 +1,135 @@
-require "aptly_cli/version" 
-require "aptly_load"
-require "httmultiparty"
-require "json"
+require 'aptly_cli/version'
+require 'aptly_load'
+require 'httmultiparty'
+require 'json'
 
 module AptlyCli
+  # Aplty class to work with Repo API
   class AptlyRepo
-  
     include HTTMultiParty
-    
     # Load aptly-cli.conf and establish base_uri
-    config = AptlyCli::AptlyLoad.new.configure_with("/etc/aptly-cli.conf")
+    config = AptlyCli::AptlyLoad.new.configure_with('/etc/aptly-cli.conf')
     base_uri "http://#{config[:server]}:#{config[:port]}/api"
 
     if config[:username]
       if config[:password]
-        basic_auth "#{config[:username]}", "#{config[:password]}"
+        basic_auth config[:username].to_s, config[:password].to_s
       end
     end
+    debug_output $stdout if config[:debug] == true
 
-    if config[:debug] == true
-      debug_output $stdout
-    end
-
-    def repo_create(repo_options = {:name => nil, :comment => nil, :DefaultDistribution => nil, :DefaultComponent => nil})
-      uri = "/repos"
+    def repo_create(repo_options = { name: nil,
+                                     comment: nil,
+                                     DefaultDistribution: nil,
+                                     DefaultComponent: nil })
+      uri = '/repos'
       name = repo_options[:name]
       comment = repo_options[:comment]
       default_distribution = repo_options[:DefaultDistribution]
       default_component = repo_options[:DefaultComponent]
-      
-      self.class.post(uri, :query => { 'Name' => name, 'Comment' => comment, 'DefaultDistribution' => default_distribution, 'DefaultComponent' => default_component }.to_json, :headers => {'Content-Type'=>'application/json'}) 
+      self.class.post(uri,
+                      query:
+                      { 'Name' => name, 'Comment' => comment,
+                        'DefaultDistribution' => default_distribution,
+                        'DefaultComponent' => default_component }.to_json,
+                      headers: { 'Content-Type' => 'application/json' })
     end
 
-    def repo_delete(repo_options = {:name => nil, :force => nil})
-      uri = "/repos/" + repo_options[:name]
-      
-      if repo_options[:force] == true 
-        uri += "?force=1"
-      end
-
+    def repo_delete(repo_options = { name: nil, force: nil })
+      uri = '/repos/' + repo_options[:name]
+      uri += '?force=1' if repo_options[:force] == true
       self.class.delete(uri)
     end
 
     def repo_edit(name, repo_options = { k => v })
-      repo_option = String.new
-      repo_value = String.new 
-      
-      if name == nil
-        raise ArgumentError.new('Must pass a repository name')
-      else
-        uri = "/repos/" + name
-      end
-
+      repo_option = ''
+      repo_value = ''
+      uri = '/repos/' + name unless name.nil?
       repo_options.each do |k, v|
         repo_option = k
         repo_value = v
       end
 
-      self.class.put(uri, :query => { repo_option => repo_value }.to_json, :headers => {'Content-Type'=>'application/json'})
+      self.class.put(uri, query: { repo_option => repo_value }.to_json,
+                          headers: { 'Content-Type' => 'application/json' })
     end
 
-    def repo_list()
-      uri = "/repos"
-      
+    def repo_list
+      uri = '/repos'
       self.class.get(uri)
     end
-    
-    def repo_package_query(repo_options = {:name => nil, :query => nil, :withdeps => false, :format => nil})
-      if repo_options[:name] == nil
+
+    def repo_package_query(repo_options = { name: nil, query: nil,
+                                            with_deps: false,
+                                            format: nil })
+      if repo_options[:name].nil?
         raise ArgumentError.new('Must pass a repository name')
       else
-        uri = "/repos/" + repo_options[:name] + "/packages"
+        uri = '/repos/' + repo_options[:name] + '/packages'
       end
-
-      if repo_options[:query]
-        uri += "?q=" + repo_options[:query]
-        if repo_options[:withdeps] or repo_options[:format]
-          puts "When specifiying specific package query, other options are invalid."
-        end 
-      elsif repo_options[:format]
-        uri += "?format=#{repo_options[:format]}"
-      elsif repo_options[:withdeps] == true
-        uri += "?withDeps=1"
-      end
-
-      self.class.get uri 
-
+      uri += if repo_options[:query]
+               "?q=#{repo_options[:query]}"
+             elsif repo_options[:format]
+               "?format=#{repo_options[:format]}"
+             elsif repo_options[:with_deps]
+               '?withDeps=1'
+             else
+               ''
+             end
+      self.class.get uri
     end
 
     def repo_show(name)
-      if name == nil
-        uri = "/repos"
-      else
-        uri = "/repos/" + name 
-      end
-      
-      self.class.get uri 
+      uri = if name.nil?
+              '/repos'
+            else
+              '/repos/' + name
+            end
+      self.class.get uri
     end
 
-    def repo_upload(repo_options = {:name => nil, :dir => nil, :file => nil, 
-                                    :noremove => false, :forcereplace => false})
+    def repo_upload(repo_options = { name: nil, dir: nil, file: nil,
+                                     noremove: false, forcereplace: false })
 
       name = repo_options[:name]
       dir  = repo_options[:dir]
       file = repo_options[:file]
       noremove = repo_options[:noremove]
       forcereplace = repo_options[:forcereplace]
+      uri = if file.nil?
+              "/repos/#{name}/file/#{dir}"
+            else
+              "/repos/#{name}/file/#{dir}/#{file}"
+            end
 
-      if file == nil 
-        uri = "/repos/#{name}/file/#{dir}"
-      else
-        uri = "/repos/#{name}/file/#{dir}/#{file}"
-      end
-
-      if forcereplace == true 
-        uri += "?forceReplace=1"
-      end
-      
-      if noremove == true 
-        uri += "?noRemove=1"
-      end
-      
+      uri += '?forceReplace=1' if forcereplace == true
+      uri += '?noRemove=1' if noremove == true
       response = self.class.post(uri)
-      
+
       case response.code
-        when 404
-          puts 'repository with such name does not exist'
+      when 404
+        puts 'repository with such name does not exist'
       end
 
       json_response = JSON.parse(response.body)
-      
-      unless json_response["FailedFiles"].empty?
+
+      unless json_response['FailedFiles'].empty?
         begin
         rescue StandardError => e
-          puts "Files that failed to upload... #{json_response["FailedFiles"]}"
+          puts "Files that failed to upload... #{json_response['FailedFiles']}"
           puts e
         end
       end
 
-      unless json_response["Report"]["Warnings"].empty?
+      unless json_response['Report']['Warnings'].empty?
         begin
         rescue StandardError => e
-          puts "File upload warning message[s]...#{json_response["Report"]["Warnings"]}"
+          puts "File upload warning message[s]...\
+               #{json_response['Report']['Warnings']}"
           puts e
         end
       end
-      
       return response
-
-    end 
-
+    end
   end
 end

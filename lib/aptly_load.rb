@@ -5,6 +5,10 @@ require 'logger'
 module AptlyCli
   # Load aptly-cli configuration
   class AptlyLoad
+    def config
+      @config
+    end
+
     def initialize
       @log = Logger.new(STDOUT)
       @log.level = Logger::WARN
@@ -30,8 +34,8 @@ module AptlyCli
       begin
         config = YAML.load(IO.read(path_to_yaml_file))
       rescue Errno::ENOENT
-        @log.warn('YAML configuration file couldn\'t be found at
-          /etc/aptly-cli.conf. Using defaults.')
+        @log.warn(
+          'YAML configuration file couldn\'t be found at /etc/aptly-cli.conf. Using defaults.')
         return @config
       rescue Psych::SyntaxError
         @log.warn(
@@ -39,10 +43,6 @@ module AptlyCli
         return @config
       end
       configure(config)
-    end
-
-    def config
-      @config
     end
   end
 end
