@@ -73,7 +73,7 @@ describe AptlyCli::AptlySnapshot do
     end
   end
 
-  describe "API Update Snapshot" do
+  describe 'API Update Snapshot' do
     let(:snapshot_api) { AptlyCli::AptlySnapshot.new }
 #  def test_snapshot_update_name
 #    assert_equal ({"Name" => "rocksoftware24_new_name_baby","CreatedAt" => "2015-04-09T15:33:25.381621145Z","Description" => "Checkout my new name"}).to_s, snapshot_api.snapshot_update(name = 'rocksoftware24', name_update = 'rocksoftware24_new_name_baby', description = 'Checkout my new name').to_s
@@ -89,11 +89,11 @@ describe AptlyCli::AptlySnapshot do
 
   end
 
-  describe "API Show Snapshot" do
+  describe 'API Show Snapshot' do
     let(:snapshot_api) { AptlyCli::AptlySnapshot.new }
   end
 
-  describe "API Search Snapshot" do
+  describe 'API Search Snapshot' do
     let(:snapshot_api) { AptlyCli::AptlySnapshot.new }
 #  def test_snapshot_search_for_all_with_details
 #    assert_includes snapshot_api.snapshot_search(name = "rocksoftware300", search_options = { :format => 'details' }).to_s, "c7e177319723a901e69cfb84ab6082b61acf84e138d4af0f9f497936b60af915".to_s
@@ -109,7 +109,7 @@ describe AptlyCli::AptlySnapshot do
 
   end
 
-  describe "API Diff Snapshot" do
+  describe 'API Diff Snapshot' do
     let(:snapshot_api) { AptlyCli::AptlySnapshot.new }
   end
 end
