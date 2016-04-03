@@ -97,7 +97,7 @@ module AptlyCli
     def snapshot_update(name, new_name, description=nil)
       uri = "/snapshots/#{name}"
 
-      unless new_name.nil?
+      if new_name.nil?
         snap_name = name
       else
         snap_name = new_name
