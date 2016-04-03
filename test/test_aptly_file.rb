@@ -26,31 +26,6 @@ describe "API GET and DELETE files" do
 
   let(:file_get_delete) { AptlyCli::AptlyFile.new }
 
-  before do
-    VCR.insert_cassette 'file_get_delete', :record => :new_episodes
-  end
-
-  after do
-    VCR.eject_cassette
-  end
-
-  it "records the fixture for files GET" do
-    file_get_delete.file_dir()
-  end
-
-  it "records the fixture for directory of packages GET" do
-    file_get_delete.file_get('redis')
-  end
-  
-  it "records the fixture for directory of packages that doesn't exist" do
-    file_get_delete.file_get('nothinghere')
-  end
-  
-  
-  it "records the fixture for deleting an uploaded package" do
-    file_get_delete.file_delete('/redis/redis-server_2.8.3_i386-cc1.deb')
-  end
-
 end
 
 
@@ -59,14 +34,6 @@ describe "API POST package files" do
   let(:api_file) { AptlyCli::AptlyFile.new('/test', 'test_1.0_amd64.deb', 'test/fixtures/test_1.0_amd64.deb') }
   let(:data_for_not_found) { api_file.file_get('test_package_not_here') }
 
-  before do
-    VCR.insert_cassette 'api_file', :record => :new_episodes
-  end
-
-  after do
-    VCR.eject_cassette
-  end
-  
   it "must have a file_post method" do
     api_file.must_respond_to :file_post
   end
@@ -92,7 +59,7 @@ describe "API POST package files" do
   end
 
   def test_failed_file_not_found
-    assert_equal ('[{"error"=>"lstat /vagrant_data/.aptly/upload/test_package_not_here: no such file or directory", "meta"=>"Operation aborted"}]'), data_for_not_found.to_s
+    assert_equal ('[{"error"=>"lstat /aptly/upload/test_package_not_here: no such file or directory", "meta"=>"Operation aborted"}]'), data_for_not_found.to_s
   end
 
 end

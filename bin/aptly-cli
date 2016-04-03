@@ -219,7 +219,7 @@ command :publish_repo do |c|
   c.option '--label LABEL', String, 'value of Label: field in published repository stanza'
   c.option '--origin ORIGIN', String, 'value of Origin: field in published repository stanza'
   c.option '--forceoverwrite', 'when publishing, overwrite files in pool/ directory without notice'
-  c.option '--architectures ARCHITECTURES', String, 'override list of published architectures'
+  c.option '--architectures ARCHITECTURES', Array, 'override list of published architectures'
   c.option '--gpg_skip', 'Don’t sign published repository'
   c.option '--gpg_batch', 'should be set if passing passphrase'
   c.option '--gpg_key GPGKEY', String, 'gpg key name (local to aptly server/user)'
