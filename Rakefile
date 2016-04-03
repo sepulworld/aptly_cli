@@ -24,5 +24,5 @@ task :docker_stop do
 end
 
 task :docker_run do
-  sh %{docker run -d -p 8080:8080 sepulworld/aptly_api /bin/sh -c "aptly api serve"}
+  sh %{docker run -d -p 8082:8080 sepulworld/aptly_api /bin/sh -c "aptly api serve"}
 end
