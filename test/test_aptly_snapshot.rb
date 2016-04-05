@@ -112,6 +112,7 @@ describe AptlyCli::AptlySnapshot do
     let(:snapshot_api) { AptlyCli::AptlySnapshot.new }
 
     def test_snapshot_search_for_all_with_details
+      snapshot_api.snapshot_delete('testrepo_snap_for_search_test', 1)
       snapshot_api.snapshot_create(
         'testrepo_snap_for_search_test',
         'testrepo',
@@ -122,6 +123,11 @@ describe AptlyCli::AptlySnapshot do
     end
 
     def test_snapshot_search_for_specific_package
+      snapshot_api.snapshot_delete('testrepo_snap_for_search_test', 1)
+      snapshot_api.snapshot_create(
+        'testrepo_snap_for_search_test',
+        'testrepo',
+        'testing snap for search')
       assert_includes snapshot_api.snapshot_search(
         'testrepo_snap_for_search_test',
         q: 'zeitgeist').to_s, '["Pall zeitgeist 0.9.0-1'

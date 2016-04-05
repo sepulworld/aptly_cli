@@ -182,7 +182,7 @@ command :publish_drop do |c|
   c.syntax = 'aptly-cli publish_drop [options]'
   c.summary = 'Delete published repository, clean up files in published directory.'
   c.description = 'Delete published repository' 
-  c.example 'Delete publish repository called ', 'aptly-cli repo_list'
+  c.example 'Delete publish repository prefix precisetest', 'aptly-cli publish_drop --distribution precisetest'
   c.option '--prefix PREFIX', String, 'prefix, optional'
   c.option '--distribution DISTRIBUTION', String, 'distribution'
   c.option '--force', 'force published repository removal even if component cleanup fails'
@@ -207,12 +207,12 @@ command :publish_repo do |c|
   c.syntax = 'aptly-cli publish_repo [options]'
   c.summary = 'Publish local repository or snapshot under specified prefix. Storage might be passed in prefix as well, e.g. s3:packages/. To supply empty prefix, just remove last part (POST /api/publish/:prefix/<:repos>or<:snapshots>'
   c.description = 'Publish local repository or snapshot under specified prefix'
-  c.example 'description', 'aptly-cli publish_repo --sourcekind local --name precise/megatronsoftware trusty/rocksoftware22 --architectures i386 amd64'
-  c.example 'description', 'aptly-cli publish_repo --sourcekind local --name megatronsoftware --architectures i386 amd64 --forceoverwrite true'
-  c.example 'description', 'aptly-cli publish_repo --sourcekind snapshot --name precise/rocksoftware300 --label test_snap'
+  c.example 'publish multiple repos as source', 'aptly-cli publish_repo --sourcekind local --name precise/megatronsoftware,trusty/rocksoftware22 --architectures i386 amd64'
+  c.example 'publish one repo, two archs, forceoverwrite', 'aptly-cli publish_repo --sourcekind local --name megatronsoftware --architectures i386 amd64 --forceoverwrite true'
+  c.example 'publish 2 snapshots into one publish point', 'aptly-cli publish_repo --sourcekind snapshot --name precise/rocksoftware300,main/rocksoftware200 --label test_snap'
   c.example 'description', 'aptly-cli publish_repo --sourcekind snapshot --name precise/rocksoftware300 --origin testorigin'
   c.example 'publish repo with signing keyring', 'aptly-cli publish_repo --sourcekind snapshot --name precise/rocksoftware300 --origin testorigin --gpg_keyring /etc/apt/trustdb.gpg'
-  c.option '--name NAME', String, 'Local repository name with optional component, required'
+  c.option '--name NAME', Array, 'Local repository name with optional component, required'
   c.option '--sourcekind SOURCEKIND', String, 'Local for local repositories and snapshot for snapshots, required'
   c.option '--prefix PREFIX', String, 'prefix'
   c.option '--distribution DISTRIBUTION', String, 'Distribution name, if missing aptly would try to guess from sources'
@@ -256,10 +256,11 @@ command :publish_update do |c|
   c.option '--gpg_passphrase_file GPGPASSFILE', String, 'gpg passphrase file (local to aptly server/user)'
   c.action do |args, options|
     aptly_command = AptlyCli::AptlyPublish.new
-    puts aptly_command.publish_update(options.snapshots, { :prefix => options.prefix, :distribution => options.distribution, :forceoverwrite => options.forceoverwrite,
+    puts aptly_command.publish_update({ :prefix => options.prefix, :distribution => options.distribution, :forceoverwrite => options.forceoverwrite,
                                                     :skip => options.gpg_skip, :batch => options.gpg_batch, :gpgKey => options.gpg_key,
                                                     :keyring => options.gpg_keyring, :secretKeyring => options.gpg_secret_keyring,
-                                                    :passphrase => options.gpg_passphrase, :passphraseFile => options.gpg_passphrase_file })
+                                                    :passphrase => options.gpg_passphrase, :passphraseFile => options.gpg_passphrase_file,
+                                                    :snapshots => options.snapshots})
   end
 end
 
