@@ -13,6 +13,9 @@ before_install:
 script:
 - bundle exec rake test
 
+after_script:
+- rake docker_show_logs
+
 rvm:
 - 1.9.3
 - 2.2.0

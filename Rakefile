@@ -30,3 +30,8 @@ desc "Start Aptly Docker container on port 8082"
 task :docker_run do
   sh %{docker run -d -p 8082:8080 sepulworld/aptly_api /bin/sh -c "aptly api serve"}
 end
+
+desc "Show running Aptly process Docker stdout logs"
+task :docker_show_logs do
+  sh %{docker logs $(docker ps --filter ancestor='sepulworld/aptly_api' --format="{{.ID}}")}
+end
