@@ -89,7 +89,7 @@ command :repo_edit do |c|
   c.syntax = 'aptly-cli repo_edit [options]'
   c.summary = 'Edit a local repository metadata, requires --name'
   c.description = 'Edit a local repository metadata, requires --name'
-  c.example 'description', 'aptly-cli repo_edit --name megatronsoftware --default_distribution trusty'
+  c.example 'Change default distribution', 'aptly-cli repo_edit --name megatronsoftware --default_distribution trusty'
   c.option '--name NAME', String, 'Local repository name, required'
   c.option '--comment COMMENT', String, 'Edit repository comment'
   c.option '--default_distribution DISTRIBUTION', String, 'Edit DefaultDistribution for repo'

@@ -35,3 +35,8 @@ desc "Show running Aptly process Docker stdout logs"
 task :docker_show_logs do
   sh %{docker logs $(docker ps --filter ancestor='sepulworld/aptly_api' --format="{{.ID}}")}
 end
+
+desc "Restart Aptly docker container"
+task :docker_restart => [:docker_stop, :docker_run] do
+  puts "Restarting docker Aptly container"
+end

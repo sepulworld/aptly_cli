@@ -90,7 +90,6 @@ module AptlyCli
 
     def repo_upload(repo_options = { name: nil, dir: nil, file: nil,
                                      noremove: false, forcereplace: false })
-
       name = repo_options[:name]
       dir  = repo_options[:dir]
       file = repo_options[:file]
