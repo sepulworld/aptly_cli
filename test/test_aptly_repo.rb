@@ -3,11 +3,11 @@ require 'minitest/autorun'
 require 'aptly_cli'
 
 describe AptlyCli::AptlyRepo do
-  it "must include httparty methods" do
+  it 'must include httparty methods' do
     AptlyCli::AptlyRepo.must_include HTTMultiParty
   end
 
-  describe "API Upload to Repo" do
+  describe 'API Upload to Repo' do
     let(:repo_api) { AptlyCli::AptlyRepo.new }
     let(:file_api) { AptlyCli::AptlyFile.new(
       '/testdir',
@@ -27,7 +27,7 @@ describe AptlyCli::AptlyRepo do
     end
   end
 
-  describe "API Create Repo" do
+  describe 'API Create Repo' do
     let(:repo_api) { AptlyCli::AptlyRepo.new }
 
     def test_repo_creation
@@ -42,7 +42,7 @@ describe AptlyCli::AptlyRepo do
     end
   end
 
-  describe "API Show Repo" do
+  describe 'API Show Repo' do
     let(:repo_api) { AptlyCli::AptlyRepo.new }
 
     def test_repo_show
@@ -58,7 +58,7 @@ describe AptlyCli::AptlyRepo do
     end
   end
 
-  describe "API Package Query Repo" do
+  describe 'API Package Query Repo' do
     let(:repo_api) { AptlyCli::AptlyRepo.new }
     let(:file_api) { AptlyCli::AptlyFile.new(
       '/testdir2',
@@ -85,7 +85,7 @@ describe AptlyCli::AptlyRepo do
     end
   end
   
-  describe "API List Repo" do
+  describe 'API List Repo' do
     let(:repo_api) { AptlyCli::AptlyRepo.new }
 
     def test_list_repo_http_response
@@ -93,7 +93,7 @@ describe AptlyCli::AptlyRepo do
     end
   end
   
-  describe "API Edit Repo" do
+  describe 'API Edit Repo' do
     let(:repo_api) { AptlyCli::AptlyRepo.new }
 
     def test_repo_edit_default_distribution
@@ -113,7 +113,7 @@ describe AptlyCli::AptlyRepo do
     end
   end
 
-  describe "API Delete Repo" do
+  describe 'API Delete Repo' do
     let(:repo_api) { AptlyCli::AptlyRepo.new }
 
     def test_repo_delete
@@ -126,7 +126,7 @@ describe AptlyCli::AptlyRepo do
     end
   end
 
-  describe "API Upload to Repo, failure scenario" do
+  describe 'API Upload to Repo, failure scenario' do
     let(:repo_api_fail) { AptlyCli::AptlyRepo.new }
     let(:data) { repo_api_fail.repo_upload({ name: 'testrepo',
                                            dir: 'rockpackages',
