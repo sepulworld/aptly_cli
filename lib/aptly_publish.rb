@@ -45,7 +45,15 @@ module AptlyCli
       self.class.get(uri)
     end
 
-    def parse_names(names, label_type)
+    def _parse_snapshots(names)
+      snapshots_to_publish = []
+      names.each_pair do |k, v|
+       snapshots_to_publish << { Component: v.to_s, Name: k.to_s } 
+      end
+      return snapshots_to_publish
+    end
+
+    def _parse_names(names, label_type)
       repos_to_publish = []
       names = [names] if names.is_a? String
       names.each do |k|
@@ -82,7 +90,7 @@ module AptlyCli
     def publish_repo(names, publish_options={})
       uri = '/publish'
       label_type = 'Name'
-      repos = parse_names(names, label_type)
+      repos = _parse_names(names, label_type)
       gpg_options = parse_gpg_options(@@available_gpg_options,
                                       publish_options)
       @body = {}
@@ -99,16 +107,13 @@ module AptlyCli
                            body: @body_json)
     end
 
-    def publish_update(snapshots=[], publish_options={})
+    def publish_update(publish_options={})
       uri = '/publish'
-      label_type = 'Snapshots'
       gpg_options = parse_gpg_options(@@available_gpg_options, publish_options)
       @body = {}
-      unless snapshots.nil?
-        snapshots = parse_names(snapshots, label_type)
-        @body[:Snapshots] = snapshots
+      unless publish_options[:snapshots].nil?
+        @body[:Snapshots] = _parse_snapshots(publish_options[:snapshots])
       end
-
       unless gpg_options.empty?
         @body[:Signing] = gpg_options
       end

@@ -1,9 +1,27 @@
+sudo: required
+
 language: ruby
+
+services:
+  - docker
+
+before_install:
+- rake docker_build
+- rake docker_run
+- docker ps -a
+
+script:
+- bundle exec rake test
+
+after_script:
+- rake docker_show_logs
+
 rvm:
 - 1.9.3
 - 2.2.0
 - 2.2.4
 - 2.3.0
+
 deploy:
   provider: rubygems
   api_key:

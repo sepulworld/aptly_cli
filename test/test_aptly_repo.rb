@@ -3,196 +3,143 @@ require 'minitest/autorun'
 require 'aptly_cli'
 
 describe AptlyCli::AptlyRepo do
- 
-  it "must include httparty methods" do
+  it 'must include httparty methods' do
     AptlyCli::AptlyRepo.must_include HTTMultiParty
   end
 
-describe "API Create Repo" do
+  describe 'API Upload to Repo' do
+    let(:repo_api) { AptlyCli::AptlyRepo.new }
+    let(:file_api) { AptlyCli::AptlyFile.new(
+      '/testdir',
+      'test_1.0_amd64.deb',
+      'test/fixtures/test_1.0_amd64.deb')}
 
-  let(:repo_api) { AptlyCli::AptlyRepo.new }
-
-  before do
-    VCR.insert_cassette 'repo_api', :record => :new_episodes
+    def test_repo_upload
+      file_api.file_post(file_uri: '/testdir',
+                         package: 'testdir/fixtures/test_1.0_amd64.deb',
+                         local_file: 'test/fixtures/test_1.0_amd64.deb')
+      assert_includes repo_api.repo_upload(
+        name: 'testrepo',
+        dir: 'testdir/',
+        file: 'test_1.0_amd64.deb').to_s,
+        '{"FailedFiles"=>[], "Report"=>{"Warnings"=>[], "Added"=>'\
+        '["geoipupdate_2.0.0_amd64 added"], "Removed"=>[]}}'
+    end
   end
 
-  after do
-    VCR.eject_cassette
+  describe 'API Create Repo' do
+    let(:repo_api) { AptlyCli::AptlyRepo.new }
+
+    def test_repo_creation
+      repo_api.repo_delete(name: 'testrepocreate',
+                           force: true)
+      assert_includes repo_api.repo_create(name: 'testrepocreate',
+                           comment: 'testing repo creation',
+                           DefaultDistribution: 'precisecreatetest',
+                           DefaultComponent: nil).to_s,
+                           '{"Name"=>"testrepocreate", "Comment"=>"testing repo creation", '\
+                           '"DefaultDistribution"=>"precisecreatetest", "DefaultComponent"=>""}'
+    end
   end
 
-  it "records the fixture for repo creation, with name, comment, distribution, and component" do
-    repo_api.repo_create({:name => 'powerhouse_create', :comment => 'This is a test repo called powerhouse', :DefaultDistribution => 'main', :DefaultComponent => 'updates'})
+  describe 'API Show Repo' do
+    let(:repo_api) { AptlyCli::AptlyRepo.new }
+
+    def test_repo_show
+      repo_api.repo_delete(name: 'testrepotoshow',
+                           force: true)
+      repo_api.repo_create(name: 'testrepotoshow',
+                           comment: 'testing repo show',
+                           DefaultDistribution: 'preciseshowtest',
+                           DefaultComponent: nil)
+      assert_includes repo_api.repo_show('testrepotoshow').to_s,
+        '{"Name"=>"testrepotoshow", "Comment"=>"testing repo show", '\
+        '"DefaultDistribution"=>"preciseshowtest", "DefaultComponent"=>""}'
+    end
   end
 
- end
-
-describe "API Show Repo" do
-
-  let(:repo_api) { AptlyCli::AptlyRepo.new }
-
-  before do
-    VCR.insert_cassette 'repo_api', :record => :new_episodes
-  end
-
-  after do
-    VCR.eject_cassette
-  end
-
-  it "records the fixture for showing repo" do
-    repo_api.repo_show(name = 'powerhouse_show')
-  end
-  
-  it "records the fixture for showing repo that doesn't exist" do
-    repo_api.repo_show(name = 'nothinghere')
-  end
-
- end
-
-describe "API Package Query Repo" do
-
-  let(:repo_api) { AptlyCli::AptlyRepo.new }
-
-  before do
-    VCR.insert_cassette 'repo_api', :record => :new_episodes
-  end
-
-  after do
-    VCR.eject_cassette
-  end
-  
-  it "records the fixture for repo package show" do
-    repo_api.repo_package_query({:name => 'stable-repo'})
-   end
-  
-  it "records the fixture for repo package search" do
-    repo_api.repo_package_query({ name: 'stable-repo', query: 'voltdb-php-client'})
-  end
-
-  it "records the fixture for repo package search with dependencies" do
-    repo_api.repo_package_query({ name: 'stable-repo', with_deps: true })
-   end
-  
-   it "records the fixture for repo package search with format details on" do
-     repo_api.repo_package_query({:name => 'stable-repo', :format => 'details'})
-   end
-
- end
-  
-describe "API Edit Repo" do
-
-  let(:repo_api) { AptlyCli::AptlyRepo.new }
-  let(:repo_api2) { AptlyCli::AptlyRepo.new }
-
-  before do
-    VCR.insert_cassette 'repo_api', :record => :new_episodes
-  end
-
-  after do
-    VCR.eject_cassette
-  end
-
-  before do
-    VCR.insert_cassette 'repo_api2', :record => :new_episodes
-  end
-
-  after do
-    VCR.eject_cassette
-  end
-
-
-  it "records the fixture for repo edit comment" do
-    repo_api.repo_edit(name = 'powerhouse_edit', { :Comment => 'This repo holds some solid packages' })
-  end
- 
-  it "records the fixture for repo edit DefaultDistribution" do
-    repo_api2.repo_edit(name = 'powerhouse_edit', { :DefaultDistribution => 'binary' })
-  end
-
- end
-
-describe "API List Repo" do
-
-  let(:repo_api) { AptlyCli::AptlyRepo.new }
-
-  before do
-    VCR.insert_cassette 'repo_api', :record => :new_episodes
-  end
-
-  after do
-    VCR.eject_cassette
+  describe 'API Package Query Repo' do
+    let(:repo_api) { AptlyCli::AptlyRepo.new }
+    let(:file_api) { AptlyCli::AptlyFile.new(
+      '/testdir2',
+      'test_1.0_amd64.deb',
+      'test/fixtures/test_1.0_amd64.deb')}
+    
+    def test_package_query_with_name
+      repo_api.repo_delete(name: 'testrepotoquery',
+                           force: true)
+      file_api.file_post(file_uri: '/testdir2',
+                         package: 'testdir2/fixtures/geoipupdate_2.0.0_amd64.deb',
+                         local_file: 'test/fixtures/test_1.0_amd64.deb')
+      repo_api.repo_create(name: 'testrepotoquery',
+                           comment: 'testing repo query with name',
+                           DefaultDistribution: 'precisequerytest',
+                           DefaultComponent: nil)
+      repo_api.repo_upload(
+        name: 'testrepotoquery',
+        dir: 'testdir2/',
+        file: 'test_1.0_amd64.deb')
+      assert_includes repo_api.repo_package_query(name: 'testrepotoquery',
+                                                  query: 'geoipupdate').to_s,
+                                                  '["Pamd64 geoipupdate 2.0.0'
+    end
   end
   
-  it "records the fixture for repo list" do
-    repo_api.repo_list()
-  end
+  describe 'API List Repo' do
+    let(:repo_api) { AptlyCli::AptlyRepo.new }
 
- end
+    def test_list_repo_http_response
+      assert_equal repo_api.repo_list.code.to_s, '200'
+    end
+  end
   
-describe "API Delete Repo" do
+  describe 'API Edit Repo' do
+    let(:repo_api) { AptlyCli::AptlyRepo.new }
 
-  let(:repo_api) { AptlyCli::AptlyRepo.new }
+    def test_repo_edit_default_distribution
+      repo_api.repo_delete(name: 'testrepotoedit',
+                           force: true)
+      repo_api.repo_create(name: 'testrepoedit',
+                           comment: 'testing repo edit distro name',
+                           DefaultDistribution: 'preciseedittest',
+                           DefaultComponent: nil)
 
-  before do
-    VCR.insert_cassette 'repo_api', :record => :new_episodes
+      assert_includes repo_api.repo_edit(
+        'testrepoedit',
+        DefaultDistribution: 'preciseeditdistnew').to_s,
+        '{"Name"=>"testrepoedit", "Comment"=>"testing repo edit distro name", '\
+        '"DefaultDistribution"=>"preciseeditdistnew", '\
+        '"DefaultComponent"=>""}'
+    end
   end
 
-  after do
-    VCR.eject_cassette
+  describe 'API Delete Repo' do
+    let(:repo_api) { AptlyCli::AptlyRepo.new }
+
+    def test_repo_delete
+      repo_api.repo_create(name: 'testrepodelete',
+                           comment: 'testing repo deletion',
+                           DefaultDistribution: 'precisedeletetest',
+                           DefaultComponent: nil)
+      assert_includes repo_api.repo_delete(name: 'testrepodelete',
+                           force: true).to_s, '{}'
+    end
   end
 
-  it "records the fixture for repo force delete" do
-    repo_api.repo_delete({:name => 'rocksoftware', :force => true})
+  describe 'API Upload to Repo, failure scenario' do
+    let(:repo_api_fail) { AptlyCli::AptlyRepo.new }
+    let(:data) { repo_api_fail.repo_upload({ name: 'testrepo',
+                                           dir: 'rockpackages',
+                                           file: 'test_package_not_here',
+                                           noremove: true })}
+
+    def test_repo_upload_fail_response
+      assert_equal "[\"Unable to process /aptly/upload/"\
+        "rockpackages/test_package_not_here: stat "\
+        "/aptly/upload/rockpackages/test_package_not_here: "\
+        "no such file or directory\"]",
+        data['Report']['Warnings'].to_s
+    end
   end
- 
-  it "records the fixture for repo force delete, with packages" do
-    repo_api.repo_delete({:name => 'rocksoftware22', :force => true})
-  end
-
- end
-
-describe "API Upload to Repo, failure scenario" do
-
-  let(:repo_api_fail) { AptlyCli::AptlyRepo.new }
-  let(:data) { repo_api_fail.repo_upload({:name => 'rocksoftware22', :dir => 'rockpackages', :file => 'test_package_not_here', :noremove => true })}
-
-  before do
-    VCR.insert_cassette 'repo_api_failure', :record => :new_episodes
-  end
-
-  after do
-    VCR.eject_cassette
-  end
-
-  it "records the fixture for repo upload file that doesn't exist in upload folder" do
-    repo_api_fail.repo_upload({:name => 'rocksoftware22', :dir => 'rockpackages', :file => 'test_package_not_here', :noremove => true })
-  end
-
-  def test_repo_upload_fail_response
-    assert_equal "[\"Unable to process /vagrant_data/.aptly/upload/rockpackages/test_package_not_here: stat /vagrant_data/.aptly/upload/rockpackages/test_package_not_here: no such file or directory\"]", data['Report']['Warnings'].to_s
-  end
-
- end
-
-describe "API Upload to Repo" do
-
-  let(:repo_api) { AptlyCli::AptlyRepo.new }
-
-  before do
-    VCR.insert_cassette 'repo_api', :record => :new_episodes
-  end
-
-  after do
-    VCR.eject_cassette
-  end
- 
-  it "records the fixture for repo upload file" do
-    repo_api.repo_upload({:name => 'rocksoftware22', :dir => 'rockpackages'})
-  end
- 
-  it "records the fixture for repo upload file, force and noReplace" do
-    repo_api.repo_upload({:name => 'rocksoftware22', :dir => 'rockpackages', :file => nil, :noremove => true, :forcereplace => true})
-  end
-
- end
 
 end

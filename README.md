@@ -79,6 +79,22 @@ After checking out the repo, run `bin/setup` to install dependencies. Then, run 
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release` to create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
+Ruby Minitest are impleneted using Docker container for functional tests
+
+Rake tasks available:
+
+```bash
+rake build              # Build aptly_cli-<version>.gem into the pkg directory
+rake docker_build       # Docker build image
+rake docker_list_aptly  # List Docker Aptly running containers
+rake docker_run         # Start Aptly Docker container on port 8082
+rake docker_stop        # Stop running Aptly Docker containers
+rake install            # Build and install aptly_cli-<version>.gem into system gems
+rake install:local      # Build and install aptly_cli-<version>.gem into system gems without network access
+rake test               # Run tests
+```
+
+
 ## Contributing
 
 1. Fork it ( https://github.com/[my-github-username]/aptly_cli/fork )
