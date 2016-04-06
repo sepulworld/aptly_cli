@@ -26,8 +26,6 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler"
   spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "webmock", "~> 1.20"
-  spec.add_development_dependency "vcr", "~> 2.9"
   spec.add_development_dependency "minitest"
   
   spec.add_dependency "httmultiparty", "~> 0.3.16"
