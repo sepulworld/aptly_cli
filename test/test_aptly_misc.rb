@@ -8,6 +8,18 @@ describe AptlyCli::AptlyMisc do
     AptlyCli::AptlyMisc.must_include HTTMultiParty
   end
 
+describe 'Test if config contains username' do
+  let(:misc_api) { AptlyCli::AptlyMisc }
+
+  def test_config_password_check
+    refute_includes ({ password: 'test' }), misc_api.instance_variable_get(:@config)
+  end
+
+  def test_config_username_check
+    refute_includes ({ username: 'test' }), misc_api.instance_variable_get(:@config)
+  end
+end
+
 describe 'API Get graph' do
   let(:misc_api) { AptlyCli::AptlyMisc.new }
 

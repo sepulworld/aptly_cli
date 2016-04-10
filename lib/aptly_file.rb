@@ -9,16 +9,16 @@ module AptlyCli
     attr_accessor :file_uri, :package, :local_file_path
 
     # Load aptly-cli.conf and establish base_uri
-    config = AptlyCli::AptlyLoad.new.configure_with('/etc/aptly-cli.conf')
-    base_uri "http://#{config[:server]}:#{config[:port]}/api"
+    @config = AptlyCli::AptlyLoad.new.configure_with('/etc/aptly-cli.conf')
+    base_uri "http://#{@config[:server]}:#{@config[:port]}/api"
 
-    if config[:username]
-      if config[:password]
-        basic_auth config[:username].to_s, config[:password].to_s
+    if @config[:username]
+      if @config[:password]
+        basic_auth @config[:username].to_s, @config[:password].to_s
       end
     end
 
-    debug_output $stdout if config[:debug] == true
+    debug_output $stdout if @config[:debug] == true
 
     def initialize(file_uri=nil, package=nil, local_file_path=nil)
     end
