@@ -12,12 +12,12 @@ describe AptlyCli::AptlyMisc do
     let(:misc_api) { AptlyCli::AptlyMisc }
 
     def test_config_username_check
-      refute_equal misc_api.instance_variable_get(:@config).to_h,
+      refute_equal misc_api.instance_variable_get(:@config),
         :server=>'192.168.64.2', :port=>8082, :debug=>false, :username=>'test'
     end
 
     def test_config_password_check
-      refute_equal misc_api.instance_variable_get(:@config).to_h,
+      refute_equal misc_api.instance_variable_get(:@config),
         :server=>'192.168.64.2', :port=>8082, :debug=>false, :username=>'test', :password=>'test'
     end
   end
