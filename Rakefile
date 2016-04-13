@@ -16,6 +16,16 @@ task :docker_build do
   sh %{docker build -t sepulworld/aptly_api .}
 end
 
+desc "Push Docker image to Docker Hub"
+task :docker_push do
+  sh %{docker push sepulworld/aptly_api}
+end
+
+desc "Pull Docker image to Docker Hub"
+task :docker_pull do
+  sh %{docker pull sepulworld/aptly_api}
+end
+
 desc "List Docker Aptly running containers"
 task :docker_list_aptly do
   sh %{docker ps --filter ancestor='sepulworld/aptly_api' --format="{{.ID}}"}
