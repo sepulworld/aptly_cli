@@ -9,7 +9,7 @@ module AptlyCli
     include HTTMultiParty
     # Load aptly-cli.conf and establish base_uri
     @config = AptlyCli::AptlyLoad.new.configure_with('/etc/aptly-cli.conf')
-    base_uri "http://#{@config[:server]}:#{@config[:port]}/api"
+    base_uri "#{@config[:proto]}://#{@config[:server]}:#{@config[:port]}/api"
 
     if @config[:username]
       if @config[:password]

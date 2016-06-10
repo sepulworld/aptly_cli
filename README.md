@@ -25,6 +25,7 @@ Or install it yourself as:
 Create a configuration file with aptly server and port, /etc/aptly-cli.conf (YAML syntax):
 
     ---
+    :proto: http
     :server: 127.0.0.1
     :port: 8082
     :debug: false
