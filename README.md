@@ -24,16 +24,20 @@ Or install it yourself as:
 
 Create a configuration file with aptly server and port, /etc/aptly-cli.conf (YAML syntax):
 
-    ---
-    :proto: http
-    :server: 127.0.0.1
-    :port: 8082
-    :debug: false
+```yaml
+---
+:proto: http
+:server: 127.0.0.1
+:port: 8082
+:debug: false
+```
 
 If you use Basic Authentication to protect your API, add username and password:
 
-    :username: api-user
-    :password: api-password
+```yaml
+:username: api-user
+:password: api-password
+```
 
 Also make sure that your config file isn't world readable (```chmod o-rw /etc/aptly-cli.conf```)
 
