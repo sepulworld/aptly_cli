@@ -4,7 +4,7 @@
 [![Gem Version](https://badge.fury.io/rb/aptly_cli.svg)](http://badge.fury.io/rb/aptly_cli)
 [![Coverage Status](https://coveralls.io/repos/github/sepulworld/aptly_cli/badge.svg?branch=master)](https://coveralls.io/github/sepulworld/aptly_cli?branch=master)
 
-A command line interace to execute [Aptly](http://aptly.info) commands againts remote Aptly API servers.  Aptly-cli will allow you to interact with the file, repo, snapshot, publish, packages, graph and version API endpoints of your Aptly server.
+A command line interface to execute [Aptly](http://aptly.info) commands againts remote Aptly API servers.  Aptly-cli will allow you to interact with the file, repo, snapshot, publish, packages, graph and version API endpoints of your Aptly server.
 
 
 ## Installation
