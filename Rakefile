@@ -13,7 +13,7 @@ task default: :test
 
 desc "Docker build image"
 task :docker_build do
-  sh %{docker build -t sepulworld/aptly_api .}
+  sh %{docker build -t sepulworld/aptly_api ./test/}
 end
 
 desc "Push Docker image to Docker Hub"
