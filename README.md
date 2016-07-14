@@ -22,7 +22,7 @@ Or install it yourself as:
     $ gem install aptly_cli
     
 
-Create a configuration file with aptly server and port, /etc/aptly-cli.conf (YAML syntax):
+Create a configuration file with aptly server and port, `/etc/aptly-cli.conf` (YAML syntax):
 
 ```yaml
 ---
