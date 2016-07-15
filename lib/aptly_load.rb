@@ -20,14 +20,21 @@ module AptlyCli
         port: 8082
       }
 
-      @valid_config_keys = @config.keys
+      @valid_config_keys = @config.keys + [:username, :password, :debug]
     end
 
     # Configure through hash
     def configure(opts = {})
       opts.each do |k, v|
-        config[k.to_sym] = v if @valid_config_keys.include? k.to_sym
+        if v == '${PROMPT}'
+          @config[k.to_sym] = ask("Enter a value for #{k}:")
+        elsif v == '${PROMPT_PASSWORD}'
+          @config[k.to_sym] = password("Enter a value for #{k}:")
+        elsif @valid_config_keys.include? k.to_sym
+          @config[k.to_sym] = v
+        end
       end
+      @config
     end
 
     # Configure through yaml file

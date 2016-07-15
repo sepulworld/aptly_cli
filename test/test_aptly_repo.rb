@@ -9,10 +9,7 @@ describe AptlyCli::AptlyRepo do
 
   describe 'API Upload to Repo' do
     let(:repo_api) { AptlyCli::AptlyRepo.new }
-    let(:file_api) { AptlyCli::AptlyFile.new(
-      '/testdir',
-      'test_1.0_amd64.deb',
-      'test/fixtures/test_1.0_amd64.deb')}
+    let(:file_api) { AptlyCli::AptlyFile.new }
 
     def test_repo_upload
       file_api.file_post(file_uri: '/testdir',
@@ -60,11 +57,8 @@ describe AptlyCli::AptlyRepo do
 
   describe 'API Package Query Repo' do
     let(:repo_api) { AptlyCli::AptlyRepo.new }
-    let(:file_api) { AptlyCli::AptlyFile.new(
-      '/testdir2',
-      'test_1.0_amd64.deb',
-      'test/fixtures/test_1.0_amd64.deb')}
-    
+    let(:file_api) { AptlyCli::AptlyFile.new }
+
     def test_package_query_with_name
       repo_api.repo_delete(name: 'testrepotoquery',
                            force: true)

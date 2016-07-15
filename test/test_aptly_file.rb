@@ -5,13 +5,10 @@ require 'aptly_cli'
 
 def post_test_file(location)
   file_api_setup = AptlyCli::AptlyFile.new
-    AptlyCli::AptlyFile.new(
-      location.to_s,
-      'test_1.0_amd64.deb',
-      'test/fixtures/test_1.0_amd64.deb')
-    file_api_setup.file_post(file_uri: location.to_s,
-                       package: 'test/fixtures/test_1.0_amd64.deb',
-                       local_file: 'test/fixtures/test_1.0_amd64.deb') 
+  file_api_setup.file_post(
+    file_uri: location.to_s,
+    package: 'test/fixtures/test_1.0_amd64.deb',
+    local_file: 'test/fixtures/test_1.0_amd64.deb')
 end
 
 describe AptlyCli::AptlyFile do
@@ -49,9 +46,7 @@ end
 
 
 describe "API POST package files" do
-  let(:api_file) { AptlyCli::AptlyFile.new('/test',
-                                           'test_1.0_amd64.deb',
-                                           'test/fixtures/test_1.0_amd64.deb') }
+  let(:api_file) { AptlyCli::AptlyFile.new }
   let(:data_for_not_found) { api_file.file_get('test_package_not_here') }
 
   it 'must have a file_post method' do
