@@ -88,7 +88,7 @@ describe AptlyCli::AptlyPublish do
       assert_equal ({ 'Architectures' => %w(amd64 i386),
                       'Distribution' => 'precisetest3',
                       'Label' => '', 'Origin' => '',
-                      'Prefix' => '.', 'SkipContents' => 'false',
+                      'Prefix' => '.', 'SkipContents' => false,
                       'SourceKind' => 'snapshot',
                       'Sources' => [{ 'Component' => 'main',
                                        'Name' => 'testrepo_single_snap_to_pub' }],
