@@ -9,8 +9,9 @@ describe AptlyCli::AptlySnapshot do
   end
 
   describe 'API Delete Snapshot' do
-    let(:snapshot_api) { AptlyCli::AptlySnapshot.new }
-    let(:publish_api) { AptlyCli::AptlyPublish.new }
+    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    let(:snapshot_api) { AptlyCli::AptlySnapshot.new(config) }
+    let(:publish_api) { AptlyCli::AptlyPublish.new(config) }
 
     def test_snapshot_force_delete
       snapshot_api.snapshot_create(
@@ -50,7 +51,8 @@ describe AptlyCli::AptlySnapshot do
   end
 
   describe 'API Create and List Snapshot' do
-    let(:snapshot_api) { AptlyCli::AptlySnapshot.new }
+    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    let(:snapshot_api) { AptlyCli::AptlySnapshot.new(config) }
 
     def test_snapshot_create
       snapshot_api.snapshot_delete(
@@ -76,7 +78,8 @@ describe AptlyCli::AptlySnapshot do
   end
 
   describe 'API Update Snapshot' do
-    let(:snapshot_api) { AptlyCli::AptlySnapshot.new }
+    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    let(:snapshot_api) { AptlyCli::AptlySnapshot.new(config) }
 
     def test_snapshot_update_name
       snapshot_api.snapshot_delete('testrepo_snap_update_test', 1)
@@ -109,7 +112,8 @@ describe AptlyCli::AptlySnapshot do
   end
 
   describe 'API Search Snapshot' do
-    let(:snapshot_api) { AptlyCli::AptlySnapshot.new }
+    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    let(:snapshot_api) { AptlyCli::AptlySnapshot.new(config) }
 
     def test_snapshot_search_for_all_with_details
       snapshot_api.snapshot_delete('testrepo_snap_for_search_test', 1)
@@ -135,10 +139,12 @@ describe AptlyCli::AptlySnapshot do
   end
 
   describe 'API Diff Snapshot' do
-    let(:snapshot_api) { AptlyCli::AptlySnapshot.new }
+    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    let(:snapshot_api) { AptlyCli::AptlySnapshot.new(config) }
   end
 
   describe 'API Show Snapshot' do
-    let(:snapshot_api) { AptlyCli::AptlySnapshot.new }
+    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    let(:snapshot_api) { AptlyCli::AptlySnapshot.new(config) }
   end
 end

@@ -50,6 +50,6 @@ class TestAptlyCli < Minitest::Test
       @test_aptly_load.configure_with('test/fixtures/aptly-cli_no_yaml.yaml')
     end
     assert_includes out, ('WARN -- : YAML configuration file couldn\'t '\
-    'be found at /etc/aptly-cli.conf. Using defaults.')
+    'be found at')
   end
 end

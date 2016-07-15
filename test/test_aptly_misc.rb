@@ -23,7 +23,8 @@ describe AptlyCli::AptlyMisc do
   end
 
   describe 'API Get graph' do
-    let(:misc_api) { AptlyCli::AptlyMisc.new }
+    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    let(:misc_api) { AptlyCli::AptlyMisc.new(config) }
 
     def test_graph_request_for_SVG_returns_200 
       assert_equal '200', misc_api.get_graph(extension = 'svg').code.to_s
@@ -35,7 +36,8 @@ describe AptlyCli::AptlyMisc do
   end
 
   describe 'API Get Version' do
-    let(:misc_api) { AptlyCli::AptlyMisc.new }
+    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    let(:misc_api) { AptlyCli::AptlyMisc.new(config) }
 
     def test_version_returns_valid
       assert_equal '{"Version"=>"0.9.7"}', misc_api.get_version.to_s

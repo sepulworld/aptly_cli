@@ -8,6 +8,12 @@ require 'aptly_cli'
 program :version, AptlyCli::VERSION 
 program :description, 'Aptly repository API client'
 
+$config_file = '/etc/aptly-cli.conf'
+
+global_option('-c', '--config FILE', 'Path to YAML config file') do |config_file|
+  $config_file = config_file
+end
+
 command :file_list do |c|
   c.syntax  = 'aptly-cli file_list [options]'
   c.summary = 'List all directories that contain uploaded files'
@@ -15,7 +21,8 @@ command :file_list do |c|
   c.example 'List all directories for file uploads', 'aptly-cli file_list'
   c.option '--directory DIRECTORY', String, 'Directory to list packages on server'
   c.action do |args, options|
-    aptly_command = AptlyCli::AptlyFile.new
+    config = AptlyCli::AptlyLoad.new.configure_with($config_file)
+    aptly_command = AptlyCli::AptlyFile.new(config)
     if options.directory
       puts aptly_command.file_get(options.directory)
     else
@@ -32,7 +39,8 @@ command :file_upload do |c|
   c.option '--directory DIRECTORY', String, 'Directory to load packages into'
   c.option '--upload UPLOAD', String, 'Package(s) to upload'
   c.action do |args, options|
-    aptly_command = AptlyCli::AptlyFile.new
+    config = AptlyCli::AptlyLoad.new.configure_with($config_file)
+    aptly_command = AptlyCli::AptlyFile.new(config)
     puts aptly_command.file_post(:file_uri => options.directory, :package => options.upload, :local_file => options.upload)
   end
 end
@@ -44,7 +52,8 @@ command :file_delete do |c|
   c.example 'Delete package redis-server found in redis upload directory', 'aptly-cli file_delete --target /redis/redis-server_2.8.3_i386-cc1.deb'
   c.option '--target TARGET', String, 'Path to directory or specific package to delete'
   c.action do |args, options|
-    aptly_command = AptlyCli::AptlyFile.new
+    config = AptlyCli::AptlyLoad.new.configure_with($config_file)
+    aptly_command = AptlyCli::AptlyFile.new(config)
     puts aptly_command.file_delete(options.target)
   end
 end
@@ -61,7 +70,8 @@ command :repo_create do |c|
   c.option '--default_component COMPONENT', String, 'Default component when publishing from this local repo'
   c.action do |args, options|
     puts options.name
-    aptly_command = AptlyCli::AptlyRepo.new
+    config = AptlyCli::AptlyLoad.new.configure_with($config_file)
+    aptly_command = AptlyCli::AptlyRepo.new(config)
     repo_options = { :name => options.name.to_s, 
                      :comment => options.comment.to_s, 
                      :DefaultDistribution => options.default_distribution.to_s,
@@ -78,7 +88,8 @@ command :repo_delete do |c|
   c.option '--name NAME', String, 'Local repository name, required'
   c.option '--force'
   c.action do |args, options|
-    aptly_command = AptlyCli::AptlyRepo.new
+    config = AptlyCli::AptlyLoad.new.configure_with($config_file)
+    aptly_command = AptlyCli::AptlyRepo.new(config)
     repo_options = { :name => options.name.to_s, 
                      :force => options.force.to_s }
     puts aptly_command.repo_delete(repo_options)
@@ -95,7 +106,8 @@ command :repo_edit do |c|
   c.option '--default_distribution DISTRIBUTION', String, 'Edit DefaultDistribution for repo'
   c.option '--default_component COMPONENT', String, 'Edit DefaultComponent for repo'
   c.action do |args, options|
-    aptly_command = AptlyCli::AptlyRepo.new
+    config = AptlyCli::AptlyLoad.new.configure_with($config_file)
+    aptly_command = AptlyCli::AptlyRepo.new(config)
     if options.default_distribution
       repo_options = { :DefaultDistribution => options.default_distribution.to_s }
     end
@@ -115,7 +127,8 @@ command :repo_list do |c|
   c.description = 'Show list of currently available local repositories'
   c.example 'description', 'aptly-cli repo_list'
   c.action do |args, options|
-    aptly_command = AptlyCli::AptlyRepo.new
+    config = AptlyCli::AptlyLoad.new.configure_with($config_file)
+    aptly_command = AptlyCli::AptlyRepo.new(config)
     puts aptly_command.repo_list()
   end
 end
@@ -130,7 +143,8 @@ command :repo_package_query do |c|
   c.option '--with_deps', 'Return results with dependencies'
   c.option '--format FORMAT', String, 'Format type to return, compact by default. "details" is an option'
   c.action do |args, options|
-    aptly_command = AptlyCli::AptlyRepo.new
+    config = AptlyCli::AptlyLoad.new.configure_with($config_file)
+    aptly_command = AptlyCli::AptlyRepo.new(config)
     if options.query
       repo_options = { :name => options.name.to_s, :query => options.query.to_s }
     elsif options.with_deps and options.query.nil?
@@ -159,7 +173,8 @@ command :repo_upload do |c|
   c.option '--noremove', 'Flag to not remove any files that were uploaded via File API after repo upload'
   c.option '--forcereplace', 'flag to replace file(s) already in the repo'
   c.action do |args, options|
-    aptly_command = AptlyCli::AptlyRepo.new
+    config = AptlyCli::AptlyLoad.new.configure_with($config_file)
+    aptly_command = AptlyCli::AptlyRepo.new(config)
     puts aptly_command.repo_upload({ :name => options.name, :dir => options.dir,
                                      :file => options.file, :noremove => options.noremove,
                                      :forcereplace => options.forcereplace })
@@ -173,7 +188,8 @@ command :repo_show do |c|
   c.example 'description', 'aptly-cli repo_show --name megatronsoftware'
   c.option '--name NAME', String, 'Local repository name, required'
   c.action do |args, options|
-    aptly_command = AptlyCli::AptlyRepo.new
+    config = AptlyCli::AptlyLoad.new.configure_with($config_file)
+    aptly_command = AptlyCli::AptlyRepo.new(config)
     puts aptly_command.repo_show(options.name)
   end
 end
@@ -187,7 +203,8 @@ command :publish_drop do |c|
   c.option '--distribution DISTRIBUTION', String, 'distribution'
   c.option '--force', 'force published repository removal even if component cleanup fails'
   c.action do |args, options|
-    aptly_command = AptlyCli::AptlyPublish.new
+    config = AptlyCli::AptlyLoad.new.configure_with($config_file)
+    aptly_command = AptlyCli::AptlyPublish.new(config)
     puts aptly_command.publish_drop({ :prefix => options.prefix, :distribution => options.distribution, :force => options.force })
   end
 end
@@ -198,7 +215,8 @@ command :publish_list do |c|
   c.description = 'List published repositories.'
   c.example 'List published repositories', 'aptly-cli publish_list'
   c.action do |args, options|
-    aptly_command = AptlyCli::AptlyPublish.new
+    config = AptlyCli::AptlyLoad.new.configure_with($config_file)
+    aptly_command = AptlyCli::AptlyPublish.new(config)
     puts aptly_command.publish_list()
   end
 end
@@ -228,7 +246,8 @@ command :publish_repo do |c|
   c.option '--gpg_passphrase GPGPASS', String, 'gpg key passphrase (if using over http, would be transmitted in clear text!)'
   c.option '--gpg_passphrase_file GPGPASSFILE', String, 'gpg passphrase file (local to aptly server/user)'
   c.action do |args, options|
-    aptly_command = AptlyCli::AptlyPublish.new
+    config = AptlyCli::AptlyLoad.new.configure_with($config_file)
+    aptly_command = AptlyCli::AptlyPublish.new(config)
     puts aptly_command.publish_repo(options.name, { :sourcekind => options.sourcekind, :prefix => options.prefix,
                                                     :label => options.label, :distribution => options.distribution,
                                                     :origin => options.origin, :forceoverwrite => options.forceoverwrite,
@@ -255,7 +274,8 @@ command :publish_update do |c|
   c.option '--gpg_passphrase GPGPASS', String, 'gpg key passphrase (if using over http, would be transmitted in clear text!)'
   c.option '--gpg_passphrase_file GPGPASSFILE', String, 'gpg passphrase file (local to aptly server/user)'
   c.action do |args, options|
-    aptly_command = AptlyCli::AptlyPublish.new
+    config = AptlyCli::AptlyLoad.new.configure_with($config_file)
+    aptly_command = AptlyCli::AptlyPublish.new(config)
     puts aptly_command.publish_update({ :prefix => options.prefix, :distribution => options.distribution, :forceoverwrite => options.forceoverwrite,
                                                     :skip => options.gpg_skip, :batch => options.gpg_batch, :gpgKey => options.gpg_key,
                                                     :keyring => options.gpg_keyring, :secretKeyring => options.gpg_secret_keyring,
@@ -273,7 +293,8 @@ command :snapshot_create do |c|
   c.option '--repo REPO', String, 'Name of repo to snapshot'
   c.option '--description DESCRIPTION', String, 'Set description for snapshot'
   c.action do |args, options|
-    aptly_command = AptlyCli::AptlySnapshot.new
+    config = AptlyCli::AptlyLoad.new.configure_with($config_file)
+    aptly_command = AptlyCli::AptlySnapshot.new(config)
     puts aptly_command.snapshot_create(options.name, options.repo, options.description)
   end
 end
@@ -287,7 +308,8 @@ command :snapshot_delete do |c|
   c.option '--name NAME', String, 'Local snapshot name, required'
   c.option '--force', 'Force'
   c.action do |args, options|
-    aptly_command = AptlyCli::AptlySnapshot.new
+    config = AptlyCli::AptlyLoad.new.configure_with($config_file)
+    aptly_command = AptlyCli::AptlySnapshot.new(config)
     puts aptly_command.snapshot_delete(options.name, options.force)
   end
 end
@@ -300,7 +322,8 @@ command :snapshot_diff do |c|
   c.option '--name NAME', String, 'Local snapshot name (left)'
   c.option '--withsnapshot WITHSNAPSHOT', String, 'Snapshot to diff against (right)'
   c.action do |args, options|
-    aptly_command = AptlyCli::AptlySnapshot.new
+    config = AptlyCli::AptlyLoad.new.configure_with($config_file)
+    aptly_command = AptlyCli::AptlySnapshot.new(config)
     puts aptly_command.snapshot_diff(options.name, options.withsnapshot)
   end
 end
@@ -313,7 +336,8 @@ command :snapshot_list do |c|
   c.example 'Return list sorted by time', 'aptly-cli snapshot_list --sort time'
   c.option '--sort', String, 'Set sort by'
   c.action do |args, options|
-    aptly_command = AptlyCli::AptlySnapshot.new
+    config = AptlyCli::AptlyLoad.new.configure_with($config_file)
+    aptly_command = AptlyCli::AptlySnapshot.new(config)
     puts aptly_command.snapshot_list(options.sort)
   end
 end
@@ -330,7 +354,8 @@ command :snapshot_search do |c|
   c.option '--withdeps', 'Include package dependencies'
   c.option '--format FORMAT', String, 'Format the respone of the snapshot search results, compact by default.'
   c.action do |args, options|
-    aptly_command = AptlyCli::AptlySnapshot.new
+    config = AptlyCli::AptlyLoad.new.configure_with($config_file)
+    aptly_command = AptlyCli::AptlySnapshot.new(config)
     puts aptly_command.snapshot_search(options.name, { :query => options.query, :format => options.format, :withdeps => options.withdeps })
   end
 end
@@ -342,7 +367,8 @@ command :snapshot_show do |c|
   c.example 'Show snapshot information for repo named megatronsoftware', 'aptly-cli snapshot_show --name megatronsoftware'
   c.option '--name NAME', String, 'Local snapshot name, required'
   c.action do |args, options|
-    aptly_command = AptlyCli::AptlySnapshot.new
+    config = AptlyCli::AptlyLoad.new.configure_with($config_file)
+    aptly_command = AptlyCli::AptlySnapshot.new(config)
     puts aptly_command.snapshot_show(options.name)
   end
 end
@@ -356,7 +382,8 @@ command :snapshot_update do |c|
   c.option '--new_name NEWNAME', String, 'New name for the snapshot'
   c.option '--description DESCRIPTION', String, 'Update description for snapshot'
   c.action do |args, options|
-    aptly_command = AptlyCli::AptlySnapshot.new
+    config = AptlyCli::AptlyLoad.new.configure_with($config_file)
+    aptly_command = AptlyCli::AptlySnapshot.new(config)
     puts aptly_command.snapshot_update(options.name, options.new_name, options.description)
   end
 end
@@ -368,7 +395,8 @@ command :graph do |c|
   c.example 'description', 'aptly-cli graph png > ~/repo_graph.png'
   c.option '--type GRAPH_TYPE', String, 'Type of graph to download, present options are png or svg'
   c.action do |args, options|
-    aptly_command = AptlyCli::AptlyMisc.new
+    config = AptlyCli::AptlyLoad.new.configure_with($config_file)
+    aptly_command = AptlyCli::AptlyMisc.new(config)
     puts aptly_command.get_graph(options.type)
   end
 end
@@ -378,8 +406,9 @@ command :version do |c|
   c.description = 'Display aptly server version'
   c.example 'description', 'aptly-cli version'
   c.action do |args, options|
-    aptly_command = AptlyCli::AptlyMisc.new
-    puts aptly_command.get_version() 
+    config = AptlyCli::AptlyLoad.new.configure_with($config_file)
+    aptly_command = AptlyCli::AptlyMisc.new(config)
+    puts aptly_command.get_version()
   end
 end
 

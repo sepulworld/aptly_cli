@@ -1,7 +1,7 @@
 class AptlyCommand
-  def initialize
-    # Load aptly-cli.conf and establish base_uri
-    @config = AptlyCli::AptlyLoad.new.configure_with('/etc/aptly-cli.conf')
+  def initialize(config)
+    @config = config
+
     base_uri = "#{@config[:proto]}://#{@config[:server]}:#{@config[:port]}/api"
     self.class.base_uri base_uri
 
