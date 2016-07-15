@@ -9,18 +9,25 @@ A command line interface to execute [Aptly](http://aptly.info) commands againts 
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-    $ ruby gem 'aptly_cli'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
+Install Gem:
 
     $ gem install aptly_cli
     
+Install and run aptly-cli from Docker (example, assumes you have an ~/.config/aptly-cli/aptly-cli.conf setup):
+
+    $ docker pull sepulworld/aptly-cli
+    ...
+
+    $ alias aptly-cli='\
+      docker run \
+        -v ~/.config/aptly-cli/aptly-cli.conf:/etc/aptly-cli.conf \
+        -it --rm --name=aptly-cli \
+        aptly-cli'
+
+    $ aptly-cli repo_package_query --name develop --query 'Name (~ koala)'
+    Pall python-koala 0.0.41-1 7e42160a4f2f122f
+    Pall python-koala 0.0.50-1 4f03e421bcc6eaf5
+    Pall python-koala 0.0.42-1 aaa61514e74d89cf 
 
 Create a configuration file with aptly server and port, `/etc/aptly-cli.conf` (YAML syntax):
 
