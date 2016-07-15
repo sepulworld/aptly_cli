@@ -7,6 +7,7 @@ RUN apt-get update -qq && \
     apt-get install -y -qq \
         less \
         locales && \
+    apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 # Configure locale
