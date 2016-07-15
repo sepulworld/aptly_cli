@@ -4,7 +4,7 @@ require 'httmultiparty'
 require 'json'
 
 module AptlyCli
-  # Aplty class to work with Repo API
+  # Aptly class to work with Repo API
   class AptlyRepo
     include HTTMultiParty
     # Load aptly-cli.conf and establish base_uri

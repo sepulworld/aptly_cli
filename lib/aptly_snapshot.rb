@@ -4,7 +4,7 @@ require 'httmultiparty'
 require 'json'
 
 module AptlyCli
-  # Aplty class to work with Snapshot API
+  # Aptly class to work with Snapshot API
   class AptlySnapshot
     include HTTMultiParty
 
