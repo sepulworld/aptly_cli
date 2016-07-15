@@ -13,37 +13,37 @@ task default: :test
 
 desc "Docker build image"
 task :docker_build do
-  sh %{docker build -t sepulworld/aptly_api ./test/}
+  sh %{docker build -t sepulworld/aptly_api_test ./test/}
 end
 
 desc "Push Docker image to Docker Hub"
 task :docker_push do
-  sh %{docker push sepulworld/aptly_api}
+  sh %{docker push sepulworld/aptly_api_test}
 end
 
 desc "Pull Docker image to Docker Hub"
 task :docker_pull do
-  sh %{docker pull sepulworld/aptly_api}
+  sh %{docker pull sepulworld/aptly_api_test}
 end
 
 desc "List Docker Aptly running containers"
 task :docker_list_aptly do
-  sh %{docker ps --filter ancestor='sepulworld/aptly_api' --format="{{.ID}}"}
+  sh %{docker ps --filter ancestor='sepulworld/aptly_api_test' --format="{{.ID}}"}
 end
 
 desc "Stop running Aptly Docker containers"
 task :docker_stop do
-  sh %{docker stop $(docker ps --filter ancestor='sepulworld/aptly_api' --format="{{.ID}}")}
+  sh %{docker stop $(docker ps --filter ancestor='sepulworld/aptly_api_test' --format="{{.ID}}")}
 end
 
 desc "Start Aptly Docker container on port 8082"
 task :docker_run do
-  sh %{docker run -d -p 8082:8080 sepulworld/aptly_api /bin/sh -c "aptly api serve"}
+  sh %{docker run -d -p 8082:8080 sepulworld/aptly_api_test /bin/sh -c "aptly api serve"}
 end
 
 desc "Show running Aptly process Docker stdout logs"
 task :docker_show_logs do
-  sh %{docker logs $(docker ps --filter ancestor='sepulworld/aptly_api' --format="{{.ID}}")}
+  sh %{docker logs $(docker ps --filter ancestor='sepulworld/aptly_api_test' --format="{{.ID}}")}
 end
 
 desc "Restart Aptly docker container"
