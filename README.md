@@ -14,6 +14,7 @@ Install Gem:
     $ gem install aptly_cli
     
 Install and run aptly-cli from Docker:
+
 (example, assumes you have an ~/.config/aptly-cli/aptly-cli.conf setup and pointing to your Aptly repo)
 
     $ docker pull sepulworld/aptly-cli
