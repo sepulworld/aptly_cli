@@ -9,27 +9,26 @@ A command line interface to execute [Aptly](http://aptly.info) commands againts 
 
 ## Installation
 
-Install Gem:
+### Install Gem:
 
     $ gem install aptly_cli
     
-Install and run aptly-cli from Docker:
+or...    
+    
+### Install and run aptly-cli from Docker:
 
-(example, assumes you have an ~/.config/aptly-cli/aptly-cli.conf setup and pointing to your Aptly repo)
-
+    # Optional: If you don't pull explicitly, `docker run` will do it for you
     $ docker pull sepulworld/aptly-cli
-    ...
 
     $ alias aptly-cli='\
       docker run \
-        -v ~/.config/aptly-cli/aptly-cli.conf:/etc/aptly-cli.conf \
+        -v /etc/aptly-cli.conf:/etc/aptly-cli.conf \
         -it --rm --name=aptly-cli \
-        aptly-cli'
+        sepulworld/aptly-cli'
 
-    $ aptly-cli repo_package_query --name develop --query 'Name (~ koala)'
-    Pall python-koala 0.0.41-1 7e42160a4f2f122f
-    Pall python-koala 0.0.50-1 4f03e421bcc6eaf5
-    Pall python-koala 0.0.42-1 aaa61514e74d89cf 
+(Depending on how your system is set up, you might have to add `sudo` in front of the above `docker` commands or add your user to the `docker` group).
+
+If you don't do the `docker pull`, the first time you run `aptly-cli`, the `docker run` command will automatically pull [the `sepulworld/aptly-cli` image on the Docker Hub](https://hub.docker.com/r/sepulworld/aptly-cli/). Subsequent runs will use a locally cached copy of the image and will not have to download anything.
 
 Create a configuration file with aptly server and port, `/etc/aptly-cli.conf` (YAML syntax):
 
