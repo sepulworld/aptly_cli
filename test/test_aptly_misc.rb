@@ -38,7 +38,7 @@ describe AptlyCli::AptlyMisc do
     let(:misc_api) { AptlyCli::AptlyMisc.new }
 
     def test_version_returns_valid
-      assert_equal '{"Version"=>"0.9.6"}', misc_api.get_version().to_s
+      assert_equal '{"Version"=>"0.9.7"}', misc_api.get_version().to_s
     end
   end
 end
