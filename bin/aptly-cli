@@ -12,6 +12,7 @@ $config_file = '/etc/aptly-cli.conf'
 $server = nil
 $username = nil
 $password = nil
+$debug = false
 
 global_option('-c', '--config FILE', 'Path to YAML config file') do |config_file|
   $config_file = config_file
@@ -25,6 +26,9 @@ global_option('--username USERNAME', 'User name') do |username|
 end
 global_option('--password PASSWORD', 'Password') do |password|
   $password = password
+end
+global_option('--debug', 'Enable debug output') do
+  $debug = true
 end
 
 def handle_global_options(options)

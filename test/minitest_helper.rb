@@ -6,5 +6,5 @@ require 'aptly_cli'
 require 'minitest/autorun'
 
 class Options
-  attr_accessor :server, :username, :password
+  attr_accessor :server, :username, :password, :debug
 end

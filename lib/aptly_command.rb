@@ -15,6 +15,10 @@ class AptlyCommand
       @config[:password] = options.password
     end
 
+    if options.debug
+      @config[:debug] = options.debug
+    end
+
     @config.each do |k, v|
       if v == '${PROMPT}'
         @config[k.to_sym] = ask("Enter a value for #{k}:")
