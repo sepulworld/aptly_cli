@@ -30,13 +30,6 @@ class TestAptlyCli < Minitest::Test
       @test_aptly_load.configure_with('test/fixtures/aptly-cli.yaml')
   end
 
-  def test_that_config_loads_from_yaml_with_prompts
-    assert_equal(
-      { server: '127.0.0.1', port: 8084, proto: 'http',
-        username: 'zane', password: 'secret' },
-      @test_aptly_load.configure_with('test/fixtures/aptly-cli_prompts.yaml'))
-  end
-
   def test_that_config_loads_defaults_if_bad_yaml
     out, err = capture_subprocess_io do
       @test_aptly_load.configure_with('test/fixtures/aptly-cli_invalid.yaml')
