@@ -10,8 +10,8 @@ program :description, 'Aptly repository API client'
 
 command :file_list do |c|
   c.syntax  = 'aptly-cli file_list [options]'
-  c.summary = 'List all directories that contain uploaded files'
-  c.description = 'List all directories'
+  c.summary = 'List all directories'
+  c.description = 'List all directories that contain uploaded files'
   c.example 'List all directories for file uploads', 'aptly-cli file_list'
   c.option '--directory DIRECTORY', String, 'Directory to list packages on server'
   c.action do |args, options|
@@ -26,8 +26,8 @@ end
 
 command :file_upload do |c|
   c.syntax  = 'aptly-cli file_upload [options]'
-  c.summary = 'Parameter --directory is upload directory name. Directory would be created if it doesn’t exist.'
-  c.description = 'File upload'
+  c.summary = 'File upload'
+  c.description = 'Parameter --directory is upload directory name. Directory would be created if it doesn’t exist.'
   c.example 'description', 'aptly-cli file_upload --upload /local/copy/of/package.deb --directory /aptlyserver_directory/'
   c.option '--directory DIRECTORY', String, 'Directory to load packages into'
   c.option '--upload UPLOAD', String, 'Package(s) to upload'
@@ -39,9 +39,11 @@ end
 
 command :file_delete do |c|
   c.syntax  = 'aptly-cli file_delete [options]'
-  c.summary = 'Deletes all files in upload directory and directory itself. Or delete just a file'
-  c.description = 'File delete'
-  c.example 'Delete package redis-server found in redis upload directory', 'aptly-cli file_delete --target /redis/redis-server_2.8.3_i386-cc1.deb'
+  c.summary = 'File delete'
+  c.description = 'Deletes all files in upload directory and directory itself. Or delete just a file'
+  c.example(
+    'Delete package redis-server found in redis upload directory',
+    'aptly-cli file_delete --target /redis/redis-server_2.8.3_i386-cc1.deb')
   c.option '--target TARGET', String, 'Path to directory or specific package to delete'
   c.action do |args, options|
     aptly_command = AptlyCli::AptlyFile.new
@@ -122,8 +124,8 @@ end
 
 command :repo_package_query do |c|
   c.syntax = 'aptly-cli repo_package_query [options]'
-  c.summary = 'List all packages in local repository or perform search on repository contents and return result., requires --name'
-  c.description = 'List all packages or search on repo contents, requires --name'
+  c.summary = 'List all packages or search on repo contents, requires --name'
+  c.description = 'List all packages in local repository or perform search on repository contents and return result., requires --name'
   c.example 'description', 'aptly-cli repo_package_query --name megatronsoftware -query geoipupdate'
   c.option '--name NAME', String, 'Local repository name, required'
   c.option '--query QUERY', String, 'Package to query'
@@ -146,12 +148,14 @@ end
 
 command :repo_upload do |c|
   c.syntax = 'aptly-cli repo_upload [options]'
-  c.summary = 'Import packages from files (uploaded using File Upload API) to the local repository. If directory specified, aptly would discover package files automatically.
-  
-  Adding same package to local repository is not an error.
-  
-  By default aptly would try to remove every successfully processed file and directory :dir (if it becomes empty after import).'
-  c.description = 'Import packages from files'
+  c.summary = 'Import packages from files'
+  c.description = [
+    'Import packages from files (uploaded using File Upload API) to the',
+    'local repository. If directory specified, aptly would discover package',
+    'files automatically. Adding same package to local repository is not an',
+    'error. By default aptly would try to remove every successfully',
+    'processed file and directory :dir (if it becomes empty after import).'
+  ].join(' ')
   c.example 'description', 'aptly-cli repo_upload --name rocksoftware --dir rockpackages --noremove'
   c.option '--name NAME', String, 'Local repository name, required'
   c.option '--dir DIR', String, 'Directory where packages are stored via File API'
@@ -180,8 +184,8 @@ end
 
 command :publish_drop do |c|
   c.syntax = 'aptly-cli publish_drop [options]'
-  c.summary = 'Delete published repository, clean up files in published directory.'
-  c.description = 'Delete published repository' 
+  c.summary = 'Delete published repository'
+  c.description = 'Delete published repository, clean up files in published directory.'
   c.example 'Delete publish repository prefix precisetest', 'aptly-cli publish_drop --distribution precisetest'
   c.option '--prefix PREFIX', String, 'prefix, optional'
   c.option '--distribution DISTRIBUTION', String, 'distribution'
@@ -194,7 +198,7 @@ end
 
 command :publish_list do |c|
   c.syntax = 'aptly-cli publish_list [options]'
-  c.summary = 'List published repositories.'
+  c.summary = 'List published repositories'
   c.description = 'List published repositories.'
   c.example 'List published repositories', 'aptly-cli publish_list'
   c.action do |args, options|
@@ -205,8 +209,8 @@ end
 
 command :publish_repo do |c|
   c.syntax = 'aptly-cli publish_repo [options]'
-  c.summary = 'Publish local repository or snapshot under specified prefix. Storage might be passed in prefix as well, e.g. s3:packages/. To supply empty prefix, just remove last part (POST /api/publish/:prefix/<:repos>or<:snapshots>'
-  c.description = 'Publish local repository or snapshot under specified prefix'
+  c.summary = 'Publish local repository or snapshot under specified prefix'
+  c.description = 'Publish local repository or snapshot under specified prefix. Storage might be passed in prefix as well, e.g. s3:packages/. To supply empty prefix, just remove last part (POST /api/publish/:prefix/<:repos>or<:snapshots>'
   c.example 'publish multiple repos as source', 'aptly-cli publish_repo --sourcekind local --name precise/megatronsoftware,trusty/rocksoftware22 --architectures i386 amd64'
   c.example 'publish one repo, two archs, forceoverwrite', 'aptly-cli publish_repo --sourcekind local --name megatronsoftware --architectures i386 amd64 --forceoverwrite true'
   c.example 'publish 2 snapshots into one publish point', 'aptly-cli publish_repo --sourcekind snapshot --name precise/rocksoftware300,main/rocksoftware200 --label test_snap'
@@ -240,8 +244,8 @@ end
 
 command :publish_update do |c|
   c.syntax = 'aptly-cli publish_update [options]'
-  c.summary = 'Update published repository. If local repository has been published, published repository would be updated to match local repository contents. If snapshots have been been published, it is possible to switch each component to new snapshot'
-  c.description = 'Update published repository'
+  c.summary = 'Update published repository'
+  c.description = 'Update published repository. If local repository has been published, published repository would be updated to match local repository contents. If snapshots have been been published, it is possible to switch each component to new snapshot'
   c.example 'description', 'aptly-cli publish_update --forceoverwrite --distribution precise'
   c.option '--prefix PREFIX', String, 'Publishing prefix, default root'
   c.option '--distribution DISTRIBUTION', String, 'Distribution name'
@@ -266,8 +270,8 @@ end
 
 command :snapshot_create do |c|
   c.syntax = 'aptly-cli snapshot_create [options]'
-  c.summary = 'Create snapshot of current local repository :name contents as new snapshot with name :snapname'
-  c.description = 'Create snapshot, require --name'
+  c.summary = 'Create snapshot, require --name'
+  c.description = 'Create snapshot of current local repository :name contents as new snapshot with name :snapname'
   c.example 'Creating new snapshot megasoftware22-snap from megasoftware22 repo', 'aptly-cli snapshot_create --name megasoftware22-snap --repo meagsoftware22'
   c.option '--name NAME', String, 'Name of new snapshot, required'
   c.option '--repo REPO', String, 'Name of repo to snapshot'
@@ -280,8 +284,8 @@ end
 
 command :snapshot_delete do |c|
   c.syntax = 'aptly-cli snapshot_delete [options]'
-  c.summary = 'Delete snapshot. Snapshot can’t be deleted if it is published. aptly would refuse to delete snapshot if it has been used as source to create other snapshots, but that could be overridden with force parameter'
-  c.description = 'Delete snapshot, require --name'
+  c.summary = 'Delete snapshot, require --name'
+  c.description = 'Delete snapshot. Snapshot can’t be deleted if it is published. aptly would refuse to delete snapshot if it has been used as source to create other snapshots, but that could be overridden with force parameter'
   c.example 'Deleting the snapshot megasoftware22', 'aptly-cli snapshot_delete --name megatronsoftware22'
   c.example 'Deleting the snapshot megasoftware22 with force option', 'aptly-cli snapshot_delete --name megatronsoftware22 --force'
   c.option '--name NAME', String, 'Local snapshot name, required'
@@ -294,7 +298,7 @@ end
 
 command :snapshot_diff do |c|
   c.syntax = 'aptly-cli snapshot_diff [options]'
-  c.summary = 'Calculate difference between two snapshots --name (left) and --withsnapshot (right).'
+  c.summary = 'Calculate difference between two snapshots'
   c.description = 'Calculate difference between two snapshots, require --name, require --withsnapshot'
   c.example 'Show difference between megatronsoftware and rocksoftware snapshots', 'aptly-cli snapshot_diff --name megatronsoftware --withsnapshot rocksoftware'
   c.option '--name NAME', String, 'Local snapshot name (left)'
@@ -320,8 +324,8 @@ end
 
 command :snapshot_search do |c|
   c.syntax = 'aptly-cli snapshot_search [options]'
-  c.summary = 'List all packages in snapshot or perform search on snapshot contents and return result'
-  c.description = 'List all packages in snapshot or perform search'
+  c.summary = 'List all packages in snapshot or perform search'
+  c.description = 'List all packages in snapshot or perform search on snapshot contents and return result'
   c.example 'List all packages in snapshot megasoftware22-snap', 'aptly-cli snapshot_search --name megasoftware22-snap'
   c.example 'List all packages in snapshot megasoftware22-snap with format set to details', 'aptly-cli snapshot_search --name megasoftware22-snap --format details'
   c.example 'Search for package called nginx in snapshot megasoftware22-snap', 'aptly-cli snapshot_search --name megasoftware22-snap --query nginx'
@@ -363,8 +367,8 @@ end
 
 command :graph do |c|
   c.syntax = 'aptly-cli graph [options]'
-  c.summary = 'Download a graph of repository layout.  Current options are "svg" and "png"'
-  c.description = 'Download an svg or png graph of repository layout'
+  c.summary = 'Download an svg or png graph of repository layout'
+  c.description = 'Download a graph of repository layout.  Current options are "svg" and "png"'
   c.example 'description', 'aptly-cli graph png > ~/repo_graph.png'
   c.option '--type GRAPH_TYPE', String, 'Type of graph to download, present options are png or svg'
   c.action do |args, options|
@@ -379,7 +383,7 @@ command :version do |c|
   c.example 'description', 'aptly-cli version'
   c.action do |args, options|
     aptly_command = AptlyCli::AptlyMisc.new
-    puts aptly_command.get_version() 
+    puts aptly_command.get_version()
   end
 end
 
