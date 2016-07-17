@@ -24,6 +24,21 @@ class AptlyCommand
         @config[k.to_sym] = ask("Enter a value for #{k}:")
       elsif v == '${PROMPT_PASSWORD}'
         @config[k.to_sym] = password("Enter a value for #{k}:")
+      elsif v == '${KEYRING}'
+        require 'keyring'
+
+        keyring = Keyring.new
+        value = keyring.get_password(@config[:server], @config[:username])
+
+        unless value
+          # Prompt for password...
+          value = password("Enter a value for #{k}:")
+
+          # ... and store in keyring
+          keyring.set_password(@config[:server], @config[:username], value)
+        end
+
+        @config[k.to_sym] = value
       end
     end
 
