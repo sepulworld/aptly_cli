@@ -8,11 +8,9 @@ describe AptlyCli::AptlyRepo do
   end
 
   describe 'API Upload to Repo' do
-    let(:repo_api) { AptlyCli::AptlyRepo.new }
-    let(:file_api) { AptlyCli::AptlyFile.new(
-      '/testdir',
-      'test_1.0_amd64.deb',
-      'test/fixtures/test_1.0_amd64.deb')}
+    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    let(:repo_api) { AptlyCli::AptlyRepo.new(config) }
+    let(:file_api) { AptlyCli::AptlyFile.new(config) }
 
     def test_repo_upload
       file_api.file_post(file_uri: '/testdir',
@@ -28,7 +26,8 @@ describe AptlyCli::AptlyRepo do
   end
 
   describe 'API Create Repo' do
-    let(:repo_api) { AptlyCli::AptlyRepo.new }
+    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    let(:repo_api) { AptlyCli::AptlyRepo.new(config) }
 
     def test_repo_creation
       repo_api.repo_delete(name: 'testrepocreate',
@@ -43,7 +42,8 @@ describe AptlyCli::AptlyRepo do
   end
 
   describe 'API Show Repo' do
-    let(:repo_api) { AptlyCli::AptlyRepo.new }
+    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    let(:repo_api) { AptlyCli::AptlyRepo.new(config) }
 
     def test_repo_show
       repo_api.repo_delete(name: 'testrepotoshow',
@@ -59,12 +59,10 @@ describe AptlyCli::AptlyRepo do
   end
 
   describe 'API Package Query Repo' do
-    let(:repo_api) { AptlyCli::AptlyRepo.new }
-    let(:file_api) { AptlyCli::AptlyFile.new(
-      '/testdir2',
-      'test_1.0_amd64.deb',
-      'test/fixtures/test_1.0_amd64.deb')}
-    
+    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    let(:repo_api) { AptlyCli::AptlyRepo.new(config) }
+    let(:file_api) { AptlyCli::AptlyFile.new(config) }
+
     def test_package_query_with_name
       repo_api.repo_delete(name: 'testrepotoquery',
                            force: true)
@@ -86,7 +84,8 @@ describe AptlyCli::AptlyRepo do
   end
   
   describe 'API List Repo' do
-    let(:repo_api) { AptlyCli::AptlyRepo.new }
+    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    let(:repo_api) { AptlyCli::AptlyRepo.new(config) }
 
     def test_list_repo_http_response
       assert_equal repo_api.repo_list.code.to_s, '200'
@@ -94,7 +93,8 @@ describe AptlyCli::AptlyRepo do
   end
   
   describe 'API Edit Repo' do
-    let(:repo_api) { AptlyCli::AptlyRepo.new }
+    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    let(:repo_api) { AptlyCli::AptlyRepo.new(config) }
 
     def test_repo_edit_default_distribution
       repo_api.repo_delete(name: 'testrepotoedit',
@@ -114,7 +114,8 @@ describe AptlyCli::AptlyRepo do
   end
 
   describe 'API Delete Repo' do
-    let(:repo_api) { AptlyCli::AptlyRepo.new }
+    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    let(:repo_api) { AptlyCli::AptlyRepo.new(config) }
 
     def test_repo_delete
       repo_api.repo_create(name: 'testrepodelete',
@@ -127,7 +128,8 @@ describe AptlyCli::AptlyRepo do
   end
 
   describe 'API Upload to Repo, failure scenario' do
-    let(:repo_api_fail) { AptlyCli::AptlyRepo.new }
+    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    let(:repo_api_fail) { AptlyCli::AptlyRepo.new(config) }
     let(:data) { repo_api_fail.repo_upload({ name: 'testrepo',
                                            dir: 'rockpackages',
                                            file: 'test_package_not_here',

@@ -9,8 +9,9 @@ describe AptlyCli::AptlyPublish do
   end
 
   describe 'API List Publish' do
-    let(:publish_api) { AptlyCli::AptlyPublish.new }
-    let(:snapshot_api) { AptlyCli::AptlySnapshot.new }
+    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    let(:publish_api) { AptlyCli::AptlyPublish.new(config) }
+    let(:snapshot_api) { AptlyCli::AptlySnapshot.new(config) }
 
     def test_publish_list
       publish_api.publish_drop(distribution: 'publishlisttest1', force: 1)
@@ -39,8 +40,9 @@ describe AptlyCli::AptlyPublish do
   end
 
   describe 'API Drop Publish' do
-    let(:publish_api) { AptlyCli::AptlyPublish.new }
-    let(:snapshot_api) { AptlyCli::AptlySnapshot.new }
+    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    let(:publish_api) { AptlyCli::AptlyPublish.new(config) }
+    let(:snapshot_api) { AptlyCli::AptlySnapshot.new(config) }
 
     def test_publish_drop
       publish_api.publish_drop(distribution: 'precisetestdrop', force: 1)
@@ -58,8 +60,9 @@ describe AptlyCli::AptlyPublish do
   end
 
   describe 'API Publish Repo' do
-    let(:publish_api) { AptlyCli::AptlyPublish.new }
-    let(:snapshot_api) { AptlyCli::AptlySnapshot.new }
+    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    let(:publish_api) { AptlyCli::AptlyPublish.new(config) }
+    let(:snapshot_api) { AptlyCli::AptlySnapshot.new(config) }
 
     def test_publish_snapshot
       snapshot_api.snapshot_delete('testrepo_snap_to_publish', 1)
@@ -77,8 +80,9 @@ describe AptlyCli::AptlyPublish do
   end
 
   describe 'API Update Publish Point' do
-    let(:publish_api) { AptlyCli::AptlyPublish.new }
-    let(:snapshot_api) { AptlyCli::AptlySnapshot.new }
+    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    let(:publish_api) { AptlyCli::AptlyPublish.new(config) }
+    let(:snapshot_api) { AptlyCli::AptlySnapshot.new(config) }
 
     def test_publish_single_repo
       publish_api.publish_drop(distribution: 'precisetest3', force: 1)

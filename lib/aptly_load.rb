@@ -20,7 +20,7 @@ module AptlyCli
         port: 8082
       }
 
-      @valid_config_keys = @config.keys
+      @valid_config_keys = @config.keys + [:username, :password, :debug]
     end
 
     # Configure through hash
@@ -28,6 +28,8 @@ module AptlyCli
       opts.each do |k, v|
         config[k.to_sym] = v if @valid_config_keys.include? k.to_sym
       end
+
+      @config
     end
 
     # Configure through yaml file
@@ -36,7 +38,8 @@ module AptlyCli
         config = YAML.load(IO.read(path_to_yaml_file))
       rescue Errno::ENOENT
         @log.warn(
-          'YAML configuration file couldn\'t be found at /etc/aptly-cli.conf. Using defaults.')
+          "YAML configuration file couldn\'t be found at " \
+           "#{path_to_yaml_file}. Using defaults.")
         return @config
       rescue Psych::SyntaxError
         @log.warn(
