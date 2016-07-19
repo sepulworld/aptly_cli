@@ -1,27 +1,13 @@
 require 'aptly_cli/version'
+require 'aptly_command'
 require 'aptly_load'
 require 'httmultiparty'
 
 module AptlyCli
   # Uploading file into Aptly
-  class AptlyFile
+  class AptlyFile < AptlyCommand
     include HTTMultiParty
     attr_accessor :file_uri, :package, :local_file_path
-
-    # Load aptly-cli.conf and establish base_uri
-    @config = AptlyCli::AptlyLoad.new.configure_with('/etc/aptly-cli.conf')
-    base_uri "#{@config[:proto]}://#{@config[:server]}:#{@config[:port]}/api"
-
-    if @config[:username]
-      if @config[:password]
-        basic_auth @config[:username].to_s, @config[:password].to_s
-      end
-    end
-
-    debug_output $stdout if @config[:debug] == true
-
-    def initialize(file_uri=nil, package=nil, local_file_path=nil)
-    end
 
     def file_dir
       uri = '/files'
