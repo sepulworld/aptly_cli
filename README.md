@@ -86,32 +86,68 @@ of these options, just as you can in a config file. Note that you might
 have to quote them to prevent the shell from trying to expand them.
 
     $ aptly-cli --help
+      NAME:
 
-    file_delete        Deletes all files in upload directory and directory itself. Or delete just a file
-    file_list          List all directories that contain uploaded files
-    file_upload        Parameter --directory is upload directory name. Directory would be created if it doesn’t exist.
-    graph              Download a graph of repository layout.  Current options are "svg" and "png"
-    help               Display global or [command] help documentation
-    publish_drop       Delete published repository, clean up files in published directory.
-    publish_list       List published repositories.
-    publish_repo       Publish local repository or snapshot under specified prefix. Storage might be passed in prefix as well, e.g. s3:packages/. To supply empty prefix, just remove last part (POST /api/publish/:prefix/<:repos>or<:snapshots>
-    publish_update     Update published repository. If local repository has been published, published repository would be updated to match local repository contents. If snapshots have been been published, it is possible to switch each component to new snapshot
-    repo_create        Create a new repository, requires --name
-    repo_delete        Delete a local repository, requires --name
-    repo_edit          Edit a local repository metadata, requires --name
-    repo_list          Show list of currently available local repositories
-    repo_package_query List all packages in local repository or perform search on repository contents and return result., requires --name
-    repo_show          Returns basic information about local repository
-    repo_upload        Import packages from files (uploaded using File Upload API) to the local repository. If directory specified, aptly would discover package files automatically.Adding same package to local repository is not an error. By default aptly would try to remove every successfully processed file and directory :dir (if it becomes empty after import).
-    snapshot_create    Create snapshot of current local repository :name contents as new snapshot with name :snapname
-    snapshot_delete    Delete snapshot. Snapshot can’t be deleted if it is published. aptly would refuse to delete snapshot if it has been used as source to create other snapshots, but that could be overridden with force parameter
-    snapshot_diff      Calculate difference between two snapshots --name (left) and --withsnapshot (right).
-    snapshot_list      Return list of all snapshots created in the system
-    snapshot_search    List all packages in snapshot or perform search on snapshot contents and return result
-    snapshot_show      Get information about snapshot by name
-    snapshot_update    Update snapshot’s description or name
-    version            Display aptly server 
-    
+        aptly-cli
+
+      DESCRIPTION:
+
+        Aptly repository API client
+
+      COMMANDS:
+
+        file_delete        File delete
+        file_list          List all directories
+        file_upload        File upload
+        graph              Download an svg or png graph of repository layout
+        help               Display global or [command] help documentation
+        publish_drop       Delete published repository
+        publish_list       List published repositories
+        publish_repo       Publish local repository or snapshot under specified prefix
+        publish_update     Update published repository
+        repo_create        Create a new repository, requires --name
+        repo_delete        Delete a local repository, requires --name
+        repo_edit          Edit a local repository metadata, requires --name
+        repo_list          Show list of currently available local repositories
+        repo_package_query List all packages or search on repo contents, requires --name
+        repo_show          Returns basic information about local repository
+        repo_upload        Import packages from files
+        snapshot_create    Create snapshot, require --name
+        snapshot_delete    Delete snapshot, require --name
+        snapshot_diff      Calculate difference between two snapshots
+        snapshot_list      Return list of all snapshots created in the system
+        snapshot_search    List all packages in snapshot or perform search
+        snapshot_show      Get information about snapshot by name
+        snapshot_update    Update snapshot’s description or name
+        version            Display aptly server version
+
+      GLOBAL OPTIONS:
+
+        -c, --config FILE
+            Path to YAML config file
+
+        -s, --server SERVER
+            Host name or IP address
+
+        --username USERNAME
+            User name
+
+        --password PASSWORD
+            Password
+
+        --debug
+            Enable debug output
+
+        -h, --help
+            Display help documentation
+
+        -v, --version
+            Display version information
+
+        -t, --trace
+            Display backtrace when an error occurs
+
+
 ### To see more options for each command
 
     $ aptly-cli <command> --help
