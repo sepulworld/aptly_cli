@@ -65,6 +65,34 @@ prompt where the input is replaced by asterisks, e.g.:
       Enter a value for password:
       ********
 
+Another possibility for storing passwords is `${KEYRING}`. To use this feature,
+you must have the [`keyring` gem](https://github.com/jheiss/keyring) installed
+and also have a system that is set up to use one of the backends that the
+`keyring` gem supports, such as Mac OS X Keychain or GNOME 2 Keyring (Note:
+Only Mac OS X Keychain has been tested thus far):
+
+    $ gem install keyring
+
+Then you can put something like this in `aptly-cli.conf`:
+
+```yaml
+:username: zane
+:password: ${KEYRING}
+```
+
+The first time you run an `aptly-cli` command, you will be prompted to enter a
+password.
+
+    $ aptly-cli version
+    Enter a value for password:
+    ***************
+
+The entered password will be stored in your keyring so that future uses of
+`aptly-cli` can get the password from your keyring:
+
+    $ aptly-cli version
+    {"Version"=>"0.9.7"}
+
 Also make sure that your config file isn't world readable (```chmod o-rw /etc/aptly-cli.conf```)
 
 If a configuration file is not found, the defaults in the example
@@ -81,9 +109,9 @@ those things on the command-line and not even requiring a config file.
 
     $ aptly-cli --server 10.3.0.46 --username marca --password '${PROMPT_PASSWORD}' repo_list
 
-Note that you can use `${PROMPT}` and `${PROMPT_PASSWORD}` in the values
-of these options, just as you can in a config file. Note that you might
-have to quote them to prevent the shell from trying to expand them.
+Note that you can use `${PROMPT}`, `${PROMPT_PASSWORD}`, and `${KEYRING}` in
+the values of these options, just as you can in a config file. Note that you
+might have to quote them to prevent the shell from trying to expand them.
 
     $ aptly-cli --help
       NAME:
