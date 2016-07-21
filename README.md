@@ -12,9 +12,9 @@ A command line interface to execute [Aptly](http://aptly.info) commands againts 
 ### Install Gem:
 
     $ gem install aptly_cli
-    
-or...    
-    
+
+or...
+
 ### Install and run aptly-cli from Docker:
 
     # Optional: If you don't pull explicitly, `docker run` will do it for you
@@ -47,33 +47,43 @@ If you use Basic Authentication to protect your API, add username and password:
 :password: api-password
 ```
 
-The username and password can also be configured for prompt entry using the following in the aptly-cli.conf:
+The username and password can also be configured for prompt entry using
+the following in `aptly-cli.conf`:
 
 ```yaml
 :username: ${PROMPT}
 :password: ${PROMPT_PASSWORD}
 ```
 
-The tool will prompt for the specified values, where ${PROMPT} results in a regular prompt and ${PROMPT_PASSWORD} results in a password prompt where the input is replaced by asterisks, e.g.:
+The tool will prompt for the specified values, where `${PROMPT}` results
+in a regular prompt and `${PROMPT_PASSWORD}` results in a password
+prompt where the input is replaced by asterisks, e.g.:
 
     $ aptly-cli version
       Enter a value for username:
       zane
       Enter a value for password:
+      ********
 
 Also make sure that your config file isn't world readable (```chmod o-rw /etc/aptly-cli.conf```)
 
-If a configuration file is not found the defaults in the example configuration file above will be used
+If a configuration file is not found, the defaults in the example
+configuration file above will be used.
 
 ## Usage - available aptly-cli commands
 
-The --config (-c) option allows specifying an alternative config file, e.g.:
+The `--config` (`-c`) option allows specifying an alternative config file, e.g.:
 
     $ aptly-cli -c ~/.config/aptly-cli/aptly-cli.conf repo_list
-The --server, --username, and --password options allow specifying those things on the command-line and not even requiring a config file.
+
+The `--server`, `--username`, and `--password` options allow specifying
+those things on the command-line and not even requiring a config file.
 
     $ aptly-cli --server 10.3.0.46 --username marca --password '${PROMPT_PASSWORD}' repo_list
-Note that you can use ${PROMPT} and ${PROMPT_PASSWORD} in the values of these options, just as you can in a config file.
+
+Note that you can use `${PROMPT}` and `${PROMPT_PASSWORD}` in the values
+of these options, just as you can in a config file. Note that you might
+have to quote them to prevent the shell from trying to expand them.
 
     $ aptly-cli --help
 
