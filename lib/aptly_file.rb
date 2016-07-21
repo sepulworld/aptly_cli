@@ -6,7 +6,6 @@ require 'httmultiparty'
 module AptlyCli
   # Uploading file into Aptly
   class AptlyFile < AptlyCommand
-    include HTTMultiParty
     attr_accessor :file_uri, :package, :local_file_path
 
     def file_dir
