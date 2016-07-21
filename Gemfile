@@ -6,5 +6,6 @@ gemspec
 gem "keyring", require: false, platform: :ruby_20
 
 group :test do
+  gem "rubocop", require: false
   gem "simplecov", require: false
 end
