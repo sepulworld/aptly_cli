@@ -5,11 +5,12 @@ require 'rubygems'
 require 'commander/import'
 require 'aptly_cli'
 
-program :version, AptlyCli::VERSION 
-program :description, 'Aptly repository API client'
+program :version, AptlyCli::VERSION
+program :description, 'Aptly repository API client (https://github.com/sepulworld/aptly_cli)'
 
 $config_file = '/etc/aptly-cli.conf'
 $server = nil
+$port = nil
 $username = nil
 $password = nil
 $debug = false
@@ -18,13 +19,16 @@ global_option('-c', '--config FILE', 'Path to YAML config file') do |config_file
   $config_file = config_file
 end
 
-global_option('-s', '--server SERVER', 'Host name or IP address') do |server|
+global_option('-s', '--server SERVER', 'Host name or IP address of Aptly API server') do |server|
   $server = server
 end
-global_option('--username USERNAME', 'User name') do |username|
+global_option('-p', '--port PORT', 'Port of Aptly API server') do |port|
+  $port = port
+end
+global_option('--username USERNAME', 'User name or \'${PROMPT}\'') do |username|
   $username = username
 end
-global_option('--password PASSWORD', 'Password') do |password|
+global_option('--password PASSWORD', 'Password or \'${PROMPT_PASSWORD}\' or \'${KEYRING}\'') do |password|
   $password = password
 end
 global_option('--debug', 'Enable debug output') do
@@ -34,6 +38,9 @@ end
 def handle_global_options(options)
   if $server
     options.server = $server
+  end
+  if $port
+    options.port = $port
   end
   if $username
     options.username = $username

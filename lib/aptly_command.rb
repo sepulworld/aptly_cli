@@ -3,19 +3,23 @@ class AptlyCommand
     @config = config
     options ||= Options.new
 
-    if options.server
+    if options.respond_to?(:server) && options.server
       @config[:server] = options.server
     end
 
-    if options.username
+    if options.respond_to?(:port) && options.port
+      @config[:port] = options.port
+    end
+
+    if options.respond_to?(:username) && options.username
       @config[:username] = options.username
     end
 
-    if options.password
+    if options.respond_to?(:password) && options.password
       @config[:password] = options.password
     end
 
-    if options.debug
+    if options.respond_to?(:debug) && options.debug
       @config[:debug] = options.debug
     end
 
@@ -28,14 +32,16 @@ class AptlyCommand
         require 'keyring'
 
         keyring = Keyring.new
-        value = keyring.get_password(@config[:server], @config[:username])
+        keychain_item_name = 'Aptly API server at ' + \
+                             @config[:server] + ':' + @config[:port].to_s
+        value = keyring.get_password(keychain_item_name, @config[:username])
 
         unless value
           # Prompt for password...
           value = password("Enter a value for #{k}:")
 
           # ... and store in keyring
-          keyring.set_password(@config[:server], @config[:username], value)
+          keyring.set_password(keychain_item_name, @config[:username], value)
         end
 
         @config[k.to_sym] = value
