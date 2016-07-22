@@ -186,7 +186,30 @@ might have to quote them to prevent the shell from trying to expand them.
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `bin/console` for an interactive prompt that will allow you to experiment.
+### Measuring coverage locally
+
+```
+$ rake docker_pull
+$ rake docker_run
+$ bundle exec rake test
+...
+Coverage report generated for Unit Tests to /Users/marca/dev/git-repos/aptly_cli/coverage. 521 / 566 LOC (92.05%) covered.
+[Coveralls] Outside the CI environment, not sending data.
+
+$ open coverage/index.html
+```
+
+<img width="1426" alt="screen shot 2016-07-21 at 4 05 56 pm" src="https://cloud.githubusercontent.com/assets/305268/17042294/2f28f8f8-4f61-11e6-8a92-f0d921e36187.png">
+
+### Rubocop syntax and style check
+
+```bash
+$ bundle exec rake rubocop
+Running RuboCop...
+Inspecting 24 files
+WCCCWC..CCCC.CCC.WCWCCCC
+...
+```
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release` to create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
