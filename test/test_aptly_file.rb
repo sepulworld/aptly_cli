@@ -4,7 +4,7 @@ require 'minitest/autorun'
 require 'aptly_cli'
 
 def post_test_file(location)
-  config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+  config = AptlyCli::AptlyLoad.new.configure_with(nil)
   file_api_setup = AptlyCli::AptlyFile.new(config)
   file_api_setup.file_post(
     file_uri: location.to_s,
@@ -27,7 +27,7 @@ describe AptlyCli::AptlyFile do
 end
 
 describe 'API GET files' do
-  config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+  config = AptlyCli::AptlyLoad.new.configure_with(nil)
   let(:file_api) { AptlyCli::AptlyFile.new(config) }
   post_test_file('/testdirfile') 
   
@@ -37,7 +37,7 @@ describe 'API GET files' do
 end
 
 describe 'API DELETE files' do
-  config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+  config = AptlyCli::AptlyLoad.new.configure_with(nil)
   let(:file_api) { AptlyCli::AptlyFile.new(config) }
   post_test_file('/testdirfiledelete') 
   
@@ -49,7 +49,7 @@ end
 
 
 describe "API POST package files" do
-  config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+  config = AptlyCli::AptlyLoad.new.configure_with(nil)
   let(:api_file) { AptlyCli::AptlyFile.new(config) }
   let(:data_for_not_found) { api_file.file_get('test_package_not_here') }
 

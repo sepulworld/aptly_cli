@@ -9,7 +9,7 @@ describe AptlyCli::AptlyPackage do
   end
 
   describe "API List Package" do
-    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    config = AptlyCli::AptlyLoad.new.configure_with(nil)
     let(:package_api) { AptlyCli::AptlyPackage.new(config) }
 
     def test_package_show

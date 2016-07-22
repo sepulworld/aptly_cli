@@ -9,7 +9,7 @@ describe AptlyCli::AptlySnapshot do
   end
 
   describe 'API Delete Snapshot' do
-    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    config = AptlyCli::AptlyLoad.new.configure_with(nil)
     let(:snapshot_api) { AptlyCli::AptlySnapshot.new(config) }
     let(:publish_api) { AptlyCli::AptlyPublish.new(config) }
 
@@ -51,7 +51,7 @@ describe AptlyCli::AptlySnapshot do
   end
 
   describe 'API Create and List Snapshot' do
-    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    config = AptlyCli::AptlyLoad.new.configure_with(nil)
     let(:snapshot_api) { AptlyCli::AptlySnapshot.new(config) }
 
     def test_snapshot_create
@@ -78,7 +78,7 @@ describe AptlyCli::AptlySnapshot do
   end
 
   describe 'API Update Snapshot' do
-    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    config = AptlyCli::AptlyLoad.new.configure_with(nil)
     let(:snapshot_api) { AptlyCli::AptlySnapshot.new(config) }
 
     def test_snapshot_update_name
@@ -112,7 +112,7 @@ describe AptlyCli::AptlySnapshot do
   end
 
   describe 'API Search Snapshot' do
-    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    config = AptlyCli::AptlyLoad.new.configure_with(nil)
     let(:snapshot_api) { AptlyCli::AptlySnapshot.new(config) }
 
     def test_snapshot_search_for_all_with_details
@@ -139,7 +139,7 @@ describe AptlyCli::AptlySnapshot do
   end
 
   describe 'API Diff Snapshot' do
-    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    config = AptlyCli::AptlyLoad.new.configure_with(nil)
     let(:snapshot_api) { AptlyCli::AptlySnapshot.new(config) }
 
     def test_snapshot_diff
@@ -156,7 +156,7 @@ describe AptlyCli::AptlySnapshot do
   end
 
   describe 'API Show Snapshot' do
-    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    config = AptlyCli::AptlyLoad.new.configure_with(nil)
     let(:snapshot_api) { AptlyCli::AptlySnapshot.new(config) }
 
     def test_snapshot_show
@@ -169,7 +169,7 @@ describe AptlyCli::AptlySnapshot do
   end
 
   describe 'API Create Snapshot from Package Refs' do
-    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    config = AptlyCli::AptlyLoad.new.configure_with(nil)
     let(:snapshot_api) { AptlyCli::AptlySnapshot.new(config) }
 
     def test_snapshot_create_ref

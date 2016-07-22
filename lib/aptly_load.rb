@@ -34,18 +34,23 @@ module AptlyCli
 
     # Configure through yaml file
     def configure_with(path_to_yaml_file)
-      begin
-        config = YAML.load(IO.read(path_to_yaml_file))
-      rescue Errno::ENOENT
-        @log.warn(
-          "YAML configuration file couldn\'t be found at " \
-           "#{path_to_yaml_file}. Using defaults.")
-        return @config
-      rescue Psych::SyntaxError
-        @log.warn(
-          'YAML configuration file contains invalid syntax. Using defaults.')
-        return @config
+      if path_to_yaml_file
+        begin
+          config = YAML.load(IO.read(path_to_yaml_file))
+        rescue Errno::ENOENT
+          @log.warn(
+            "YAML configuration file couldn\'t be found at " \
+             "#{path_to_yaml_file}. Using defaults.")
+          return @config
+        rescue Psych::SyntaxError
+          @log.warn(
+            'YAML configuration file contains invalid syntax. Using defaults.')
+          return @config
+        end
+      else
+        config = {}
       end
+
       configure(config)
     end
   end

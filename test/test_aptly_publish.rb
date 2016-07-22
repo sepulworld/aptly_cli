@@ -9,7 +9,7 @@ describe AptlyCli::AptlyPublish do
   end
 
   describe 'API List Publish' do
-    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    config = AptlyCli::AptlyLoad.new.configure_with(nil)
     let(:publish_api) { AptlyCli::AptlyPublish.new(config) }
     let(:snapshot_api) { AptlyCli::AptlySnapshot.new(config) }
 
@@ -40,7 +40,7 @@ describe AptlyCli::AptlyPublish do
   end
 
   describe 'API Drop Publish' do
-    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    config = AptlyCli::AptlyLoad.new.configure_with(nil)
     let(:publish_api) { AptlyCli::AptlyPublish.new(config) }
     let(:snapshot_api) { AptlyCli::AptlySnapshot.new(config) }
 
@@ -60,7 +60,7 @@ describe AptlyCli::AptlyPublish do
   end
 
   describe 'API Publish Repo' do
-    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    config = AptlyCli::AptlyLoad.new.configure_with(nil)
     let(:publish_api) { AptlyCli::AptlyPublish.new(config) }
     let(:snapshot_api) { AptlyCli::AptlySnapshot.new(config) }
 
@@ -80,7 +80,7 @@ describe AptlyCli::AptlyPublish do
   end
 
   describe 'API Update Publish Point' do
-    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    config = AptlyCli::AptlyLoad.new.configure_with(nil)
     let(:publish_api) { AptlyCli::AptlyPublish.new(config) }
     let(:snapshot_api) { AptlyCli::AptlySnapshot.new(config) }
 
