@@ -141,10 +141,65 @@ describe AptlyCli::AptlySnapshot do
   describe 'API Diff Snapshot' do
     config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
     let(:snapshot_api) { AptlyCli::AptlySnapshot.new(config) }
+
+    def test_snapshot_diff
+      snapshot_api.snapshot_create(
+        'testrepo_snap_diff_1', 'testrepo',
+        'testrepo snapshot to test snapshot diff')
+      snapshot_api.snapshot_create(
+        'testrepo_snap_diff_2', 'testrepo',
+        'testrepo snapshot to test snapshot diff')
+      assert_equal '200', snapshot_api.snapshot_diff(
+        'testrepo_snap_diff_1',
+        'testrepo_snap_diff_2').code.to_s
+    end
   end
 
   describe 'API Show Snapshot' do
     config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
     let(:snapshot_api) { AptlyCli::AptlySnapshot.new(config) }
+
+    def test_snapshot_show
+      snapshot_api.snapshot_create(
+        'testrepo_snap_show', 'testrepo',
+        'testrepo snapshot to test snapshot show')
+      assert_equal '200', snapshot_api.snapshot_show(
+        'testrepo_snap_show').code.to_s
+    end
+  end
+
+  describe 'API Create Snapshot from Package Refs' do
+    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    let(:snapshot_api) { AptlyCli::AptlySnapshot.new(config) }
+
+    def test_snapshot_create_ref
+      assert_equal '201', snapshot_api.snapshot_create_ref(
+        'testrepo_snap_create_ref',
+        'testrepo snapshot to ' \
+        'test snapshot create from package refs').code.to_s
+      assert_equal '200', snapshot_api.snapshot_show(
+        'testrepo_snap_create_ref').code.to_s
+    ensure
+      assert_equal '200', snapshot_api.snapshot_delete(
+        'testrepo_snap_create_ref').code.to_s
+    end
+
+    def test_snapshot_create_ref_exists_error
+      assert_equal '201', snapshot_api.snapshot_create_ref(
+        'testrepo_snap_create_ref',
+        'testrepo snapshot to ' \
+        'test snapshot create from package refs').code.to_s
+      assert_equal '200', snapshot_api.snapshot_show(
+        'testrepo_snap_create_ref').code.to_s
+
+      # Snapshot exists so this should fail
+      assert_equal '400', snapshot_api.snapshot_create_ref(
+        'testrepo_snap_create_ref',
+        'testrepo snapshot to ' \
+        'test snapshot create from package refs').code.to_s
+    ensure
+      assert_equal '200', snapshot_api.snapshot_delete(
+        'testrepo_snap_create_ref').code.to_s
+    end
   end
 end
