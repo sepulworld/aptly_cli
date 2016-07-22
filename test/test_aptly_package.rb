@@ -9,6 +9,12 @@ describe AptlyCli::AptlyPackage do
   end
 
   describe "API List Package" do
-    let(:package_api) { AptlyCli::AptlyPackage.new }
+    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    let(:package_api) { AptlyCli::AptlyPackage.new(config) }
+
+    def test_package_show
+      assert_equal '404', package_api.package_show(
+        'Pamd64%20boguspackage%202.0.0%2087f1591307e50817').code.to_s
+    end
   end
 end
