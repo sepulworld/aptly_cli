@@ -64,4 +64,26 @@ describe AptlyCli::AptlyCommand do
     cmd = AptlyCli::AptlyCommand.new(config, options)
     cmd.config[:username].must_equal 'secret'
   end
+
+  it 'can process an option with \'${KEYRING`}\' in it' do
+    options = Options.new
+    options.username = 'marc'
+    options.password = '${KEYRING}'
+    Keyring = class << self; self; end # rubocop:disable ConstantName
+    keyring = Minitest::Mock.new
+    keyring.expect(
+      :get_password,
+      nil,
+      ['Aptly API server at 127.0.0.1:8082', 'marc'])
+    keyring.expect(
+      :set_password,
+      nil,
+      ['Aptly API server at 127.0.0.1:8082', 'marc', 'secret'])
+    Keyring.stub :new, keyring do
+      config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+      cmd = AptlyCli::AptlyCommand.new(config, options)
+      cmd.config[:username].must_equal 'marc'
+      cmd.config[:password].must_equal 'secret'
+    end
+  end
 end
