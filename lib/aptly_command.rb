@@ -63,7 +63,7 @@ module AptlyCli
         end
       end
 
-      if self.respond_to?(:debug_output)
+      if respond_to?(:debug_output)
         debug_output $stdout if @config[:debug] == true
       end
     end
