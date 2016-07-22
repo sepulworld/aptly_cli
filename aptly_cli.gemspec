@@ -11,6 +11,7 @@ Gem::Specification.new do |spec|
 
   if spec.respond_to?(:metadata)
     spec.metadata['allowed_push_host'] = "https://rubygems.org"
+    spec.metadata['optional_gems']     = "keyring"
   end
 
   spec.summary               = %q{Command line client to interact with Aptly package management system}
@@ -28,6 +29,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "minitest"
   spec.add_development_dependency "coveralls"
+  spec.add_development_dependency "simplecov"
+  spec.add_development_dependency "rubocop"
 
   spec.add_dependency "httmultiparty", "~> 0.3.16"
   spec.add_dependency "commander", "~> 4.3"
