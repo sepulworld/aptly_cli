@@ -11,6 +11,7 @@ Gem::Specification.new do |spec|
 
   if spec.respond_to?(:metadata)
     spec.metadata['allowed_push_host'] = "https://rubygems.org"
+    spec.metadata['optional_gems']     = "keyring"
   end
 
   spec.summary               = %q{Command line client to interact with Aptly package management system}
