@@ -2,6 +2,13 @@ require "bundler/gem_tasks"
 
 require "rake/testtask"
 
+begin
+  require 'rubocop/rake_task'
+	RuboCop::RakeTask.new
+rescue LoadError
+  puts 'Install "rubocop" to enable rubocop Rake task.'
+end
+
 Rake::TestTask.new do |t|
   t.libs << "lib"
   t.libs << "test"
