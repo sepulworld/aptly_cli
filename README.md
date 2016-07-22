@@ -104,10 +104,10 @@ The `--config` (`-c`) option allows specifying an alternative config file, e.g.:
 
     $ aptly-cli -c ~/.config/aptly-cli/aptly-cli.conf repo_list
 
-The `--server`, `--username`, and `--password` options allow specifying
+The `--server`, `--port`, `--username`, and `--password` options allow specifying
 those things on the command-line and not even requiring a config file.
 
-    $ aptly-cli --server 10.3.0.46 --username marca --password '${PROMPT_PASSWORD}' repo_list
+    $ aptly-cli --server 10.3.0.46 --port 9000 --username marca --password '${PROMPT_PASSWORD}' repo_list
 
 Note that you can use `${PROMPT}`, `${PROMPT_PASSWORD}`, and `${KEYRING}` in
 the values of these options, just as you can in a config file. Note that you
