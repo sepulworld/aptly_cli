@@ -120,7 +120,7 @@ might have to quote them to prevent the shell from trying to expand them.
 
       DESCRIPTION:
 
-        Aptly repository API client
+        Aptly repository API client (https://github.com/sepulworld/aptly_cli)
 
       COMMANDS:
 
@@ -155,13 +155,16 @@ might have to quote them to prevent the shell from trying to expand them.
             Path to YAML config file
 
         -s, --server SERVER
-            Host name or IP address
+            Host name or IP address of Aptly API server
 
+        -p, --port PORT
+            Port of Aptly API server
+ 
         --username USERNAME
-            User name
+            User name or '${PROMPT}'
 
         --password PASSWORD
-            Password
+            Password or '${PROMPT_PASSWORD}' or '${KEYRING}'
 
         --debug
             Enable debug output
