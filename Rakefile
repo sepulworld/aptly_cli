@@ -45,7 +45,7 @@ end
 
 desc "Start Aptly Docker container on port 8082"
 task :docker_run do
-  sh %{docker run -d -p 8082:8080 sepulworld/aptly_api_test /bin/sh -c "aptly api serve"}
+  sh %{docker run -d -p 8082:8080 --restart=always sepulworld/aptly_api_test /bin/sh -c "aptly api serve"}
 end
 
 desc "Show running Aptly process Docker stdout logs"
