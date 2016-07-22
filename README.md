@@ -195,14 +195,22 @@ Ruby Minitest are implemented using a Docker container for functional tests.
 Rake tasks available:
 
 ```bash
-rake build              # Build aptly_cli-<version>.gem into the pkg directory
-rake docker_build       # Docker build image
-rake docker_list_aptly  # List Docker Aptly running containers
-rake docker_run         # Start Aptly Docker container on port 8082
-rake docker_stop        # Stop running Aptly Docker containers
-rake install            # Build and install aptly_cli-<version>.gem into system gems
-rake install:local      # Build and install aptly_cli-<version>.gem into system gems without network access
-rake test               # Run tests
+rake build                 # Build aptly_cli-<version>.gem into the pkg directory
+rake clean                 # Remove any temporary products
+rake clobber               # Remove any generated files
+rake docker_build          # Docker build image
+rake docker_list_aptly     # List Docker Aptly running containers
+rake docker_pull           # Pull Docker image to Docker Hub
+rake docker_push           # Push Docker image to Docker Hub
+rake docker_restart        # Restart Aptly docker container
+rake docker_run            # Start Aptly Docker container on port 8082
+rake docker_show_logs      # Show running Aptly process Docker stdout logs
+rake docker_stop           # Stop running Aptly Docker containers
+rake install               # Build and install aptly_cli-<version>.gem into system gems
+rake install:local         # Build and install aptly_cli-<version>.gem into system gems without network access
+rake rubocop               # Run RuboCop
+rake rubocop:auto_correct  # Auto-correct RuboCop offenses
+rake test                  # Run tests
 ```
 
 
