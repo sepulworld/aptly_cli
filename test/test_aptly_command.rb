@@ -40,7 +40,6 @@ describe AptlyCli::AptlyCommand do
     options.username = 'me'
     options.password = 'secret'
     options.debug = false 
-    puts options
     config = AptlyCli::AptlyLoad.new.configure_with(nil)
     cmd = AptlyCli::AptlyCommand.new(config, options)
     cmd.config[:server].must_equal 'my-server'
