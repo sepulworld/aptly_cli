@@ -153,7 +153,10 @@ might have to quote them to prevent the shell from trying to expand them.
 
         -c, --config FILE
             Path to YAML config file
-
+  
+        --no-config
+            Don't try to read YAML config file
+ 
         -s, --server SERVER
             Host name or IP address of Aptly API server
 
