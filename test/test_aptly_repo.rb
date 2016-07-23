@@ -23,24 +23,39 @@ describe AptlyCli::AptlyRepo do
         '{"FailedFiles"=>[], "Report"=>{"Warnings"=>[], "Added"=>'\
         '["geoipupdate_2.0.0_amd64 added"], "Removed"=>[]}}'
     end
+
+    def test_repo_upload_repo_does_not_exist
+      file_api.file_post(file_uri: '/testdir',
+                         package: 'testdir/fixtures/test_1.0_amd64.deb',
+                         local_file: 'test/fixtures/test_1.0_amd64.deb')
+      assert_output(/repository with such name does not exist/) do
+        assert_includes(
+          repo_api.repo_upload(
+            name: 'repodoesnotexist',
+            dir: 'testdir/',
+            file: 'test_1.0_amd64.deb').to_s,
+          'local repo with name repodoesnotexist not found'
+        )
+      end
+    end
   end
 
   describe 'API Upload to Repo, failure scenario' do
     config = AptlyCli::AptlyLoad.new.configure_with(nil)
     let(:repo_api_fail) { AptlyCli::AptlyRepo.new(config) }
-    let(:data) do
-      repo_api_fail.repo_upload(name: 'testrepo',
-                                dir: 'rockpackages',
-                                file: 'test_package_not_here',
-                                noremove: true)
-    end
 
     def test_repo_upload_fail_response
+      assert_output(/Files that failed to upload.../) do
+        @data = repo_api_fail.repo_upload(name: 'testrepo',
+                                          dir: 'rockpackages',
+                                          file: 'test_package_not_here',
+                                          noremove: true)
+      end
       assert_equal '["Unable to process /aptly/upload/'\
                    'rockpackages/test_package_not_here: stat '\
                    '/aptly/upload/rockpackages/test_package_not_here: '\
                    'no such file or directory"]',
-                   data['Report']['Warnings'].to_s
+                   @data['Report']['Warnings'].to_s
     end
   end
 

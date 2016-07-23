@@ -97,26 +97,20 @@ module AptlyCli
       case response.code
       when 404
         puts 'repository with such name does not exist'
+        return response
       end
 
       json_response = JSON.parse(response.body)
 
       unless json_response['FailedFiles'].empty?
-        begin
-        rescue StandardError => e
-          puts "Files that failed to upload... #{json_response['FailedFiles']}"
-          puts e
-        end
+        puts "Files that failed to upload... #{json_response['FailedFiles']}"
       end
 
       unless json_response['Report']['Warnings'].empty?
-        begin
-        rescue StandardError => e
-          puts "File upload warning message[s]...\
-               #{json_response['Report']['Warnings']}"
-          puts e
-        end
+        puts "File upload warning message[s]...\
+             #{json_response['Report']['Warnings']}"
       end
+
       return response
     end
   end
