@@ -55,6 +55,8 @@ describe AptlyCli::AptlyRepo do
       assert_includes repo_api.repo_show('testrepotoshow').to_s,
         '{"Name"=>"testrepotoshow", "Comment"=>"testing repo show", '\
         '"DefaultDistribution"=>"preciseshowtest", "DefaultComponent"=>""}'
+    ensure
+      assert_equal '200', repo_api.repo_show(nil).code.to_s
     end
   end
 
