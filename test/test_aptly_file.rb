@@ -34,10 +34,10 @@ describe 'API GET files' do
   def test_file_get
     assert_includes file_api.file_get('/testdirfile').to_s, 'test_1.0_amd64.deb'
   end
-  
+
   def test_file_get_no_file_uri
     assert_equal '200', file_api.file_get('/').code.to_s
-  ensure 
+  ensure
     assert_equal '200', file_api.file_dir.code.to_s
   end
 end
