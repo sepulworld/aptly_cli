@@ -39,14 +39,12 @@ describe AptlyCli::AptlyCommand do
     options.port = 9000
     options.username = 'me'
     options.password = 'secret'
-    options.debug = true
     config = AptlyCli::AptlyLoad.new.configure_with(nil)
     cmd = AptlyCli::AptlyCommand.new(config, options)
     cmd.config[:server].must_equal 'my-server'
     cmd.config[:port].must_equal 9000
     cmd.config[:username].must_equal 'me'
     cmd.config[:password].must_equal 'secret'
-    cmd.config[:debug].must_equal true
   end
 
   it 'can process an option with \'${PROMPT}\' in it' do

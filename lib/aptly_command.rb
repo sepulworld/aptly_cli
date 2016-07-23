@@ -3,28 +3,27 @@ module AptlyCli
     include HTTMultiParty
 
     attr_accessor :config
-
     def initialize(config, options = nil)
       @config = config
       options ||= Options.new
 
-      if options.respond_to?(:server) && options.server
+      if options.server
         @config[:server] = options.server
       end
 
-      if options.respond_to?(:port) && options.port
+      if options.port
         @config[:port] = options.port
       end
 
-      if options.respond_to?(:username) && options.username
+      if options.username
         @config[:username] = options.username
       end
 
-      if options.respond_to?(:password) && options.password
+      if options.password
         @config[:password] = options.password
       end
 
-      if options.respond_to?(:debug) && options.debug
+      if options.debug
         @config[:debug] = options.debug
       end
 
@@ -63,9 +62,7 @@ module AptlyCli
         end
       end
 
-      if respond_to?(:debug_output)
-        debug_output $stdout if @config[:debug] == true
-      end
+      self.class.debug_output $stdout if @config[:debug] == true
     end
   end
 end
