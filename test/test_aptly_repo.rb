@@ -79,9 +79,16 @@ describe AptlyCli::AptlyRepo do
         name: 'testrepotoquery',
         dir: 'testdir2/',
         file: 'test_1.0_amd64.deb')
-      assert_includes repo_api.repo_package_query(name: 'testrepotoquery',
-                                                  query: 'geoipupdate').to_s,
-                                                  '["Pamd64 geoipupdate 2.0.0'
+      res = repo_api.repo_package_query(
+        name: 'testrepotoquery',
+        query: 'geoipupdate',
+        with_deps: true,
+        format: 'details',
+      )
+      assert_equal res.request.uri.to_s,
+                   'http://127.0.0.1:8082/api/repos/testrepotoquery/packages'\
+                   '?q=geoipupdate&format=details&withDeps=1'
+      assert_includes res.to_s, 'Pamd64 geoipupdate 2.0.0'
     end
   end
   

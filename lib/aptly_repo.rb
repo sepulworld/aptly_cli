@@ -3,6 +3,7 @@ require 'aptly_command'
 require 'aptly_load'
 require 'httmultiparty'
 require 'json'
+require 'uri'
 
 module AptlyCli
   # Aptly class to work with Repo API
@@ -58,15 +59,12 @@ module AptlyCli
       else
         uri = '/repos/' + repo_options[:name] + '/packages'
       end
-      uri += if repo_options[:query]
-               "?q=#{repo_options[:query]}"
-             elsif repo_options[:format]
-               "?format=#{repo_options[:format]}"
-             elsif repo_options[:with_deps]
-               '?withDeps=1'
-             else
-               ''
-             end
+
+      qs_hash = {}
+      qs_hash['q'] = repo_options[:query] if repo_options[:query]
+      qs_hash['format'] = repo_options[:format] if repo_options[:format]
+      qs_hash['withDeps'] = 1 if repo_options[:with_deps]
+      uri += '?' + URI.encode_www_form(qs_hash) if qs_hash
       self.class.get uri
     end
 
