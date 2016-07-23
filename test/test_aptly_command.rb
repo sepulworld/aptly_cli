@@ -17,7 +17,7 @@ end
 
 describe AptlyCli::AptlyCommand do
   it 'has a default config' do
-    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    config = AptlyCli::AptlyLoad.new.configure_with(nil)
     cmd = AptlyCli::AptlyCommand.new(config)
     cmd.config[:proto].must_equal 'http'
     cmd.config[:server].must_equal '127.0.0.1'
@@ -26,7 +26,7 @@ describe AptlyCli::AptlyCommand do
 
   it 'accepts empty options and no config changes' do
     options = Options.new
-    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    config = AptlyCli::AptlyLoad.new.configure_with(nil)
     cmd = AptlyCli::AptlyCommand.new(config, options)
     cmd.config[:proto].must_equal 'http'
     cmd.config[:server].must_equal '127.0.0.1'
@@ -40,7 +40,7 @@ describe AptlyCli::AptlyCommand do
     options.username = 'me'
     options.password = 'secret'
     options.debug = true
-    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    config = AptlyCli::AptlyLoad.new.configure_with(nil)
     cmd = AptlyCli::AptlyCommand.new(config, options)
     cmd.config[:server].must_equal 'my-server'
     cmd.config[:port].must_equal 9000
@@ -52,7 +52,7 @@ describe AptlyCli::AptlyCommand do
   it 'can process an option with \'${PROMPT}\' in it' do
     options = Options.new
     options.username = '${PROMPT}'
-    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    config = AptlyCli::AptlyLoad.new.configure_with(nil)
     cmd = AptlyCli::AptlyCommand.new(config, options)
     cmd.config[:username].must_equal 'zane'
   end
@@ -60,7 +60,7 @@ describe AptlyCli::AptlyCommand do
   it 'can process an option with \'${PROMPT_PASSWORD}\' in it' do
     options = Options.new
     options.username = '${PROMPT_PASSWORD}'
-    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    config = AptlyCli::AptlyLoad.new.configure_with(nil)
     cmd = AptlyCli::AptlyCommand.new(config, options)
     cmd.config[:username].must_equal 'secret'
   end
@@ -80,7 +80,7 @@ describe AptlyCli::AptlyCommand do
       nil,
       ['Aptly API server at 127.0.0.1:8082', 'marc', 'secret'])
     Keyring.stub :new, keyring do
-      config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+      config = AptlyCli::AptlyLoad.new.configure_with(nil)
       cmd = AptlyCli::AptlyCommand.new(config, options)
       cmd.config[:username].must_equal 'marc'
       cmd.config[:password].must_equal 'secret'

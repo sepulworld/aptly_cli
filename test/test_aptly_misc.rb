@@ -23,7 +23,7 @@ describe AptlyCli::AptlyMisc do
   end
 
   describe 'API Get graph' do
-    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    config = AptlyCli::AptlyLoad.new.configure_with(nil)
     let(:misc_api) { AptlyCli::AptlyMisc.new(config) }
 
     def test_graph_request_for_SVG_returns_200 
@@ -36,7 +36,7 @@ describe AptlyCli::AptlyMisc do
   end
 
   describe 'API Get Version' do
-    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    config = AptlyCli::AptlyLoad.new.configure_with(nil)
     let(:misc_api) { AptlyCli::AptlyMisc.new(config) }
 
     def test_version_returns_valid

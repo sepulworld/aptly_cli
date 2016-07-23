@@ -18,7 +18,9 @@ $debug = false
 global_option('-c', '--config FILE', 'Path to YAML config file') do |config_file|
   $config_file = config_file
 end
-
+global_option('--no-config', 'Don\'t try to read YAML config file') do |config_file|
+  $config_file = nil
+end
 global_option('-s', '--server SERVER', 'Host name or IP address of Aptly API server') do |server|
   $server = server
 end
