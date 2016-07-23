@@ -98,12 +98,6 @@ describe AptlyCli::AptlyRepo do
     let(:repo_api) { AptlyCli::AptlyRepo.new(config) }
     let(:file_api) { AptlyCli::AptlyFile.new(config) }
 
-    def test_package_query_with_no_name
-      assert_raises ArgumentError do
-        repo_api.repo_package_query(query: 'geoipupdate')
-      end
-    end
-
     def test_package_query_with_name
       repo_api.repo_delete(name: 'testrepotoquery',
                            force: true)
