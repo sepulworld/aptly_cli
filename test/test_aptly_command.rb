@@ -1,3 +1,5 @@
+
+
 require 'minitest_helper.rb'
 require 'minitest/autorun'
 
@@ -39,7 +41,7 @@ describe AptlyCli::AptlyCommand do
     options.port = 9000
     options.username = 'me'
     options.password = 'secret'
-    options.debug = false 
+    options.debug = false
     config = AptlyCli::AptlyLoad.new.configure_with(nil)
     cmd = AptlyCli::AptlyCommand.new(config, options)
     cmd.config[:server].must_equal 'my-server'
