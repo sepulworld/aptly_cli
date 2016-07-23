@@ -85,7 +85,7 @@ module AptlyCli
       begin
         self.class.put(uri, query: @query_json, headers:
                        { 'Content-Type' => 'application/json' })
-      rescue HTTPary::Error => e
+      rescue HTTParty::Error => e
         puts e
       end
     end
