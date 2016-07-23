@@ -8,7 +8,7 @@ describe AptlyCli::AptlyRepo do
   end
 
   describe 'API Upload to Repo' do
-    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    config = AptlyCli::AptlyLoad.new.configure_with(nil)
     let(:repo_api) { AptlyCli::AptlyRepo.new(config) }
     let(:file_api) { AptlyCli::AptlyFile.new(config) }
 
@@ -45,7 +45,7 @@ describe AptlyCli::AptlyRepo do
   end
 
   describe 'API Create Repo' do
-    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    config = AptlyCli::AptlyLoad.new.configure_with(nil)
     let(:repo_api) { AptlyCli::AptlyRepo.new(config) }
 
     def test_repo_creation
@@ -61,7 +61,7 @@ describe AptlyCli::AptlyRepo do
   end
 
   describe 'API Show Repo' do
-    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    config = AptlyCli::AptlyLoad.new.configure_with(nil)
     let(:repo_api) { AptlyCli::AptlyRepo.new(config) }
 
     def test_repo_show
@@ -94,7 +94,7 @@ describe AptlyCli::AptlyRepo do
   end
 
   describe 'API Package Query Repo' do
-    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    config = AptlyCli::AptlyLoad.new.configure_with(nil)
     let(:repo_api) { AptlyCli::AptlyRepo.new(config) }
     let(:file_api) { AptlyCli::AptlyFile.new(config) }
 
@@ -173,7 +173,7 @@ describe AptlyCli::AptlyRepo do
   end
 
   describe 'API List Repo' do
-    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    config = AptlyCli::AptlyLoad.new.configure_with(nil)
     let(:repo_api) { AptlyCli::AptlyRepo.new(config) }
 
     def test_list_repo_http_response
@@ -182,7 +182,7 @@ describe AptlyCli::AptlyRepo do
   end
 
   describe 'API Edit Repo' do
-    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    config = AptlyCli::AptlyLoad.new.configure_with(nil)
     let(:repo_api) { AptlyCli::AptlyRepo.new(config) }
 
     def test_repo_edit_default_distribution
@@ -203,7 +203,7 @@ describe AptlyCli::AptlyRepo do
   end
 
   describe 'API Delete Repo' do
-    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    config = AptlyCli::AptlyLoad.new.configure_with(nil)
     let(:repo_api) { AptlyCli::AptlyRepo.new(config) }
 
     def test_repo_delete
@@ -215,5 +215,4 @@ describe AptlyCli::AptlyRepo do
                            force: true).to_s, '{}'
     end
   end
-
 end
