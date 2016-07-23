@@ -93,6 +93,18 @@ describe AptlyCli::AptlySnapshot do
                       '"Name"=>"testrepo_snap_update_test_new_name", "CreatedAt"'
     end
 
+    def test_snapshot_update_no_new_name
+      snapshot_api.snapshot_delete('testrepo_snap_update_test', 1)
+      snapshot_api.snapshot_delete('testrepo_snap_update_test_new_name', 1)
+      snapshot_api.snapshot_create('testrepo_snap_update_test',
+                                   'testrepo', 'testing snap update')
+      assert_includes snapshot_api.snapshot_update(
+        'testrepo_snap_update_test',
+        nil,
+        'Checkout my new name').to_s,
+                      'snapshot testrepo_snap_update_test already exists'
+    end
+
     def test_failed_snapshot_show_snapshot_doesnt_exist
       assert_equal [{
         'error' => 'snapshot with name rocksoftware50_not_here not found',
