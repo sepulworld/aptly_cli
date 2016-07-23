@@ -202,7 +202,7 @@ Coverage report generated for Unit Tests to /Users/marca/dev/git-repos/aptly_cli
 $ open coverage/index.html
 ```
 
-<img width="1426" alt="screen shot 2016-07-21 at 4 05 56 pm" src="https://cloud.githubusercontent.com/assets/305268/17042294/2f28f8f8-4f61-11e6-8a92-f0d921e36187.png">
+<img width="1203" alt="screen shot 2016-07-23 at 1 10 50 am" src="https://cloud.githubusercontent.com/assets/538171/17076963/ea5da4de-5074-11e6-812b-a25698e02607.png">
 
 ### Rubocop syntax and style check
 
