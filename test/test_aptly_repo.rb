@@ -25,6 +25,25 @@ describe AptlyCli::AptlyRepo do
     end
   end
 
+  describe 'API Upload to Repo, failure scenario' do
+    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    let(:repo_api_fail) { AptlyCli::AptlyRepo.new(config) }
+    let(:data) do
+      repo_api_fail.repo_upload(name: 'testrepo',
+                                dir: 'rockpackages',
+                                file: 'test_package_not_here',
+                                noremove: true)
+    end
+
+    def test_repo_upload_fail_response
+      assert_equal '["Unable to process /aptly/upload/'\
+                   'rockpackages/test_package_not_here: stat '\
+                   '/aptly/upload/rockpackages/test_package_not_here: '\
+                   'no such file or directory"]',
+                   data['Report']['Warnings'].to_s
+    end
+  end
+
   describe 'API Create Repo' do
     config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
     let(:repo_api) { AptlyCli::AptlyRepo.new(config) }
@@ -58,6 +77,20 @@ describe AptlyCli::AptlyRepo do
     ensure
       assert_equal '200', repo_api.repo_show(nil).code.to_s
     end
+
+    def test_repo_show_with_no_name
+      repo_api.repo_delete(name: 'testrepotoshow',
+                           force: true)
+      repo_api.repo_create(name: 'testrepotoshow',
+                           comment: 'testing repo show',
+                           DefaultDistribution: 'preciseshowtest',
+                           DefaultComponent: nil)
+      assert_includes repo_api.repo_show(nil).to_s,
+                      '{"Name"=>"testrepotoshow", '\
+                      '"Comment"=>"testing repo show", '\
+                      '"DefaultDistribution"=>"preciseshowtest", '\
+                      '"DefaultComponent"=>""}'
+    end
   end
 
   describe 'API Package Query Repo' do
@@ -89,8 +122,49 @@ describe AptlyCli::AptlyRepo do
                                                   query: 'geoipupdate').to_s,
                                                   '["Pamd64 geoipupdate 2.0.0'
     end
+
+    def test_package_query_with_deps
+      repo_api.repo_delete(name: 'testrepotoquery',
+                           force: true)
+      file_api.file_post(file_uri: '/testdir2',
+                         package: 'testdir2/fixtures/'\
+                                  'geoipupdate_2.0.0_amd64.deb',
+                         local_file: 'test/fixtures/test_1.0_amd64.deb')
+      repo_api.repo_create(name: 'testrepotoquery',
+                           comment: 'testing repo query with name',
+                           DefaultDistribution: 'precisequerytest',
+                           DefaultComponent: nil)
+      repo_api.repo_upload(
+        name: 'testrepotoquery',
+        dir: 'testdir2/',
+        file: 'test_1.0_amd64.deb')
+      assert_includes repo_api.repo_package_query(name: 'testrepotoquery',
+                                                  with_deps: true,
+                                                  query: 'geoipupdate').to_s,
+                      '["Pamd64 geoipupdate 2.0.0'
+    end
+
+    def test_package_query_with_no_name
+      repo_api.repo_delete(name: 'testrepotoquery',
+                           force: true)
+      file_api.file_post(file_uri: '/testdir2',
+                         package: 'testdir2/fixtures/'\
+                                  'geoipupdate_2.0.0_amd64.deb',
+                         local_file: 'test/fixtures/test_1.0_amd64.deb')
+      repo_api.repo_create(name: 'testrepotoquery',
+                           comment: 'testing repo query with name',
+                           DefaultDistribution: 'precisequerytest',
+                           DefaultComponent: nil)
+      repo_api.repo_upload(
+        name: 'testrepotoquery',
+        dir: 'testdir2/',
+        file: 'test_1.0_amd64.deb')
+      assert_raises ArgumentError do
+        repo_api.repo_package_query(query: 'geoipupdate')
+      end
+    end
   end
-  
+
   describe 'API List Repo' do
     config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
     let(:repo_api) { AptlyCli::AptlyRepo.new(config) }
@@ -99,7 +173,7 @@ describe AptlyCli::AptlyRepo do
       assert_equal repo_api.repo_list.code.to_s, '200'
     end
   end
-  
+
   describe 'API Edit Repo' do
     config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
     let(:repo_api) { AptlyCli::AptlyRepo.new(config) }
@@ -132,23 +206,6 @@ describe AptlyCli::AptlyRepo do
                            DefaultComponent: nil)
       assert_includes repo_api.repo_delete(name: 'testrepodelete',
                            force: true).to_s, '{}'
-    end
-  end
-
-  describe 'API Upload to Repo, failure scenario' do
-    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
-    let(:repo_api_fail) { AptlyCli::AptlyRepo.new(config) }
-    let(:data) { repo_api_fail.repo_upload({ name: 'testrepo',
-                                           dir: 'rockpackages',
-                                           file: 'test_package_not_here',
-                                           noremove: true })}
-
-    def test_repo_upload_fail_response
-      assert_equal "[\"Unable to process /aptly/upload/"\
-        "rockpackages/test_package_not_here: stat "\
-        "/aptly/upload/rockpackages/test_package_not_here: "\
-        "no such file or directory\"]",
-        data['Report']['Warnings'].to_s
     end
   end
 
