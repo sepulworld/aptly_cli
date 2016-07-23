@@ -26,7 +26,7 @@ describe AptlyCli::AptlyRepo do
   end
 
   describe 'API Upload to Repo, failure scenario' do
-    config = AptlyCli::AptlyLoad.new.configure_with('/no/config')
+    config = AptlyCli::AptlyLoad.new.configure_with(nil)
     let(:repo_api_fail) { AptlyCli::AptlyRepo.new(config) }
     let(:data) do
       repo_api_fail.repo_upload(name: 'testrepo',
