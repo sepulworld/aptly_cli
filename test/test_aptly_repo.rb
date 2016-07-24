@@ -24,6 +24,21 @@ describe AptlyCli::AptlyRepo do
         '["geoipupdate_2.0.0_amd64 added"], "Removed"=>[]}}'
     end
 
+    def test_repo_upload_no_file
+      file_api.file_post(file_uri: '/testdir',
+                         package: 'testdir/fixtures/test_1.0_amd64.deb',
+                         local_file: 'test/fixtures/test_1.0_amd64.deb')
+      assert_output(/repository with such name does not exist/) do
+        assert_includes(
+          repo_api.repo_upload(
+            name: 'testrepo',
+            dir: 'testdir/'
+          ).to_s,
+          '404 page not found'
+        )
+      end
+    end
+
     def test_repo_upload_repo_does_not_exist
       file_api.file_post(file_uri: '/testdir',
                          package: 'testdir/fixtures/test_1.0_amd64.deb',
