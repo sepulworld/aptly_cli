@@ -51,6 +51,14 @@ describe AptlyCli::AptlyCommand do
     cmd.config[:debug].must_equal nil
   end
 
+  it 'handles the "debug" option' do
+    options = Options.new
+    options.debug = true
+    config = AptlyCli::AptlyLoad.new.configure_with(nil)
+    cmd = AptlyCli::AptlyCommand.new(config, options)
+    cmd.config[:debug].must_equal true
+  end
+
   it 'can process an option with \'${PROMPT}\' in it' do
     options = Options.new
     options.username = '${PROMPT}'
