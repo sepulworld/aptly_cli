@@ -102,3 +102,10 @@ rake test               # Run tests
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
+
+
+## Related
+
+- [https://github.com/ryanuber/ruby-aptly](ruby-aptly) - Ruby client library
+- [https://github.com/sdumetz/aptly-web-ui](aptly-web-ui) - Web interface for aptly (JavaScript, React, Redux)
+- [https://github.com/AutogrowSystems/debweb](debweb) - Another web interface (Ruby on Rails)
