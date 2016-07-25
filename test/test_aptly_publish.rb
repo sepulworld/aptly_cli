@@ -134,14 +134,24 @@ describe AptlyCli::AptlyPublish do
                                    'testrepo snapshot to change name')
       publish_api.publish_repo(
         ['main/testrepo_snap_to_update_pub_1', 'main2/testrepo_snap_to_update_pub_2'],
+        snapshots: { testrepo_snap_to_update_pub_1: 'main',
+                     testrepo_snap_to_update_pub_2: 'main2' },
+        prefix: 'testrepo_snap_to_update_pub_prefix',
         sourcekind: 'snapshot', distribution: 'precisetest2',
         architectures: ['amd64'],
         skip: true)
       assert_includes publish_api.publish_update(
         snapshots: { testrepo_snap_to_update_pub_1: 'main', testrepo_snap_to_update_pub_2: 'main2' },
+        prefix: 'testrepo_snap_to_update_pub_prefix',
         distribution: 'precisetest2',
         forceoverwrite: true, skip: true).to_s,
                       '{"Component"=>"main2", "Name"=>"testrepo_snap_to_update_pub_2"'.to_s
+      resp = publish_api.publish_drop(
+        prefix: 'testrepo_snap_to_update_pub_prefix',
+        distribution: 'precisetest2',
+      )
+      assert_equal resp.code, 200
+      assert_equal resp.to_s, '{}'
     end
   end
 end
