@@ -62,7 +62,7 @@ module AptlyCli
         end
       end
 
-      self.class.debug_output $stdout if @config[:debug] == true
+      self.class.debug_output @config[:debug] ? $stdout : nil
     end
   end
 end
