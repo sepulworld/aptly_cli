@@ -17,10 +17,9 @@ after_script:
 - rake docker_show_logs
 
 rvm:
-- 1.9.3
-- 2.2.0
-- 2.2.4
-- 2.3.0
+- 2.1.10
+- 2.2.5
+- 2.3.1
 
 deploy:
   provider: rubygems
