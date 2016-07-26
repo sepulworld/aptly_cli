@@ -93,6 +93,25 @@ describe AptlyCli::AptlySnapshot do
                       '"Name"=>"testrepo_snap_update_test_new_name", "CreatedAt"'
     end
 
+    def test_snapshot_update_exception
+      snapshot_api.snapshot_delete('testrepo_snap_update_test', 1)
+      snapshot_api.snapshot_delete('testrepo_snap_update_test_new_name', 1)
+      snapshot_api.snapshot_create('testrepo_snap_update_test',
+                                   'testrepo', 'testing snap update')
+      raises_exception = lambda do |_uri, _options|
+        raise HTTParty::Error.new('some error')
+      end
+      assert_output(/some error/) do
+        snapshot_api.class.stub :put, raises_exception do
+          snapshot_api.snapshot_update(
+            'testrepo_snap_update_test',
+            'testrepo_snap_update_test_new_name',
+            'Checkout my new name'
+          )
+        end
+      end
+    end
+
     def test_snapshot_update_no_new_name
       snapshot_api.snapshot_delete('testrepo_snap_update_test', 1)
       snapshot_api.snapshot_delete('testrepo_snap_update_test_new_name', 1)
@@ -194,6 +213,20 @@ describe AptlyCli::AptlySnapshot do
     ensure
       assert_equal '200', snapshot_api.snapshot_delete(
         'testrepo_snap_create_ref').code.to_s
+    end
+
+    def test_snapshot_create_ref_exception
+      raises_exception =  lambda do |_uri, _options|
+        raise HTTParty::Error.new('some error')
+      end
+      ret = snapshot_api.class.stub :post, raises_exception do
+        snapshot_api.snapshot_create_ref(
+          'testrepo_snap_create_ref',
+          'testrepo snapshot to ' \
+          'test snapshot create from package refs'
+        )
+      end
+      assert_equal 'some error', ret.to_s
     end
 
     def test_snapshot_create_ref_exists_error
