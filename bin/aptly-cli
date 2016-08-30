@@ -322,7 +322,7 @@ command :publish_update do |c|
   c.example 'description', 'aptly-cli publish_update --forceoverwrite --distribution precise'
   c.option '--prefix PREFIX', String, 'Publishing prefix, default root'
   c.option '--distribution DISTRIBUTION', String, 'Distribution name'
-  c.option '--snapshots SNAPSHOTS', String, 'When updating published snapshots, list of objects component/name seperated by space'
+  c.option '--snapshots SNAPSHOTS', Array, 'When updating published snapshots, list of objects component/name seperated by space'
   c.option '--forceoverwrite', 'When publishing, overwrite files in pool/ directory without notice'
   c.option '--gpg_skip', 'Don’t sign published repository'
   c.option '--gpg_batch', 'should be set if passing passphrase'
@@ -339,7 +339,7 @@ command :publish_update do |c|
                                                     :skip => options.gpg_skip, :batch => options.gpg_batch, :gpgKey => options.gpg_key,
                                                     :keyring => options.gpg_keyring, :secretKeyring => options.gpg_secret_keyring,
                                                     :passphrase => options.gpg_passphrase, :passphraseFile => options.gpg_passphrase_file,
-                                                    :snapshots => options.snapshots})
+                                                    :snapshots => Hash[*options.snapshots]})
   end
 end
 
