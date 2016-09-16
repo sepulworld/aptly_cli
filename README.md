@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/sepulworld/aptly_cli.svg)](https://travis-ci.org/sepulworld/aptly_cli)
 [![Gem Version](https://badge.fury.io/rb/aptly_cli.svg)](http://badge.fury.io/rb/aptly_cli)
 [![Coverage Status](https://coveralls.io/repos/github/sepulworld/aptly_cli/badge.svg?branch=master)](https://coveralls.io/github/sepulworld/aptly_cli?branch=master)
+[![](https://images.microbadger.com/badges/image/sepulworld/aptly-cli.svg)](http://microbadger.com/images/sepulworld/aptly-cli "Get your own image badge on microbadger.com")
 
 A command line interface to execute [Aptly](http://aptly.info) commands againts remote Aptly API servers.  Aptly-cli will allow you to interact with the file, repo, snapshot, publish, packages, graph and version API endpoints of your Aptly server.
 
