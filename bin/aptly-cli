@@ -320,9 +320,10 @@ command :publish_update do |c|
   c.summary = 'Update published repository'
   c.description = 'Update published repository. If local repository has been published, published repository would be updated to match local repository contents. If snapshots have been been published, it is possible to switch each component to new snapshot'
   c.example 'description', 'aptly-cli publish_update --forceoverwrite --distribution precise'
+  c.example 'update snapshot', 'aptly-cli publish_update --snapshots testrepo_single_snap_to_pub,main  --prefix . --distribution=precise --gpg_skip'
   c.option '--prefix PREFIX', String, 'Publishing prefix, default root'
   c.option '--distribution DISTRIBUTION', String, 'Distribution name'
-  c.option '--snapshots SNAPSHOTS', String, 'When updating published snapshots, list of objects component/name seperated by space'
+  c.option '--snapshots SNAPSHOTS', Array, 'When updating published snapshots, list of objects component/name seperated by space'
   c.option '--forceoverwrite', 'When publishing, overwrite files in pool/ directory without notice'
   c.option '--gpg_skip', 'Don’t sign published repository'
   c.option '--gpg_batch', 'should be set if passing passphrase'
@@ -339,7 +340,7 @@ command :publish_update do |c|
                                                     :skip => options.gpg_skip, :batch => options.gpg_batch, :gpgKey => options.gpg_key,
                                                     :keyring => options.gpg_keyring, :secretKeyring => options.gpg_secret_keyring,
                                                     :passphrase => options.gpg_passphrase, :passphraseFile => options.gpg_passphrase_file,
-                                                    :snapshots => options.snapshots})
+                                                    :snapshots => Hash[*options.snapshots]})
   end
 end
 
