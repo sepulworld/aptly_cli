@@ -183,6 +183,34 @@ command :repo_list do |c|
   end
 end
 
+command :repo_package_add do |c|
+  c.syntax = 'aptly-cli repo_package_add [options]'
+  c.summary = 'Add existing package to local repository'
+  c.description = 'Add existing package to local repository'
+  c.example 'Add packages to local repository', 'aptly-cli repo_package_add --name megatronsoftware \'Pamd64 geoipupdate 2.0.0 87f1591307e50817\' \'Pi386 geoipupdate 2.0.0 87f1591307e50817\''
+  c.option '--name NAME', String, 'Local repository name, required'
+  c.action do |args, options|
+    config = AptlyCli::AptlyLoad.new.configure_with($config_file)
+    handle_global_options options
+    aptly_command = AptlyCli::AptlyRepo.new(config, options)
+    puts aptly_command.repo_package_add({ :name => options.name }, args)
+  end
+end
+
+command :repo_package_delete do |c|
+  c.syntax = 'aptly-cli repo_package_delete [options]'
+  c.summary = 'Delete package from local repository'
+  c.description = 'Delete package from local repository'
+  c.example 'Delete packages from local repository', 'aptly-cli repo_package_delete --name megatronsoftware \'Pamd64 geoipupdate 2.0.0 87f1591307e50817\' \'Pi386 geoipupdate 2.0.0 87f1591307e50817\''
+  c.option '--name NAME', String, 'Local repository name, required'
+  c.action do |args, options|
+    config = AptlyCli::AptlyLoad.new.configure_with($config_file)
+    handle_global_options options
+    aptly_command = AptlyCli::AptlyRepo.new(config, options)
+    puts aptly_command.repo_package_delete({ :name => options.name }, args)
+  end
+end
+
 command :repo_package_query do |c|
   c.syntax = 'aptly-cli repo_package_query [options]'
   c.summary = 'List all packages or search on repo contents, requires --name'
