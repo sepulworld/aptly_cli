@@ -249,6 +249,20 @@ command :repo_show do |c|
   end
 end
 
+command :package_show do |c|
+  c.syntax = 'aptly-cli package_show [options]'
+  c.summary = 'Show package info'
+  c.description = 'Show package info'
+  c.example 'Show package', 'aptly-cli package_show --package-key \'Pamd64 geoipupdate 2.0.0 87f1591307e50817\''
+  c.option '--package-key PACKAGE', String, 'package key'
+  c.action do |args, options|
+    config = AptlyCli::AptlyLoad.new.configure_with($config_file)
+    handle_global_options options
+    aptly_command = AptlyCli::AptlyPackage.new(config, options)
+    puts aptly_command.package_show(URI.escape(options.package_key))
+  end
+end
+
 command :publish_drop do |c|
   c.syntax = 'aptly-cli publish_drop [options]'
   c.summary = 'Delete published repository'
