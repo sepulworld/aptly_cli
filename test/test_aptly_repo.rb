@@ -210,7 +210,7 @@ describe AptlyCli::AptlyRepo do
                                         format: nil)
       res = repo_api.repo_package_delete({ name: 'testrepotodeletefrom' }, [res.parsed_response.first.to_s])
       assert_equal res.request.uri.to_s,
-        'http://127.0.0.1:8082/api/repos/testrepotodeletefrom/packages'
+                   'http://127.0.0.1:8082/api/repos/testrepotodeletefrom/packages'
       assert_equal res.parsed_response,
                    'Name' => 'testrepotodeletefrom',
                    'Comment' => 'testing package delete from repo',
