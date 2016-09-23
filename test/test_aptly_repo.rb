@@ -139,9 +139,9 @@ describe AptlyCli::AptlyRepo do
                            DefaultDistribution: 'precisepackageaddtest',
                            DefaultComponent: nil)
       repo_api.repo_create(name: 'testrepotoaddto',
-        comment: 'testing package add to repo',
-        DefaultDistribution: 'precisepackageaddtest',
-        DefaultComponent: nil)
+                           comment: 'testing package add to repo',
+                           DefaultDistribution: 'precisepackageaddtest',
+                           DefaultComponent: nil)
       repo_api.repo_upload(name: 'testrepowithpackage',
                            dir: 'testdir2/',
                            file: 'test_1.0_amd64.deb')
@@ -149,41 +149,39 @@ describe AptlyCli::AptlyRepo do
                                         query: 'geoipupdate',
                                         with_deps: true,
                                         format: nil)
-      res = repo_api.repo_package_add({ name: 'testrepotoaddto' }, [ res.parsed_response.first.to_s ])
+      res = repo_api.repo_package_add({ name: 'testrepotoaddto' }, [res.parsed_response.first.to_s])
       assert_equal res.request.uri.to_s,
                    'http://127.0.0.1:8082/api/repos/testrepotoaddto/packages'
       assert_equal res.parsed_response,
-                   {
-                     'Name' => 'testrepotoaddto',
-                     'Comment' => 'testing package add to repo',
-                     'DefaultDistribution' => 'precisepackageaddtest',
-                     'DefaultComponent' => ''
-                   }
+                   'Name' => 'testrepotoaddto',
+                   'Comment' => 'testing package add to repo',
+                   'DefaultDistribution' => 'precisepackageaddtest',
+                   'DefaultComponent' => ''
     end
 
     def test_package_add_with_no_name
       repo_api.repo_delete(name: 'testrepowithpackage',
-        force: true)
+                           force: true)
       file_api.file_post(file_uri: '/testdir2',
-        package: 'testdir2/fixtures/geoipupdate_2.0.0_amd64.deb',
-        local_file: 'test/fixtures/test_1.0_amd64.deb')
+                         package: 'testdir2/fixtures/geoipupdate_2.0.0_amd64.deb',
+                         local_file: 'test/fixtures/test_1.0_amd64.deb')
       repo_api.repo_create(name: 'testrepowithpackage',
-        comment: 'testing package add to repo',
-        DefaultDistribution: 'precisepackageaddtest',
-        DefaultComponent: nil)
+                           comment: 'testing package add to repo',
+                           DefaultDistribution: 'precisepackageaddtest',
+                           DefaultComponent: nil)
       repo_api.repo_create(name: 'testrepotoaddto',
-        comment: 'testing package add to repo',
-        DefaultDistribution: 'precisepackageaddtest',
-        DefaultComponent: nil)
+                           comment: 'testing package add to repo',
+                           DefaultDistribution: 'precisepackageaddtest',
+                           DefaultComponent: nil)
       repo_api.repo_upload(name: 'testrepowithpackage',
-        dir: 'testdir2/',
-        file: 'test_1.0_amd64.deb')
+                           dir: 'testdir2/',
+                           file: 'test_1.0_amd64.deb')
       res = repo_api.repo_package_query(name: 'testrepowithpackage',
-        query: 'geoipupdate',
-        with_deps: true,
-        format: nil)
+                                        query: 'geoipupdate',
+                                        with_deps: true,
+                                        format: nil)
       assert_raises ArgumentError do
-        repo_api.repo_package_add({}, [ res.parsed_response.first.to_s ])
+        repo_api.repo_package_add({}, [res.parsed_response.first.to_s])
       end
     end
   end
@@ -195,52 +193,50 @@ describe AptlyCli::AptlyRepo do
 
     def test_package_delete_with_name
       repo_api.repo_delete(name: 'testrepowithpackage',
-        force: true)
+                           force: true)
       file_api.file_post(file_uri: '/testdir2',
-        package: 'testdir2/fixtures/geoipupdate_2.0.0_amd64.deb',
-        local_file: 'test/fixtures/test_1.0_amd64.deb')
+                         package: 'testdir2/fixtures/geoipupdate_2.0.0_amd64.deb',
+                         local_file: 'test/fixtures/test_1.0_amd64.deb')
       repo_api.repo_create(name: 'testrepotodeletefrom',
-        comment: 'testing package delete from repo',
-        DefaultDistribution: 'precisepackagedeletetest',
-        DefaultComponent: nil)
+                           comment: 'testing package delete from repo',
+                           DefaultDistribution: 'precisepackagedeletetest',
+                           DefaultComponent: nil)
       repo_api.repo_upload(name: 'testrepotodeletefrom',
-        dir: 'testdir2/',
-        file: 'test_1.0_amd64.deb')
+                           dir: 'testdir2/',
+                           file: 'test_1.0_amd64.deb')
       res = repo_api.repo_package_query(name: 'testrepotodeletefrom',
-        query: 'geoipupdate',
-        with_deps: true,
-        format: nil)
-      res = repo_api.repo_package_delete({ name: 'testrepotodeletefrom' }, [ res.parsed_response.first.to_s ])
+                                        query: 'geoipupdate',
+                                        with_deps: true,
+                                        format: nil)
+      res = repo_api.repo_package_delete({ name: 'testrepotodeletefrom' }, [res.parsed_response.first.to_s])
       assert_equal res.request.uri.to_s,
         'http://127.0.0.1:8082/api/repos/testrepotodeletefrom/packages'
       assert_equal res.parsed_response,
-        {
-          'Name' => 'testrepotodeletefrom',
-          'Comment' => 'testing package delete from repo',
-          'DefaultDistribution' => 'precisepackagedeletetest',
-          'DefaultComponent' => ''
-        }
+                   'Name' => 'testrepotodeletefrom',
+                   'Comment' => 'testing package delete from repo',
+                   'DefaultDistribution' => 'precisepackagedeletetest',
+                   'DefaultComponent' => ''
     end
 
     def test_package_delete_with_no_name
       repo_api.repo_delete(name: 'testrepowithpackage',
-        force: true)
+                           force: true)
       file_api.file_post(file_uri: '/testdir2',
-        package: 'testdir2/fixtures/geoipupdate_2.0.0_amd64.deb',
-        local_file: 'test/fixtures/test_1.0_amd64.deb')
+                         package: 'testdir2/fixtures/geoipupdate_2.0.0_amd64.deb',
+                         local_file: 'test/fixtures/test_1.0_amd64.deb')
       repo_api.repo_create(name: 'testrepotodeletefrom',
-        comment: 'testing package delete from repo',
-        DefaultDistribution: 'precisepackagedeletetest',
-        DefaultComponent: nil)
+                           comment: 'testing package delete from repo',
+                           DefaultDistribution: 'precisepackagedeletetest',
+                           DefaultComponent: nil)
       repo_api.repo_upload(name: 'testrepotodeletefrom',
-        dir: 'testdir2/',
-        file: 'test_1.0_amd64.deb')
+                           dir: 'testdir2/',
+                           file: 'test_1.0_amd64.deb')
       res = repo_api.repo_package_query(name: 'testrepotodeletefrom',
-        query: 'geoipupdate',
-        with_deps: true,
-        format: nil)
+                                        query: 'geoipupdate',
+                                        with_deps: true,
+                                        format: nil)
       assert_raises ArgumentError do
-        repo_api.repo_package_delete({}, [ res.parsed_response.first.to_s ])
+        repo_api.repo_package_delete({}, [res.parsed_response.first.to_s])
       end
     end
   end
