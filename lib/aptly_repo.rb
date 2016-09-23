@@ -51,6 +51,32 @@ module AptlyCli
       self.class.get(uri)
     end
 
+    def repo_package_add(repo_options, packages)
+      if !repo_options.is_a?(Hash) || repo_options[:name].nil?
+        raise ArgumentError.new('Must pass a repository name')
+      end
+
+      uri = '/repos/' + repo_options[:name] + '/packages'
+      self.class.post(
+        uri,
+        body: { PackageRefs: packages }.to_json,
+        headers: { 'Content-Type' => 'application/json' }
+      )
+    end
+
+    def repo_package_delete(repo_options, packages)
+      if !repo_options.is_a?(Hash) || repo_options[:name].nil?
+        raise ArgumentError.new('Must pass a repository name')
+      end
+
+      uri = '/repos/' + repo_options[:name] + '/packages'
+      self.class.delete(
+        uri,
+        body: { PackageRefs: packages }.to_json,
+        headers: { 'Content-Type' => 'application/json' }
+      )
+    end
+
     def repo_package_query(repo_options = { name: nil, query: nil,
                                             with_deps: false,
                                             format: nil })
