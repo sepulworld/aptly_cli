@@ -126,30 +126,32 @@ might have to quote them to prevent the shell from trying to expand them.
 
       COMMANDS:
 
-        file_delete        File delete
-        file_list          List all directories
-        file_upload        File upload
-        graph              Download an svg or png graph of repository layout
-        help               Display global or [command] help documentation
-        publish_drop       Delete published repository
-        publish_list       List published repositories
-        publish_repo       Publish local repository or snapshot under specified prefix
-        publish_update     Update published repository
-        repo_create        Create a new repository, requires --name
-        repo_delete        Delete a local repository, requires --name
-        repo_edit          Edit a local repository metadata, requires --name
-        repo_list          Show list of currently available local repositories
-        repo_package_query List all packages or search on repo contents, requires --name
-        repo_show          Returns basic information about local repository
-        repo_upload        Import packages from files
-        snapshot_create    Create snapshot, require --name
-        snapshot_delete    Delete snapshot, require --name
-        snapshot_diff      Calculate difference between two snapshots
-        snapshot_list      Return list of all snapshots created in the system
-        snapshot_search    List all packages in snapshot or perform search
-        snapshot_show      Get information about snapshot by name
-        snapshot_update    Update snapshot’s description or name
-        version            Display aptly server version
+        file_delete         File delete
+        file_list           List all directories
+        file_upload         File upload
+        graph               Download an svg or png graph of repository layout
+        help                Display global or [command] help documentation
+        publish_drop        Delete published repository
+        publish_list        List published repositories
+        publish_repo        Publish local repository or snapshot under specified prefix
+        publish_update      Update published repository
+        repo_create         Create a new repository, requires --name
+        repo_delete         Delete a local repository, requires --name
+        repo_edit           Edit a local repository metadata, requires --name
+        repo_list           Show list of currently available local repositories
+        repo_package_add    Add existing package to local repository
+        repo_package_delete Delete package from local repository
+        repo_package_query  List all packages or search on repo contents, requires --name
+        repo_show           Returns basic information about local repository
+        repo_upload         Import packages from files
+        snapshot_create     Create snapshot, require --name
+        snapshot_delete     Delete snapshot, require --name
+        snapshot_diff       Calculate difference between two snapshots
+        snapshot_list       Return list of all snapshots created in the system
+        snapshot_search     List all packages in snapshot or perform search
+        snapshot_show       Get information about snapshot by name
+        snapshot_update     Update snapshot’s description or name
+        version             Display aptly server version
 
       GLOBAL OPTIONS:
 
