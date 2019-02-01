@@ -1,13 +1,13 @@
 require 'aptly_cli/version'
 require 'aptly_command'
 require 'aptly_load'
-require 'httmultiparty'
+require 'httparty'
 require 'json'
 
 module AptlyCli
   # Aptly class to work with Snapshot API
   class AptlySnapshot < AptlyCommand
-    include HTTMultiParty
+    include HTTParty
 
     def snapshot_delete(name, force=nil)
       uri = "/snapshots/#{name}"
@@ -25,10 +25,10 @@ module AptlyCli
       # Build uri to create snapshot, requires name of snap and name of repo
       uri = "/repos/#{repo}/" + 'snapshots'
 
-      self.class.post(uri, query:
+      self.class.post(uri, :body => 
                       { 'Name' => name,
                         'Description' => description }.to_json,
-                           headers: { 'Content-Type' => 'application/json' })
+                           :headers => { 'Content-Type' => 'application/json' })
     end
 
     def snapshot_create_ref(name, description=nil,
@@ -36,10 +36,10 @@ module AptlyCli
       uri = '/snapshots'
       begin
         self.class.post(uri,
-                        query: { 'Name' => name, 'Description' => description,
+                        :body => { 'Name' => name, 'Description' => description,
                                  'SourceSnapshots' => sourcesnapshots,
                                  'PackageRefs' => packagerefs }.to_json,
-                        headers: { 'Content-Type' => 'application/json' })
+                        :headers => { 'Content-Type' => 'application/json' })
       rescue HTTParty::Error => e
         return e
       end
@@ -83,7 +83,7 @@ module AptlyCli
       @query[:Description] = description unless description.nil?
       @query_json = @query.to_json
       begin
-        self.class.put(uri, query: @query_json, headers:
+        self.class.put(uri, :body => @query_json, :headers =>
                        { 'Content-Type' => 'application/json' })
       rescue HTTParty::Error => e
         puts e

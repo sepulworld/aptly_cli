@@ -1,5 +1,3 @@
-
-
 require 'minitest_helper.rb'
 require 'minitest/autorun'
 
@@ -48,7 +46,7 @@ describe AptlyCli::AptlyCommand do
     cmd.config[:port].must_equal 9000
     cmd.config[:username].must_equal 'me'
     cmd.config[:password].must_equal 'secret'
-    cmd.config[:debug].must_equal nil
+    assert_nil cmd.config[:debug]
   end
 
   it 'handles the "debug" option' do

@@ -501,7 +501,7 @@ command :graph do |c|
   c.syntax = 'aptly-cli graph [options]'
   c.summary = 'Download an svg or png graph of repository layout'
   c.description = 'Download a graph of repository layout.  Current options are "svg" and "png"'
-  c.example 'description', 'aptly-cli graph png > ~/repo_graph.png'
+  c.example 'description', 'aptly-cli graph --type png > ~/repo_graph.png'
   c.option '--type GRAPH_TYPE', String, 'Type of graph to download, present options are png or svg'
   c.action do |args, options|
     config = AptlyCli::AptlyLoad.new.configure_with($config_file)

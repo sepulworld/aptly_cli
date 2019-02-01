@@ -32,7 +32,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "simplecov"
   spec.add_development_dependency "rubocop"
 
-  spec.add_dependency "httmultiparty", "~> 0.3.16"
-  spec.add_dependency "httparty", "~> 0.13.0"
+  spec.add_dependency('httparty', '>= 0.16.2')
   spec.add_dependency "commander", "~> 4.3"
 end

@@ -1,5 +1,5 @@
 require 'aptly_cli/version'
-require 'httmultiparty'
+require 'httparty'
 
 # Initializing
 module AptlyCli

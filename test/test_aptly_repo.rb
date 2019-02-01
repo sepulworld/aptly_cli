@@ -4,7 +4,7 @@ require 'aptly_cli'
 
 describe AptlyCli::AptlyRepo do
   it 'must include httparty methods' do
-    AptlyCli::AptlyRepo.must_include HTTMultiParty
+    AptlyCli::AptlyRepo.must_include HTTParty
   end
 
   describe 'API Upload to Repo' do
@@ -19,7 +19,7 @@ describe AptlyCli::AptlyRepo do
       assert_includes repo_api.repo_upload(
         name: 'testrepo',
         dir: 'testdir/',
-        file: 'test_1.0_amd64.deb').to_s,
+        file: 'test_1.0_amd64.deb').parsed_response.to_s,
         '{"FailedFiles"=>[], "Report"=>{"Warnings"=>[], "Added"=>'\
         '["geoipupdate_2.0.0_amd64 added"], "Removed"=>[]}}'
     end
@@ -84,7 +84,7 @@ describe AptlyCli::AptlyRepo do
       assert_includes repo_api.repo_create(name: 'testrepocreate',
                            comment: 'testing repo creation',
                            DefaultDistribution: 'precisecreatetest',
-                           DefaultComponent: nil).to_s,
+                           DefaultComponent: nil).parsed_response.to_s,
                            '{"Name"=>"testrepocreate", "Comment"=>"testing repo creation", '\
                            '"DefaultDistribution"=>"precisecreatetest", "DefaultComponent"=>""}'
     end
@@ -101,7 +101,7 @@ describe AptlyCli::AptlyRepo do
                            comment: 'testing repo show',
                            DefaultDistribution: 'preciseshowtest',
                            DefaultComponent: nil)
-      assert_includes repo_api.repo_show('testrepotoshow').to_s,
+      assert_includes repo_api.repo_show('testrepotoshow').parsed_response.to_s,
         '{"Name"=>"testrepotoshow", "Comment"=>"testing repo show", '\
         '"DefaultDistribution"=>"preciseshowtest", "DefaultComponent"=>""}'
     ensure
@@ -115,7 +115,7 @@ describe AptlyCli::AptlyRepo do
                            comment: 'testing repo show',
                            DefaultDistribution: 'preciseshowtest',
                            DefaultComponent: nil)
-      assert_includes repo_api.repo_show(nil).to_s,
+      assert_includes repo_api.repo_show(nil).parsed_response.to_s,
                       '{"Name"=>"testrepotoshow", '\
                       '"Comment"=>"testing repo show", '\
                       '"DefaultDistribution"=>"preciseshowtest", '\
@@ -337,7 +337,7 @@ describe AptlyCli::AptlyRepo do
 
       assert_includes repo_api.repo_edit(
         'testrepoedit',
-        DefaultDistribution: 'preciseeditdistnew').to_s,
+        DefaultDistribution: 'preciseeditdistnew').parsed_response.to_s,
         '{"Name"=>"testrepoedit", "Comment"=>"testing repo edit distro name", '\
         '"DefaultDistribution"=>"preciseeditdistnew", '\
         '"DefaultComponent"=>""}'

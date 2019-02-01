@@ -257,4 +257,3 @@ rake test                  # Run tests
 
 - [ruby-aptly](https://github.com/ryanuber/ruby-aptly) - Ruby client library
 - [aptly-web-ui](https://github.com/sdumetz/aptly-web-ui) - Web interface for aptly (JavaScript, React, Redux)
-- [debweb](https://github.com/AutogrowSystems/debweb) - Another web interface (Ruby on Rails)

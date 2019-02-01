@@ -5,7 +5,7 @@ require 'aptly_cli'
 
 describe AptlyCli::AptlySnapshot do
   it 'must include httparty methods' do
-    AptlyCli::AptlySnapshot.must_include HTTMultiParty
+    AptlyCli::AptlySnapshot.must_include HTTParty
   end
 
   describe 'API Delete Snapshot' do
@@ -38,7 +38,7 @@ describe AptlyCli::AptlySnapshot do
     def test_that_deleting_snapshot_that_doesnt_exist_errors
       assert_equal [{ 'error' => 'snapshot with name rocksoftware200 not found',
                       'meta' => 'Operation aborted' }].to_s,
-                   snapshot_api.snapshot_delete('rocksoftware200').to_s
+                      snapshot_api.snapshot_delete('rocksoftware200').parsed_response.to_s
     end
 
     def test_that_snapshot_delete_returns_200
@@ -60,7 +60,7 @@ describe AptlyCli::AptlySnapshot do
       assert_includes snapshot_api.snapshot_create(
         'testrepo_snap',
         'testrepo',
-        'the best again').to_s,
+        'the best again').parsed_response.to_s,
                       '"Name"=>"testrepo_snap", "CreatedAt"=>'
     end
 
@@ -72,7 +72,7 @@ describe AptlyCli::AptlySnapshot do
         'testrepo',
         'the best again')
       assert_includes snapshot_api.snapshot_list(
-        'name').to_s,
+        'name').parsed_response.to_s,
                       '"Name"=>"testrepo_snap"'
     end
   end
@@ -89,7 +89,7 @@ describe AptlyCli::AptlySnapshot do
       assert_includes snapshot_api.snapshot_update(
         'testrepo_snap_update_test',
         'testrepo_snap_update_test_new_name',
-        'Checkout my new name').to_s,
+        'Checkout my new name').parsed_response.to_s,
                       '"Name"=>"testrepo_snap_update_test_new_name", "CreatedAt"'
     end
 
@@ -131,7 +131,7 @@ describe AptlyCli::AptlySnapshot do
                    snapshot_api.snapshot_update(
                      'rocksoftware50_not_here',
                      'rocksoftware50_new_name_baby',
-                     'I am not a snapshot presently').to_s
+                     'I am not a snapshot presently').parsed_response.to_s
     end
 
     def test_failed_snapshot_show_snapshot_returns_404

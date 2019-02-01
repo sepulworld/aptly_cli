@@ -5,7 +5,7 @@ require 'aptly_cli'
 
 describe AptlyCli::AptlyMisc do
   it 'must include httparty methods' do
-    AptlyCli::AptlyMisc.must_include HTTMultiParty
+    AptlyCli::AptlyMisc.must_include HTTParty
   end
 
   describe 'Test if config contains username' do
