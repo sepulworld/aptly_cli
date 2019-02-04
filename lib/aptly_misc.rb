@@ -1,13 +1,13 @@
 require 'aptly_cli/version'
 require 'aptly_command'
 require 'aptly_load'
-require 'httmultiparty'
+require 'httparty'
 require 'json'
 
 module AptlyCli
   # Misc Aptly Class
   class AptlyMisc < AptlyCommand
-    include HTTMultiParty
+    include HTTParty
 
     def get_graph(extension)
       uri = "/graph.#{extension}"
@@ -16,7 +16,8 @@ module AptlyCli
 
     def get_version
       uri = '/version'
-      self.class.get(uri)
+      response = self.class.get(uri)
+      response.parsed_response
     end
   end
 end

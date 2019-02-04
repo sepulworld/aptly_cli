@@ -1,13 +1,13 @@
 require 'aptly_cli/version'
 require 'aptly_command'
 require 'aptly_load'
-require 'httmultiparty'
+require 'httparty'
 require 'json'
 
 module AptlyCli
   # :nodoc:
   class AptlyPublish < AptlyCommand
-    include HTTMultiParty
+    include HTTParty
 
     @@available_gpg_options = [:skip, :batch, :gpgKey, :keyring, :secretKeyring,
                               :passphrase, :passphraseFile]
@@ -92,8 +92,8 @@ module AptlyCli
 
       @body_json = @body.to_json
 
-      self.class.post(uri, headers: { 'Content-Type' => 'application/json' },
-                           body: @body_json)
+      self.class.post(uri, :headers => { 'Content-Type' => 'application/json' },
+                           :body => @body_json)
     end
 
     def publish_update(publish_options={})
@@ -118,8 +118,8 @@ module AptlyCli
       uri += "/#{publish_options[:distribution]}"
 
       @body_json = @body.to_json
-      self.class.put(uri, headers: { 'Content-Type' => 'application/json' },
-                          body: @body_json)
+      self.class.put(uri, :headers =>  { 'Content-Type' => 'application/json' },
+                          :body => @body_json)
     end
   end
 end

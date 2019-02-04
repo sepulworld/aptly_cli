@@ -5,7 +5,7 @@ require 'aptly_cli'
 
 describe AptlyCli::AptlyPublish do
   it 'must include httparty methods' do
-    AptlyCli::AptlyPublish.must_include HTTMultiParty
+    AptlyCli::AptlyPublish.must_include HTTParty
   end
 
   describe 'API List Publish' do
@@ -32,9 +32,9 @@ describe AptlyCli::AptlyPublish do
         sourcekind: 'snapshot', distribution: 'publishlisttest2',
         architectures: %w(amd64 i386),
         skip: true)
-      assert_includes publish_api.publish_list.to_s,
+      assert_includes publish_api.publish_list.parsed_response.to_s,
                       '"Distribution"=>"publishlisttest1"'
-      assert_includes publish_api.publish_list.to_s,
+      assert_includes publish_api.publish_list.parsed_response.to_s,
                       '"Distribution"=>"publishlisttest2"'
     end
   end
@@ -74,7 +74,7 @@ describe AptlyCli::AptlyPublish do
         sourcekind: 'snapshot', distribution: 'precisetest',
         architectures: ['amd64'],
         component: 'main',
-        skip: true).to_s,
+        skip: true).parsed_response.to_s,
                       '{"Architectures"=>["amd64"], "Distribution"=>"precisetest",'
     end
   end
@@ -96,12 +96,12 @@ describe AptlyCli::AptlyPublish do
                       'SourceKind' => 'snapshot',
                       'Sources' => [{ 'Component' => 'main',
                                        'Name' => 'testrepo_single_snap_to_pub' }],
-                      'Storage' => '' }).to_s,
+                                       'Storage' => '' }).to_s,
                    publish_api.publish_repo(
                      ['main/testrepo_single_snap_to_pub'],
                      sourcekind: 'snapshot', distribution: 'precisetest3',
                      architectures: %w(amd64 i386),
-                     skip: true).to_s
+                     skip: true).parsed_response.to_s
     end
 
     def test_publish_update_success_multiple_repos
@@ -120,7 +120,7 @@ describe AptlyCli::AptlyPublish do
       assert_includes publish_api.publish_update(
         snapshots: { testrepo_snap_to_update_pub_1: 'main', testrepo_snap_to_update_pub_2: 'main2' },
         distribution: 'precisetest2',
-        forceoverwrite: true, skip: true).to_s,
+        forceoverwrite: true, skip: true).parsed_response.to_s,
                       '{"Component"=>"main", "Name"=>"testrepo_snap_to_update_pub_1"'.to_s
     end
 
@@ -145,13 +145,13 @@ describe AptlyCli::AptlyPublish do
         prefix: 'testrepo_snap_to_update_pub_prefix',
         distribution: 'precisetest2',
         forceoverwrite: true, skip: true).to_s,
-                      '{"Component"=>"main2", "Name"=>"testrepo_snap_to_update_pub_2"'.to_s
+                      '{"Component":"main2","Name":"testrepo_snap_to_update_pub_2"'.to_s
       resp = publish_api.publish_drop(
         prefix: 'testrepo_snap_to_update_pub_prefix',
         distribution: 'precisetest2',
       )
       assert_equal resp.code, 200
-      assert_equal resp.to_s, '{}'
+      assert_equal resp.parsed_response.to_s, "{}"
     end
   end
 end

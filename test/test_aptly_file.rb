@@ -14,7 +14,7 @@ end
 
 describe AptlyCli::AptlyFile do
   it 'must include httparty methods' do
-    AptlyCli::AptlyFile.must_include HTTMultiParty
+    AptlyCli::AptlyFile.must_include HTTParty
   end
 
   it 'must have a default server API URL endpoint defined' do
@@ -36,9 +36,9 @@ describe 'API GET files' do
   end
 
   def test_file_get_no_file_uri
-    assert_equal '200', file_api.file_get('/').code.to_s
+    assert_includes file_api.file_get('/'), "testdirfile"
   ensure
-    assert_equal '200', file_api.file_dir.code.to_s
+    assert_includes file_api.file_dir, "testdirfile"
   end
 end
 
@@ -72,7 +72,7 @@ describe "API POST package files" do
   end
 
   it 'must parse the api response from JSON to Array' do
-    api_file.file_get('test').must_be_instance_of Array 
+    api_file.file_get('test').must_be_instance_of Array
   end
 
   it 'must parse the api response from JSON to Array' do

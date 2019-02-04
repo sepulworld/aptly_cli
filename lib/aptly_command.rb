@@ -1,6 +1,6 @@
 module AptlyCli
   class AptlyCommand
-    include HTTMultiParty
+    include HTTParty
 
     attr_accessor :config
     def initialize(config, options = nil)

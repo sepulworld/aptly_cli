@@ -5,7 +5,7 @@ require 'aptly_cli'
 
 describe AptlyCli::AptlyPackage do
   it "must include httparty methods" do
-    AptlyCli::AptlyPackage.must_include HTTMultiParty
+    AptlyCli::AptlyPackage.must_include HTTParty
   end
 
   describe "API List Package" do

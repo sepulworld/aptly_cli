@@ -1,14 +1,14 @@
 require 'aptly_cli/version'
 require 'aptly_command'
 require 'aptly_load'
-require 'httmultiparty'
+require 'httparty'
 require 'json'
 require 'uri'
 
 module AptlyCli
   # Aptly class to work with Repo API
   class AptlyRepo < AptlyCommand
-    include HTTMultiParty
+    include HTTParty
 
     def repo_create(repo_options = { name: nil,
                                      comment: nil,
@@ -20,11 +20,11 @@ module AptlyCli
       default_distribution = repo_options[:DefaultDistribution]
       default_component = repo_options[:DefaultComponent]
       self.class.post(uri,
-                      query:
+                      :body => 
                       { 'Name' => name, 'Comment' => comment,
                         'DefaultDistribution' => default_distribution,
                         'DefaultComponent' => default_component }.to_json,
-                      headers: { 'Content-Type' => 'application/json' })
+                      :headers => { 'Content-Type' => 'application/json' })
     end
 
     def repo_delete(repo_options = { name: nil, force: nil })
@@ -42,8 +42,8 @@ module AptlyCli
         repo_value = v
       end
 
-      self.class.put(uri, query: { repo_option => repo_value }.to_json,
-                          headers: { 'Content-Type' => 'application/json' })
+      self.class.put(uri, :body => { repo_option => repo_value }.to_json,
+                          :headers => { 'Content-Type' => 'application/json' })
     end
 
     def repo_list
@@ -59,8 +59,8 @@ module AptlyCli
       uri = '/repos/' + repo_options[:name] + '/packages'
       self.class.post(
         uri,
-        body: { PackageRefs: packages }.to_json,
-        headers: { 'Content-Type' => 'application/json' }
+        :body => { PackageRefs: packages }.to_json,
+        :headers => { 'Content-Type' => 'application/json' }
       )
     end
 
@@ -72,8 +72,8 @@ module AptlyCli
       uri = '/repos/' + repo_options[:name] + '/packages'
       self.class.delete(
         uri,
-        body: { PackageRefs: packages }.to_json,
-        headers: { 'Content-Type' => 'application/json' }
+        :body => { PackageRefs: packages }.to_json,
+        :headers => { 'Content-Type' => 'application/json' }
       )
     end
 
