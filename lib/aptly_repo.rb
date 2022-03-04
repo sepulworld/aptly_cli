@@ -114,7 +114,7 @@ module AptlyCli
 
       uri += '?forceReplace=1' if forcereplace == true
       uri += '?noRemove=1' if noremove == true
-      response = post(uri)
+      response = self.class.post(uri)
 
       case response.code
       when 404
