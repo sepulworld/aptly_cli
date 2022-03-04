@@ -14,6 +14,8 @@ module AptlyCli
                                      comment: nil,
                                      DefaultDistribution: nil,
                                      DefaultComponent: nil })
+      raise ArgumentError, 'Repository name is required' if repo_options[:name].nil? || repo_options[:name].empty?
+
       uri = '/repos'
       name = repo_options[:name]
       comment = repo_options[:comment]
@@ -28,13 +30,15 @@ module AptlyCli
     end
 
     def repo_delete(repo_options = { name: nil, force: nil })
+      raise ArgumentError, 'Repository name is required' if repo_options[:name].nil? || repo_options[:name].empty?
+
       uri = '/repos/' + repo_options[:name]
       uri += '?force=1' if repo_options[:force] == true
       delete(uri)
     end
 
     def repo_edit(name, repo_options)
-      raise 'Name is required' if name.nil? || name.empty?
+      raise ArgumentError, 'Repository name is required' if name.nil? || name.empty?
 
       uri = "/repos/#{name}"
 
@@ -48,9 +52,7 @@ module AptlyCli
     end
 
     def repo_package_add(repo_options, packages)
-      if !repo_options.is_a?(Hash) || repo_options[:name].nil?
-        raise ArgumentError.new('Must pass a repository name')
-      end
+      raise ArgumentError, 'Repository name is required' if repo_options[:name].nil? || repo_options[:name].empty?
 
       uri = '/repos/' + repo_options[:name] + '/packages'
       post(
@@ -61,9 +63,7 @@ module AptlyCli
     end
 
     def repo_package_delete(repo_options, packages)
-      if !repo_options.is_a?(Hash) || repo_options[:name].nil?
-        raise ArgumentError.new('Must pass a repository name')
-      end
+      raise ArgumentError, 'Repository name is required' if repo_options[:name].nil? || repo_options[:name].empty?
 
       uri = '/repos/' + repo_options[:name] + '/packages'
       delete(
@@ -76,11 +76,9 @@ module AptlyCli
     def repo_package_query(repo_options = { name: nil, query: nil,
                                             with_deps: false,
                                             format: nil })
-      if repo_options[:name].nil?
-        raise ArgumentError.new('Must pass a repository name')
-      else
-        uri = '/repos/' + repo_options[:name] + '/packages'
-      end
+      raise ArgumentError, 'Repository name is required' if repo_options[:name].nil? || repo_options[:name].empty?
+
+      uri = '/repos/' + repo_options[:name] + '/packages'
 
       qs_hash = {}
       qs_hash['q'] = repo_options[:query] if repo_options[:query]
@@ -101,6 +99,8 @@ module AptlyCli
 
     def repo_upload(repo_options = { name: nil, dir: nil, file: nil,
                                      noremove: false, forcereplace: false })
+      raise ArgumentError, 'Repository name is required' if repo_options[:name].nil? || repo_options[:name].empty?
+
       name = repo_options[:name]
       dir  = repo_options[:dir]
       file = repo_options[:file]
