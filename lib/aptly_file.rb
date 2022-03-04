@@ -10,7 +10,7 @@ module AptlyCli
 
     def file_dir
       uri = '/files'
-      response = self.class.get uri
+      response = get uri
       response.parsed_response
     end
 
@@ -20,19 +20,19 @@ module AptlyCli
             else
               '/files/' + file_uri
             end
-      response = self.class.get uri
+      response = get uri
       response.parsed_response
     end
 
     def file_delete(file_uri)
       uri = '/files' + file_uri
-      response = self.class.delete uri
+      response = delete uri
       response.parsed_response
     end
 
     def file_post(post_options = {})
       api_file_uri = '/files' + post_options[:file_uri].to_s
-      response = self.class.post(api_file_uri,
+      response = post(api_file_uri,
                       body: {
                         package: post_options[:package],
                         file: File.new(post_options[:local_file])

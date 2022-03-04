@@ -19,7 +19,7 @@ module AptlyCli
       comment = repo_options[:comment]
       default_distribution = repo_options[:DefaultDistribution]
       default_component = repo_options[:DefaultComponent]
-      self.class.post(uri,
+      post(uri,
                       :body => 
                       { 'Name' => name, 'Comment' => comment,
                         'DefaultDistribution' => default_distribution,
@@ -30,7 +30,7 @@ module AptlyCli
     def repo_delete(repo_options = { name: nil, force: nil })
       uri = '/repos/' + repo_options[:name]
       uri += '?force=1' if repo_options[:force] == true
-      self.class.delete(uri)
+      delete(uri)
     end
 
     def repo_edit(name, repo_options = { k => v })
@@ -42,13 +42,13 @@ module AptlyCli
         repo_value = v
       end
 
-      self.class.put(uri, :body => { repo_option => repo_value }.to_json,
+      put(uri, :body => { repo_option => repo_value }.to_json,
                           :headers => { 'Content-Type' => 'application/json' })
     end
 
     def repo_list
       uri = '/repos'
-      self.class.get(uri)
+      get(uri)
     end
 
     def repo_package_add(repo_options, packages)
@@ -57,7 +57,7 @@ module AptlyCli
       end
 
       uri = '/repos/' + repo_options[:name] + '/packages'
-      self.class.post(
+      post(
         uri,
         :body => { PackageRefs: packages }.to_json,
         :headers => { 'Content-Type' => 'application/json' }
@@ -70,7 +70,7 @@ module AptlyCli
       end
 
       uri = '/repos/' + repo_options[:name] + '/packages'
-      self.class.delete(
+      delete(
         uri,
         :body => { PackageRefs: packages }.to_json,
         :headers => { 'Content-Type' => 'application/json' }
@@ -91,7 +91,7 @@ module AptlyCli
       qs_hash['format'] = repo_options[:format] if repo_options[:format]
       qs_hash['withDeps'] = 1 if repo_options[:with_deps]
       uri += '?' + URI.encode_www_form(qs_hash) if qs_hash
-      self.class.get uri
+      get uri
     end
 
     def repo_show(name)
@@ -100,7 +100,7 @@ module AptlyCli
             else
               '/repos/' + name
             end
-      self.class.get uri
+      get uri
     end
 
     def repo_upload(repo_options = { name: nil, dir: nil, file: nil,
@@ -118,7 +118,7 @@ module AptlyCli
 
       uri += '?forceReplace=1' if forcereplace == true
       uri += '?noRemove=1' if noremove == true
-      response = self.class.post(uri)
+      response = post(uri)
 
       case response.code
       when 404

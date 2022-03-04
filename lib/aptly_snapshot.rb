@@ -12,20 +12,20 @@ module AptlyCli
     def snapshot_delete(name, force=nil)
       uri = "/snapshots/#{name}"
       uri += '?force=1' if force == true
-      self.class.delete(uri)
+      delete(uri)
     end
 
     def snapshot_list(sort=nil)
       uri = '/snapshots'
       uri += "?sort=#{sort}" if sort
-      self.class.get(uri)
+      get(uri)
     end
 
     def snapshot_create(name, repo, description=nil)
       # Build uri to create snapshot, requires name of snap and name of repo
       uri = "/repos/#{repo}/" + 'snapshots'
 
-      self.class.post(uri, :body => 
+      post(uri, :body =>
                       { 'Name' => name,
                         'Description' => description }.to_json,
                            :headers => { 'Content-Type' => 'application/json' })
@@ -35,7 +35,7 @@ module AptlyCli
                             sourcesnapshots=[], packagerefs=[])
       uri = '/snapshots'
       begin
-        self.class.post(uri,
+        post(uri,
                         :body => { 'Name' => name, 'Description' => description,
                                  'SourceSnapshots' => sourcesnapshots,
                                  'PackageRefs' => packagerefs }.to_json,
@@ -47,7 +47,7 @@ module AptlyCli
 
     def snapshot_diff(name, with_snapshot)
       uri = "/snapshots/#{name}/diff/#{with_snapshot}"
-      self.class.get(uri)
+      get(uri)
     end
 
     def snapshot_search(name, search_options={})
@@ -63,12 +63,12 @@ module AptlyCli
       end
 
       @options[:query] = { withDeps:  '1' } if search_options[:withDeps] == true
-      self.class.get(uri, @options)
+      get(uri, @options)
     end
 
     def snapshot_show(name)
       uri = "/snapshots/#{name}"
-      self.class.get(uri)
+      get(uri)
     end
 
     def snapshot_update(name, new_name, description=nil)
@@ -83,7 +83,7 @@ module AptlyCli
       @query[:Description] = description unless description.nil?
       @query_json = @query.to_json
       begin
-        self.class.put(uri, :body => @query_json, :headers =>
+        put(uri, :body => @query_json, :headers =>
                        { 'Content-Type' => 'application/json' })
       rescue HTTParty::Error => e
         puts e

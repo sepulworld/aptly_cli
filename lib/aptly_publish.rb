@@ -26,12 +26,12 @@ module AptlyCli
 
       uri += "/#{publish_options[:distribution]}"
       uri += '?force=1' if publish_options[:force] == true
-      self.class.delete(uri)
+      delete(uri)
     end
 
     def publish_list
       uri = '/publish'
-      self.class.get(uri)
+      get(uri)
     end
 
     def _parse_snapshots(names)
@@ -92,7 +92,7 @@ module AptlyCli
 
       @body_json = @body.to_json
 
-      self.class.post(uri, :headers => { 'Content-Type' => 'application/json' },
+      post(uri, :headers => { 'Content-Type' => 'application/json' },
                            :body => @body_json)
     end
 
@@ -118,7 +118,7 @@ module AptlyCli
       uri += "/#{publish_options[:distribution]}"
 
       @body_json = @body.to_json
-      self.class.put(uri, :headers =>  { 'Content-Type' => 'application/json' },
+      put(uri, :headers =>  { 'Content-Type' => 'application/json' },
                           :body => @body_json)
     end
   end

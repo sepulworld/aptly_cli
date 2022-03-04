@@ -11,12 +11,12 @@ module AptlyCli
 
     def get_graph(extension)
       uri = "/graph.#{extension}"
-      self.class.get(uri)
+      get(uri)
     end
 
     def get_version
       uri = '/version'
-      response = self.class.get(uri)
+      response = get(uri)
       response.parsed_response
     end
   end
