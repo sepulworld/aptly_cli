@@ -166,7 +166,7 @@ command :repo_edit do |c|
     if options.comment
       repo_options = { :Comment => options.comment.to_s }
     end
-    puts aptly_command.repo_edit(options.name.to_s, repo_options)
+    puts aptly_command.repo_edit(options.name.to_s, repo_options || {})
   end
 end
 

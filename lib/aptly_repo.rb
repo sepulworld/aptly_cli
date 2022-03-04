@@ -33,16 +33,12 @@ module AptlyCli
       delete(uri)
     end
 
-    def repo_edit(name, repo_options = { k => v })
-      repo_option = ''
-      repo_value = ''
-      uri = '/repos/' + name unless name.nil?
-      repo_options.each do |k, v|
-        repo_option = k
-        repo_value = v
-      end
+    def repo_edit(name, repo_options)
+      raise 'Name is required' if name.nil? || name.empty?
 
-      put(uri, :body => { repo_option => repo_value }.to_json,
+      uri = "/repos/#{name}"
+
+      put(uri, :body => repo_options.to_json,
                           :headers => { 'Content-Type' => 'application/json' })
     end
 
