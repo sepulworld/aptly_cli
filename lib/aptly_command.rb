@@ -64,5 +64,21 @@ module AptlyCli
 
       self.class.debug_output @config[:debug] ? $stdout : nil
     end
+
+    def delete(path, options = {})
+      self.class.delete(path, options)
+    end
+
+    def get(path, options = {})
+      self.class.get(path, options)
+    end
+
+    def post(path, options = {})
+      self.class.post(path, options)
+    end
+
+    def put(path, options = {})
+      self.class.put(path, options)
+    end
   end
 end
