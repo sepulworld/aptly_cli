@@ -11,7 +11,7 @@ module AptlyCli
 
     def package_show(package_key)
       uri = "/packages/#{package_key}"
-      self.class.get(uri)
+      get(uri)
     end
   end
 end

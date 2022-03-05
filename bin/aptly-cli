@@ -115,7 +115,6 @@ command :repo_create do |c|
   c.option '--default_distribution DISTRIBUTION', String, 'Default distribution when publishing from this local repo'
   c.option '--default_component COMPONENT', String, 'Default component when publishing from this local repo'
   c.action do |args, options|
-    puts options.name
     config = AptlyCli::AptlyLoad.new.configure_with($config_file)
     handle_global_options options
     aptly_command = AptlyCli::AptlyRepo.new(config, options)
@@ -166,7 +165,7 @@ command :repo_edit do |c|
     if options.comment
       repo_options = { :Comment => options.comment.to_s }
     end
-    puts aptly_command.repo_edit(options.name.to_s, repo_options)
+    puts aptly_command.repo_edit(options.name.to_s, repo_options || {})
   end
 end
 

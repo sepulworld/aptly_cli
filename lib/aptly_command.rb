@@ -64,5 +64,39 @@ module AptlyCli
 
       self.class.debug_output @config[:debug] ? $stdout : nil
     end
+
+    def delete(path, options = {})
+      response = self.class.delete(path, options)
+      process_response(response)
+    end
+
+    def get(path, options = {})
+      response = self.class.get(path, options)
+      process_response(response)
+    end
+
+    def post(path, options = {})
+      response = self.class.post(path, options)
+      process_response(response)
+    end
+
+    def put(path, options = {})
+      response = self.class.put(path, options)
+      process_response(response)
+    end
+
+    def process_response(response)
+      json_response = JSON.parse response.body
+
+      raise "[Server] #{json_response['error']}" unless !json_response.is_a?(Hash) || json_response.dig('error').nil?
+
+      raise "HTTP: #{json_response}" if [404, 500].include? response.code
+
+      json_response
+    rescue JSON::ParserError
+      raise "HTTP: #{response.body}" if [404, 500].include? response.code
+
+      raise 'Invalid response from server, unable to parse body as JSON'
+    end
   end
 end
