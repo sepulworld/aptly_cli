@@ -57,7 +57,6 @@ end
 describe "API POST package files" do
   config = AptlyCli::AptlyLoad.new.configure_with(nil)
   let(:api_file) { AptlyCli::AptlyFile.new(config) }
-  let(:data_for_not_found) { api_file.file_get('test_package_not_here') }
 
   it 'must have a file_post method' do
     api_file.must_respond_to :file_post
@@ -75,10 +74,6 @@ describe "API POST package files" do
     api_file.file_get('test').must_be_instance_of Array
   end
 
-  it 'must parse the api response from JSON to Array' do
-    api_file.file_get('test_package_not_here').must_be_instance_of Array
-  end
-
   it 'must perform the request and get the data' do
     api_file.file_post(file_uri: '/test',
                        package: 'test/fixtures/test_1.0_amd64.deb',
@@ -87,10 +82,9 @@ describe "API POST package files" do
   end
 
   def test_failed_file_not_found
-    assert_equal ('[{"error"=>"lstat '\
-                  '/aptly/upload/test_package_not_here: no such file or '\
-                  'directory", "meta"=>"Operation aborted"}]'),
-                  data_for_not_found.to_s
+    assert_raises AptlyCli::HttpNotFoundError do
+      api_file.file_get('test_package_not_here')
+    end
   end
 
   def test_file_post

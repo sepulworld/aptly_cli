@@ -14,14 +14,14 @@ describe AptlyCli::AptlyPublish do
     let(:snapshot_api) { AptlyCli::AptlySnapshot.new(config) }
 
     def test_publish_list
-      publish_api.publish_drop(distribution: 'publishlisttest1', force: 1)
-      publish_api.publish_drop(distribution: 'publishlisttest2', force: 1)
-      snapshot_api.snapshot_delete('testrepo_snap_to_list_pub_1', 1)
-      snapshot_api.snapshot_create('testrepo_snap_to_list_pub_1', 'testrepo',
-                                   'testrepo snapshot to create and drop publish 1')
-      snapshot_api.snapshot_delete('testrepo_snap_to_list_pub_2', 1)
-      snapshot_api.snapshot_create('testrepo_snap_to_list_pub_2', 'testrepo',
-                                   'testrepo snapshot to create and drop publish 2')
+      allow_http_error { publish_api.publish_drop(distribution: 'publishlisttest1', force: 1) }
+      allow_http_error { publish_api.publish_drop(distribution: 'publishlisttest2', force: 1) }
+      allow_http_not_found_error { snapshot_api.snapshot_delete('testrepo_snap_to_list_pub_1', 1) }
+      allow_http_not_found_error { snapshot_api.snapshot_create('testrepo_snap_to_list_pub_1', 'testrepo',
+                                   'testrepo snapshot to create and drop publish 1') }
+      allow_http_not_found_error { snapshot_api.snapshot_delete('testrepo_snap_to_list_pub_2', 1) }
+      allow_http_not_found_error { snapshot_api.snapshot_create('testrepo_snap_to_list_pub_2', 'testrepo',
+                                   'testrepo snapshot to create and drop publish 2') }
       publish_api.publish_repo(
         ['main/testrepo_snap_to_list_pub_1'],
         sourcekind: 'snapshot', distribution: 'publishlisttest1',
@@ -45,8 +45,9 @@ describe AptlyCli::AptlyPublish do
     let(:snapshot_api) { AptlyCli::AptlySnapshot.new(config) }
 
     def test_publish_drop
-      publish_api.publish_drop(distribution: 'precisetestdrop', force: 1)
-      snapshot_api.snapshot_delete('testrepo_snap_to_drop_pub_1', 1)
+      allow_http_error { publish_api.publish_drop(distribution: 'precisetestdrop', force: 1) }
+
+      allow_http_not_found_error { snapshot_api.snapshot_delete('testrepo_snap_to_drop_pub_1', 1) }
       snapshot_api.snapshot_create('testrepo_snap_to_drop_pub_1', 'testrepo',
                                    'testrepo snapshot to create and drop publish')
       publish_api.publish_repo(
@@ -65,8 +66,9 @@ describe AptlyCli::AptlyPublish do
     let(:snapshot_api) { AptlyCli::AptlySnapshot.new(config) }
 
     def test_publish_snapshot
-      snapshot_api.snapshot_delete('testrepo_snap_to_publish', 1)
-      publish_api.publish_drop(distribution: 'precisetest', force: 1)
+      allow_http_not_found_error { snapshot_api.snapshot_delete('testrepo_snap_to_publish', 1) }
+      allow_http_error { publish_api.publish_drop(distribution: 'precisetest', force: 1) }
+
       snapshot_api.snapshot_create('testrepo_snap_to_publish', 'testrepo',
                                    'testrepo snapshot to delete')
       assert_includes publish_api.publish_repo(
@@ -85,8 +87,9 @@ describe AptlyCli::AptlyPublish do
     let(:snapshot_api) { AptlyCli::AptlySnapshot.new(config) }
 
     def test_publish_single_repo
-      publish_api.publish_drop(distribution: 'precisetest3', force: 1)
-      snapshot_api.snapshot_delete('testrepo_single_snap_to_pub', 1)
+      allow_http_error { publish_api.publish_drop(distribution: 'precisetest3', force: 1) }
+
+      allow_http_not_found_error { snapshot_api.snapshot_delete('testrepo_single_snap_to_pub', 1) }
       snapshot_api.snapshot_create('testrepo_single_snap_to_pub', 'testrepo',
                                    'testrepo single snapshot to publish')
       assert_equal ({ 'Architectures' => %w(amd64 i386),
@@ -105,11 +108,12 @@ describe AptlyCli::AptlyPublish do
     end
 
     def test_publish_update_success_multiple_repos
-      publish_api.publish_drop(distribution: 'precisetest2', force: 1)
-      snapshot_api.snapshot_delete('testrepo_snap_to_update_pub_1', 1)
+      allow_http_error { publish_api.publish_drop(distribution: 'precisetest2', force: 1) }
+
+      allow_http_not_found_error { snapshot_api.snapshot_delete('testrepo_snap_to_update_pub_1', 1) }
       snapshot_api.snapshot_create('testrepo_snap_to_update_pub_1', 'testrepo',
                                    'testrepo snapshot to change name')
-      snapshot_api.snapshot_delete('testrepo_snap_to_update_pub_2', 1)
+      allow_http_not_found_error { snapshot_api.snapshot_delete('testrepo_snap_to_update_pub_2', 1) }
       snapshot_api.snapshot_create('testrepo_snap_to_update_pub_2', 'testrepo20',
                                    'testrepo snapshot to change name')
       publish_api.publish_repo(
@@ -125,11 +129,12 @@ describe AptlyCli::AptlyPublish do
     end
 
     def test_publish_update_success_multiple_repos_2
-      publish_api.publish_drop(distribution: 'precisetest2', force: 1)
-      snapshot_api.snapshot_delete('testrepo_snap_to_update_pub_1', 1)
+      allow_http_error { publish_api.publish_drop(distribution: 'precisetest2', force: 1) }
+
+      allow_http_not_found_error { snapshot_api.snapshot_delete('testrepo_snap_to_update_pub_1', 1) }
       snapshot_api.snapshot_create('testrepo_snap_to_update_pub_1', 'testrepo',
                                    'testrepo snapshot to change name')
-      snapshot_api.snapshot_delete('testrepo_snap_to_update_pub_2', 1)
+      allow_http_not_found_error { snapshot_api.snapshot_delete('testrepo_snap_to_update_pub_2', 1) }
       snapshot_api.snapshot_create('testrepo_snap_to_update_pub_2', 'testrepo20',
                                    'testrepo snapshot to change name')
       publish_api.publish_repo(

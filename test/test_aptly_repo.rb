@@ -79,8 +79,8 @@ describe AptlyCli::AptlyRepo do
     let(:repo_api) { AptlyCli::AptlyRepo.new(config) }
 
     def test_repo_creation
-      repo_api.repo_delete(name: 'testrepocreate',
-                           force: true)
+      allow_http_not_found_error { repo_api.repo_delete(name: 'testrepocreate', force: true) }
+
       assert_includes repo_api.repo_create(name: 'testrepocreate',
                            comment: 'testing repo creation',
                            DefaultDistribution: 'precisecreatetest',
@@ -109,8 +109,8 @@ describe AptlyCli::AptlyRepo do
     end
 
     def test_repo_show_with_no_name
-      repo_api.repo_delete(name: 'testrepotoshow',
-                           force: true)
+      allow_http_not_found_error { repo_api.repo_delete(name: 'testrepotoshow', force: true) }
+
       repo_api.repo_create(name: 'testrepotoshow',
                            comment: 'testing repo show',
                            DefaultDistribution: 'preciseshowtest',
@@ -129,8 +129,8 @@ describe AptlyCli::AptlyRepo do
     let(:file_api) { AptlyCli::AptlyFile.new(config) }
 
     def test_package_add_with_name
-      repo_api.repo_delete(name: 'testrepowithpackage',
-                           force: true)
+      allow_http_not_found_error { repo_api.repo_delete(name: 'testrepowithpackage', force: true) }
+
       file_api.file_post(file_uri: '/testdir2',
                          package: 'testdir2/fixtures/geoipupdate_2.0.0_amd64.deb',
                          local_file: 'test/fixtures/test_1.0_amd64.deb')
@@ -160,8 +160,8 @@ describe AptlyCli::AptlyRepo do
     end
 
     def test_package_add_with_no_name
-      repo_api.repo_delete(name: 'testrepowithpackage',
-                           force: true)
+      allow_http_not_found_error { repo_api.repo_delete(name: 'testrepowithpackage', force: true) }
+
       file_api.file_post(file_uri: '/testdir2',
                          package: 'testdir2/fixtures/geoipupdate_2.0.0_amd64.deb',
                          local_file: 'test/fixtures/test_1.0_amd64.deb')
@@ -192,8 +192,8 @@ describe AptlyCli::AptlyRepo do
     let(:file_api) { AptlyCli::AptlyFile.new(config) }
 
     def test_package_delete_with_name
-      repo_api.repo_delete(name: 'testrepowithpackage',
-                           force: true)
+      allow_http_not_found_error { repo_api.repo_delete(name: 'testrepowithpackage', force: true) }
+
       file_api.file_post(file_uri: '/testdir2',
                          package: 'testdir2/fixtures/geoipupdate_2.0.0_amd64.deb',
                          local_file: 'test/fixtures/test_1.0_amd64.deb')
@@ -219,8 +219,8 @@ describe AptlyCli::AptlyRepo do
     end
 
     def test_package_delete_with_no_name
-      repo_api.repo_delete(name: 'testrepowithpackage',
-                           force: true)
+      allow_http_not_found_error { repo_api.repo_delete(name: 'testrepowithpackage', force: true) }
+
       file_api.file_post(file_uri: '/testdir2',
                          package: 'testdir2/fixtures/geoipupdate_2.0.0_amd64.deb',
                          local_file: 'test/fixtures/test_1.0_amd64.deb')
@@ -247,8 +247,8 @@ describe AptlyCli::AptlyRepo do
     let(:file_api) { AptlyCli::AptlyFile.new(config) }
 
     def test_package_query_with_name
-      repo_api.repo_delete(name: 'testrepotoquery',
-                           force: true)
+      allow_http_not_found_error { repo_api.repo_delete(name: 'testrepotoquery', force: true) }
+
       file_api.file_post(file_uri: '/testdir2',
                          package: 'testdir2/fixtures/geoipupdate_2.0.0_amd64.deb',
                          local_file: 'test/fixtures/test_1.0_amd64.deb')
@@ -273,8 +273,8 @@ describe AptlyCli::AptlyRepo do
     end
 
     def test_package_query_with_deps
-      repo_api.repo_delete(name: 'testrepotoquery',
-                           force: true)
+      allow_http_not_found_error { repo_api.repo_delete(name: 'testrepotoquery', force: true) }
+
       file_api.file_post(file_uri: '/testdir2',
                          package: 'testdir2/fixtures/'\
                                   'geoipupdate_2.0.0_amd64.deb',
@@ -294,8 +294,8 @@ describe AptlyCli::AptlyRepo do
     end
 
     def test_package_query_with_no_name
-      repo_api.repo_delete(name: 'testrepotoquery',
-                           force: true)
+      allow_http_not_found_error { repo_api.repo_delete(name: 'testrepotoquery', force: true) }
+
       file_api.file_post(file_uri: '/testdir2',
                          package: 'testdir2/fixtures/'\
                                   'geoipupdate_2.0.0_amd64.deb',
@@ -328,8 +328,8 @@ describe AptlyCli::AptlyRepo do
     let(:repo_api) { AptlyCli::AptlyRepo.new(config) }
 
     def test_repo_edit_default_distribution
-      repo_api.repo_delete(name: 'testrepotoedit',
-                           force: true)
+      allow_http_not_found_error { repo_api.repo_delete(name: 'testrepotoedit', force: true) }
+
       repo_api.repo_create(name: 'testrepoedit',
                            comment: 'testing repo edit distro name',
                            DefaultDistribution: 'preciseedittest',

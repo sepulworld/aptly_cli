@@ -1,4 +1,8 @@
 module AptlyCli
+  class HttpError < StandardError; end
+  class HttpNotFoundError < HttpError; end
+  class HttpInternalServerError < HttpError; end
+
   class AptlyCommand
     include HTTParty
 
@@ -90,13 +94,15 @@ module AptlyCli
 
       raise "[Server] #{json_response['error']}" unless !json_response.is_a?(Hash) || json_response.dig('error').nil?
 
-      raise "HTTP: #{json_response}" if [404, 500].include? response.code
+      raise HttpNotFoundError, "#{json_response}" if response.code == 404
+      raise HttpInternalServerError, "#{json_response}" if response.code == 500
 
-      json_response
+      response
     rescue JSON::ParserError
-      raise "HTTP: #{response.body}" if [404, 500].include? response.code
+      raise HttpNotFoundError, "#{json_response}" if response.code == 404
+      raise HttpInternalServerError, "#{json_response}" if response.code == 500
 
-      raise 'Invalid response from server, unable to parse body as JSON'
+      response
     end
   end
 end
