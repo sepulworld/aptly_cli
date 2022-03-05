@@ -13,8 +13,9 @@ describe AptlyCli::AptlyPackage do
     let(:package_api) { AptlyCli::AptlyPackage.new(config) }
 
     def test_package_show
-      assert_equal '404', package_api.package_show(
-        'Pamd64%20boguspackage%202.0.0%2087f1591307e50817').code.to_s
+      assert_raises AptlyCli::HttpNotFoundError do
+        package_api.package_show('Pamd64%20boguspackage%202.0.0%2087f1591307e50817')
+      end
     end
   end
 end

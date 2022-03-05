@@ -36,9 +36,9 @@ describe AptlyCli::AptlySnapshot do
     end
 
     def test_that_deleting_snapshot_that_doesnt_exist_errors
-      assert_equal [{ 'error' => 'snapshot with name rocksoftware200 not found',
-                      'meta' => 'Operation aborted' }].to_s,
-                      snapshot_api.snapshot_delete('rocksoftware200').parsed_response.to_s
+      assert_raises AptlyCli::HttpNotFoundError do
+        snapshot_api.snapshot_delete('rocksoftware200')
+      end
     end
 
     def test_that_snapshot_delete_returns_200
@@ -55,8 +55,8 @@ describe AptlyCli::AptlySnapshot do
     let(:snapshot_api) { AptlyCli::AptlySnapshot.new(config) }
 
     def test_snapshot_create
-      snapshot_api.snapshot_delete(
-        'testrepo_snap', 1)
+      allow_http_not_found_error { snapshot_api.snapshot_delete('testrepo_snap', 1) }
+
       assert_includes snapshot_api.snapshot_create(
         'testrepo_snap',
         'testrepo',
@@ -82,8 +82,9 @@ describe AptlyCli::AptlySnapshot do
     let(:snapshot_api) { AptlyCli::AptlySnapshot.new(config) }
 
     def test_snapshot_update_name
-      snapshot_api.snapshot_delete('testrepo_snap_update_test', 1)
-      snapshot_api.snapshot_delete('testrepo_snap_update_test_new_name', 1)
+      allow_http_not_found_error { snapshot_api.snapshot_delete('testrepo_snap_update_test', 1) }
+      allow_http_not_found_error { snapshot_api.snapshot_delete('testrepo_snap_update_test_new_name', 1) }
+
       snapshot_api.snapshot_create('testrepo_snap_update_test',
                                    'testrepo', 'testing snap update')
       assert_includes snapshot_api.snapshot_update(
@@ -94,8 +95,9 @@ describe AptlyCli::AptlySnapshot do
     end
 
     def test_snapshot_update_exception
-      snapshot_api.snapshot_delete('testrepo_snap_update_test', 1)
-      snapshot_api.snapshot_delete('testrepo_snap_update_test_new_name', 1)
+      allow_http_not_found_error { snapshot_api.snapshot_delete('testrepo_snap_update_test', 1) }
+      allow_http_not_found_error { snapshot_api.snapshot_delete('testrepo_snap_update_test_new_name', 1) }
+
       snapshot_api.snapshot_create('testrepo_snap_update_test',
                                    'testrepo', 'testing snap update')
       raises_exception = lambda do |_uri, _options|
@@ -113,8 +115,9 @@ describe AptlyCli::AptlySnapshot do
     end
 
     def test_snapshot_update_no_new_name
-      snapshot_api.snapshot_delete('testrepo_snap_update_test', 1)
-      snapshot_api.snapshot_delete('testrepo_snap_update_test_new_name', 1)
+      allow_http_not_found_error { snapshot_api.snapshot_delete('testrepo_snap_update_test', 1) }
+      allow_http_not_found_error { snapshot_api.snapshot_delete('testrepo_snap_update_test_new_name', 1) }
+
       snapshot_api.snapshot_create('testrepo_snap_update_test',
                                    'testrepo', 'testing snap update')
       assert_includes snapshot_api.snapshot_update(
@@ -125,20 +128,21 @@ describe AptlyCli::AptlySnapshot do
     end
 
     def test_failed_snapshot_show_snapshot_doesnt_exist
-      assert_equal [{
-        'error' => 'snapshot with name rocksoftware50_not_here not found',
-        'meta' => 'Operation aborted' }].to_s,
-                   snapshot_api.snapshot_update(
-                     'rocksoftware50_not_here',
-                     'rocksoftware50_new_name_baby',
-                     'I am not a snapshot presently').parsed_response.to_s
+      assert_raises AptlyCli::HttpNotFoundError do
+        snapshot_api.snapshot_update(
+          'rocksoftware50_not_here',
+          'rocksoftware50_new_name_baby',
+          'I am not a snapshot presently')
+      end
     end
 
     def test_failed_snapshot_show_snapshot_returns_404
-      assert_equal '404', snapshot_api.snapshot_update(
+      assert_raises AptlyCli::HttpNotFoundError do
+        snapshot_api.snapshot_update(
         'rocksoftware50_not_here',
         'rocksoftware50_new_name_baby',
-        'I am not a snapshot presently').code.to_s
+        'I am not a snapshot presently')
+      end
     end
   end
 
@@ -147,7 +151,8 @@ describe AptlyCli::AptlySnapshot do
     let(:snapshot_api) { AptlyCli::AptlySnapshot.new(config) }
 
     def test_snapshot_search_for_all_with_details
-      snapshot_api.snapshot_delete('testrepo_snap_for_search_test', 1)
+      allow_http_not_found_error { snapshot_api.snapshot_delete('testrepo_snap_for_search_test', 1) }
+
       snapshot_api.snapshot_create(
         'testrepo_snap_for_search_test',
         'testrepo',
