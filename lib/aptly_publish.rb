@@ -112,7 +112,7 @@ module AptlyCli
       uri += if publish_options[:prefix]
                "/#{publish_options[:prefix]}"
              else
-               '/'
+               '/:.'
              end
 
       uri += "/#{publish_options[:distribution]}"
