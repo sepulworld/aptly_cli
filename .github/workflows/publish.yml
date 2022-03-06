@@ -10,9 +10,9 @@ on:
   workflow_dispatch:
   # Alternatively, publish whenever changes are merged to the `main` branch.
   push:
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   build:
