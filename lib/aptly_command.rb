@@ -94,13 +94,13 @@ module AptlyCli
 
       raise "[Server] #{json_response['error']}" unless !json_response.is_a?(Hash) || json_response.dig('error').nil?
 
-      raise HttpNotFoundError, "#{json_response}" if response.code == 404
-      raise HttpInternalServerError, "#{json_response}" if response.code == 500
+      raise HttpNotFoundError, "[HTTP Not Found Error] JSON response:\n#{json_response}" if response.code == 404
+      raise HttpInternalServerError, "[HTTP Internal Server Error] JSON response:\n#{json_response}" if response.code == 500
 
       response
     rescue JSON::ParserError
-      raise HttpNotFoundError, "#{json_response}" if response.code == 404
-      raise HttpInternalServerError, "#{json_response}" if response.code == 500
+      raise HttpNotFoundError, "[HTTP Not Found Error] Response:\n#{response.body}" if response.code == 404
+      raise HttpInternalServerError, "[HTTP Internal Server Error] Response:\n#{response.body}" if response.code == 500
 
       response
     end
