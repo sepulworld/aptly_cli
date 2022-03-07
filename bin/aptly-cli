@@ -156,16 +156,13 @@ command :repo_edit do |c|
     config = AptlyCli::AptlyLoad.new.configure_with($config_file)
     handle_global_options options
     aptly_command = AptlyCli::AptlyRepo.new(config, options)
-    if options.default_distribution
-      repo_options = { :DefaultDistribution => options.default_distribution.to_s }
-    end
-    if options.default_component
-      repo_options = { :DefaultComponent => options.default_component.to_s }
-    end
-    if options.comment
-      repo_options = { :Comment => options.comment.to_s }
-    end
-    puts aptly_command.repo_edit(options.name.to_s, repo_options || {})
+
+    repo_options = {}
+    repo_options[:DefaultDistribution] = options.default_distribution.to_s if options.default_distribution
+    repo_options[:DefaultComponent] = options.default_component.to_s if options.default_component
+    repo_options[:Comment] = options.comment.to_s if options.comment
+
+    puts aptly_command.repo_edit(options.name.to_s, repo_options)
   end
 end
 
