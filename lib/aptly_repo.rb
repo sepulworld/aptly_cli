@@ -48,7 +48,9 @@ module AptlyCli
 
     def repo_list
       uri = '/repos'
-      get(uri)
+      JSON.parse get(uri).body
+    rescue JSON::ParserError
+      raise "Invalid response from '#{self.class.base_uri}#{uri}'"
     end
 
     def repo_package_add(repo_options, packages)
